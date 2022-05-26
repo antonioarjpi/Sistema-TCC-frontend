@@ -7,7 +7,7 @@ import * as messages from '../../components/toastr/toastr'
 import Navbar from "../../components/navbar/navbar";
 import EquipeService from "../../services/resource/equipeService";
 import axios from "axios";
-import { BASE_URL } from "../../services/api";
+import { baseURL } from "../../services/api";
 
 
 function SaveEquipe(){
@@ -33,14 +33,16 @@ function SaveEquipe(){
             throw new messages.mensagemErro("Matrícula já foi adicionada.")
         }
 
-        console.log(array)
-
-        axios.get(`${BASE_URL}/alunos/matricula/${matricula}`)
+        axios.get(`${baseURL}/alunos/matricula/${matricula}`)
         .then(response => {
             array.push(matricula);
             setMatricula('')
         }).catch(error =>{
-            messages.mensagemErro(error.response.data.message)            
+            if(error.message  === "Network Error"   ){
+                messages.mensagemErro("Não foi possível conectar com o servidor remoto") 
+            }else{
+                messages.mensagemErro(error.response.data.message)    
+            }         
         })
     }  
         
