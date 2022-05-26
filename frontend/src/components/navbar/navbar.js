@@ -38,11 +38,16 @@ function Navbar(props){
                     <Link to={"/defesas"}><a className="dropdown-item" href="#">Defesa</a></Link>
                     </div>
                   </li>
-                
 
-
-
-
+                  <li className="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                      Orientação
+                    </a>
+                    <div className="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                    <Link to={"/orientacao"}><span className="dropdown-item">Orientações</span></Link>
+                    <Link to={"/devolutivas"}><a className="dropdown-item" href="#">Devolutivas</a></Link>
+                    </div>
+                  </li>
                 <NavItem render={props.isUsuarioAutenticado} onClick={props.deslogar} href="/login" label="Sair" />
                 
             </ul>

@@ -1,7 +1,9 @@
 import axios from 'axios';
 
+export const baseURL = process.env.REACT_APP_APP_BACKEND_URL ?? "http://localhost:8080"
+
 const api = axios.create({
-    baseURL: `https://tcc-estacio.herokuapp.com`
+    baseURL: baseURL
 });
 
 class ApiService {

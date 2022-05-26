@@ -8,37 +8,39 @@ import Navbar from "../../components/navbar/navbar";
 
 import {Dialog} from 'primereact/dialog';
 import {Button} from 'primereact/button';
-import TableEquipe from "./tableEquipe";
-import EquipeService from "../../services/resource/equipeService";
+import TableOrientacao from "./tableOrientacao";
+import OrientacaoService from "../../services/resource/orientacaoService";
 
-class SearchEquipe extends React.Component{
+
+
+class SearchOrientacao extends React.Component{
 
     state = {
-        nome: '',
-        dataCadastro: '', 
-        delimitacao: '',
+        descricaoTCC: '',
+        dataOrientacao: '', 
+        tipoTCC: '',
+        matriculaOrientador: '',
         showConfirmDialog: false,
-        equipeDelete: {},
-        equipe : []
+        orientacaoDelete: {},
+        orientacao : []
     }
 
     constructor(){
         super();
-        this.service = new EquipeService();
+        this.service = new OrientacaoService();
     }
 
     search = () =>{
 
         const filter = {
-            nome: this.state.nome,
-            dataCadastro: this.state.dataCadastro,
-            delimitacao: this.state.delimitacao,
+            descricaoTCC: this.state.descricaoTCC,
+            tipoTCC: this.state.tipoTCC,
         }
 
         this.service.consult(filter)
         .then(response => {
             const list = response.data
-            this.setState({equipe: list})
+            this.setState({orientacao: list})
         }).catch(error =>{
             console.log(error)
         })
@@ -50,25 +52,25 @@ class SearchEquipe extends React.Component{
 
     erase = () => {
         this.service
-        .del(this.state.equipeDelete.id)
+        .del(this.state.orientacaoDelete.id)
         .then(response =>{
-            const equipe = this.state.equipe;
-            const index = equipe.indexOf(this.state.equipeDelete)
-            equipe.splice(index, 1);
-            this.setState( { equipe: equipe } )
-            messages.mensagemSucesso('Ativo excluído com sucesso')       
+            const orientacao = this.state.orientacao;
+            const index = orientacao.indexOf(this.state.orientacaoDelete)
+            orientacao.splice(index, 1);
+            this.setState( { orientacao: orientacao } )
+            messages.mensagemSucesso('Orientação excluído excluído com sucesso')
         }).catch(error =>{
-            messages.mensagemErro(error.response.data.message)
+            messages.mensagemErro(error.response.data.error)
         })
         this.setState({ showConfirmDialog: false})
     }
 
-    openDialog = (equipe) =>{
-        this.setState({ showConfirmDialog: true, equipeDelete: equipe })
+    openDialog = (orientacao) =>{
+        this.setState({ showConfirmDialog: true, orientacaoDelete: orientacao })
     }
 
     cancelDialog = () =>{
-        this.setState({ showConfirmDialog : false, computerDeletar: {}  })
+        this.setState({ showConfirmDialog : false, orientacaoDelete: {}  })
     }
 
   
@@ -84,34 +86,17 @@ render(){
         <>
         <Navbar/>
         <div className="container">
-        <Card title="Consulta Equipes">
+        <Card title="Consulta Orientação">
                 <div className="row">
                     <div className="col-md-6">
                         <div className="bs-component">
-                            <Form htmlFor="nome" label="Nome: *">
+                            <Form htmlFor="descricaoTCC" label="Descrição: *">
                                 <input type="text" 
                                        className="form-control" 
-                                       id="nome" 
-                                       value={this.state.nome} 
-                                       onChange={e => this.setState({nome: e.target.value})}
-                                       placeholder="Digite o nome" />
-                            </Form>
-
-                            <Form htmlFor="dataCadastro" label="E-mail: ">
-                                <input type="email" 
-                                       className="form-control" 
-                                       id="dataCadastro" 
-                                       value={this.state.dataCadastro} 
-                                       onChange={e => this.setState({dataCadastro: e.target.value})}
-                                       placeholder="Digite a descrição" />
-                            </Form>
-
-                            <Form htmlFor="delimitacao" label="Matricula: ">
-                                <input id="delimitacao" 
-                                    value={this.state.delimitacao} 
-                                    onChange={e => this.setState({delimitacao: e.target.value})}                           
-                                    className="form-control"
-                                    placeholder="Digite a matrícula" />
+                                       id="descricaoTCC" 
+                                       value={this.state.descricaoTCC} 
+                                       onChange={e => this.setState({descricaoTCC: e.target.value})}
+                                       placeholder="Digite a descricaoTCC" />
                             </Form>
 
                             <button 
@@ -120,7 +105,7 @@ render(){
                                     onClick={this.search}>
                                     <i className="pi pi-search"></i> Buscar
                             </button>
-                            <Link to={'/cadastro-equipe'}>
+                            <Link to={'/cadastro-orientacao'}>
                                 <button 
                                         type="button" 
                                         className="btn btn-danger mt-2">
@@ -136,7 +121,7 @@ render(){
               
             </Card>
         
-        <TableEquipe equipe={this.state.equipe}
+        <TableOrientacao orientacao={this.state.orientacao}
                         deleteAction={this.openDialog}
                         editAction={this.edit}
         />
@@ -147,11 +132,11 @@ render(){
                 footer={confirmDialogFooter} 
                 modal={true} 
                 onHide={() => this.setState({showConfirmDialog: false})}>
-                Confirma a exclusão deste ativo?
+                Confirma a exclusão dessa orientação?
         </Dialog>        
         </>
     )
 }
 }
 
-export default SearchEquipe;
+export default SearchOrientacao;

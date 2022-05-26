@@ -132,7 +132,7 @@ function SaveBanca(){
                 <button  onClick={submit} className="btn btn-primary">
                     <i className="pi pi-save"></i>Salvar
                 </button>
-                    <Link to={'/alunos'}>
+                    <Link to={'/bancas'}>
                     <button className="btn btn-danger">
                         <i className="pi pi-times"></i>Cancelar
                     </button>

@@ -8,37 +8,40 @@ import Navbar from "../../components/navbar/navbar";
 
 import {Dialog} from 'primereact/dialog';
 import {Button} from 'primereact/button';
-import TableEquipe from "./tableEquipe";
-import EquipeService from "../../services/resource/equipeService";
+import TableDevolutiva from "./tableDevolutiva";
+import DevolutivaService from "../../services/resource/devolutivaService";
 
-class SearchEquipe extends React.Component{
+
+class SearchDevolutiva extends React.Component{
 
     state = {
-        nome: '',
-        dataCadastro: '', 
-        delimitacao: '',
+        statusOrientacao: '',
+        dataMudancao: '', 
+        descricaoDaDevolutiva: '',
+        versaoDoc: '',
+        localDeCorrecao: '',
+        correcaoSugerida: '',
         showConfirmDialog: false,
-        equipeDelete: {},
-        equipe : []
+        acompanhamentoDelete: {},
+        devolutiva : []
     }
 
     constructor(){
         super();
-        this.service = new EquipeService();
+        this.service = new DevolutivaService();
     }
 
     search = () =>{
 
         const filter = {
-            nome: this.state.nome,
-            dataCadastro: this.state.dataCadastro,
-            delimitacao: this.state.delimitacao,
+            statusOrientacao: this.state.statusOrientacao,
+            descricaoDaDevolutiva: this.state.descricaoDaDevolutiva,
         }
 
         this.service.consult(filter)
         .then(response => {
             const list = response.data
-            this.setState({equipe: list})
+            this.setState({devolutiva: list})
         }).catch(error =>{
             console.log(error)
         })
@@ -50,25 +53,25 @@ class SearchEquipe extends React.Component{
 
     erase = () => {
         this.service
-        .del(this.state.equipeDelete.id)
+        .del(this.state.acompanhamentoDelete.id)
         .then(response =>{
-            const equipe = this.state.equipe;
-            const index = equipe.indexOf(this.state.equipeDelete)
-            equipe.splice(index, 1);
-            this.setState( { equipe: equipe } )
-            messages.mensagemSucesso('Ativo excluído com sucesso')       
+            const devolutiva = this.state.devolutiva;
+            const index = devolutiva.indexOf(this.state.acompanhamentoDelete)
+            devolutiva.splice(index, 1);
+            this.setState( { devolutiva: devolutiva } )
+            messages.mensagemSucesso('Devolutiva excluído excluído com sucesso')
         }).catch(error =>{
-            messages.mensagemErro(error.response.data.message)
+            messages.mensagemErro(error.response.data.error)
         })
         this.setState({ showConfirmDialog: false})
     }
 
-    openDialog = (equipe) =>{
-        this.setState({ showConfirmDialog: true, equipeDelete: equipe })
+    openDialog = (devolutiva) =>{
+        this.setState({ showConfirmDialog: true, acompanhamentoDelete: devolutiva })
     }
 
     cancelDialog = () =>{
-        this.setState({ showConfirmDialog : false, computerDeletar: {}  })
+        this.setState({ showConfirmDialog : false, acompanhamentoDelete: {}  })
     }
 
   
@@ -84,34 +87,17 @@ render(){
         <>
         <Navbar/>
         <div className="container">
-        <Card title="Consulta Equipes">
+        <Card title="Consulta Devolutivas">
                 <div className="row">
                     <div className="col-md-6">
                         <div className="bs-component">
-                            <Form htmlFor="nome" label="Nome: *">
+                            <Form htmlFor="statusOrientacao" label="Status: *">
                                 <input type="text" 
                                        className="form-control" 
-                                       id="nome" 
-                                       value={this.state.nome} 
-                                       onChange={e => this.setState({nome: e.target.value})}
-                                       placeholder="Digite o nome" />
-                            </Form>
-
-                            <Form htmlFor="dataCadastro" label="E-mail: ">
-                                <input type="email" 
-                                       className="form-control" 
-                                       id="dataCadastro" 
-                                       value={this.state.dataCadastro} 
-                                       onChange={e => this.setState({dataCadastro: e.target.value})}
-                                       placeholder="Digite a descrição" />
-                            </Form>
-
-                            <Form htmlFor="delimitacao" label="Matricula: ">
-                                <input id="delimitacao" 
-                                    value={this.state.delimitacao} 
-                                    onChange={e => this.setState({delimitacao: e.target.value})}                           
-                                    className="form-control"
-                                    placeholder="Digite a matrícula" />
+                                       id="statusOrientacao" 
+                                       value={this.state.statusOrientacao} 
+                                       onChange={e => this.setState({statusOrientacao: e.target.value})}
+                                       placeholder="Digite a statusOrientacao" />
                             </Form>
 
                             <button 
@@ -120,7 +106,7 @@ render(){
                                     onClick={this.search}>
                                     <i className="pi pi-search"></i> Buscar
                             </button>
-                            <Link to={'/cadastro-equipe'}>
+                            <Link to={'/cadastro-devolutiva'}>
                                 <button 
                                         type="button" 
                                         className="btn btn-danger mt-2">
@@ -136,7 +122,7 @@ render(){
               
             </Card>
         
-        <TableEquipe equipe={this.state.equipe}
+        <TableDevolutiva devolutiva={this.state.devolutiva}
                         deleteAction={this.openDialog}
                         editAction={this.edit}
         />
@@ -147,11 +133,11 @@ render(){
                 footer={confirmDialogFooter} 
                 modal={true} 
                 onHide={() => this.setState({showConfirmDialog: false})}>
-                Confirma a exclusão deste ativo?
+                Confirma a exclusão dessa orientação?
         </Dialog>        
         </>
     )
 }
 }
 
-export default SearchEquipe;
+export default SearchDevolutiva;

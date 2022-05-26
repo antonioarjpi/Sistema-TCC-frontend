@@ -6,6 +6,8 @@ import Form from "../../components/form/form";
 import * as messages from '../../components/toastr/toastr'
 import Navbar from "../../components/navbar/navbar";
 import EquipeService from "../../services/resource/equipeService";
+import axios from "axios";
+import { BASE_URL } from "../../services/api";
 
 
 function SaveEquipe(){
@@ -22,14 +24,26 @@ function SaveEquipe(){
 
     const service = new EquipeService();
 
-    const sum = () => {
+    const sum = () => {     
         if(!matricula){
-            throw new messages.mensagemErro("Matrícula em branco.")
+            throw new messages.mensagemErro("Matrícula não pode está em branco.")
         }
-        array.push(matricula);
-        setMatricula('')       
-    }
-    
+
+        if(array.indexOf(matricula) > -1){
+            throw new messages.mensagemErro("Matrícula já foi adicionada.")
+        }
+
+        console.log(array)
+
+        axios.get(`${BASE_URL}/alunos/matricula/${matricula}`)
+        .then(response => {
+            array.push(matricula);
+            setMatricula('')
+        }).catch(error =>{
+            messages.mensagemErro(error.response.data.message)            
+        })
+    }  
+        
     const submit = () => {      
         try{
             service.validate({
