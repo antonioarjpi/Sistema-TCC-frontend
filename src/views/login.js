@@ -5,14 +5,13 @@ import Button from "../components/button/button";
 import Card from "../components/card/card";
 import Form from "../components/form/form";
 import UserService from "../services/resource/user";
-import {mensagemErro } from '../components/toastr/toastr';
+import * as messages from '../components/toastr/toastr';
 import LocalStorageService from "../services/resource/localstorageService";
 
 function Login(){
 
     const [email, setEmail] = useState();
-    const [password, setPassword] = useState();
-    const [error, setError] = useState('');
+    const [senha, setSenha] = useState();
 
     const navigate = useNavigate();
     
@@ -21,12 +20,12 @@ function Login(){
     const login = () =>{
         service.authenticate({
             email: email,
-            password: password
+            senha: senha
         }).then( response => {
             LocalStorageService.addItem('_usuario_logado', response.data )
             navigate('/home')
         }).catch( error => {
-            mensagemErro(error.response.data.message)
+            messages.mensagemErro(error.response.data.message)
         })
     }
         
@@ -38,16 +37,15 @@ function Login(){
         <div className="col col-md-12" style={{display: 'flex', justifyContent: 'center'}}>
             <Card title='Acesso ao sistema'>
                 <div className="row">
-                    <span>{setError}</span>
                     <div className="col-lg-12">
-                        <Form Label="Email: *" htmlFor="exampleInputEmail">
+                        <Form>
                             <input type="text" className="form-control" id="email" placeholder="E-mail"
                             value={email} onChange={e => setEmail(e.target.value)}
                             />
                         </Form>
-                        <Form Label="Password: *" htmlFor="exampleInputEmail">
-                            <input type="password" className="form-control" id="password" placeholder="Senha"
-                            value={password} onChange={e => setPassword(e.target.value)}
+                        <Form>
+                            <input type="password" className="form-control" id="senha" placeholder="Senha"
+                            value={senha} onChange={e => setSenha(e.target.value)}
                             />
                         </Form>                 
                         <Button onClick={login} className="btn btn-success align-middle mb-3 mt-3" style={{display: 'flex', aling: 'center'}}>Entrar</Button>

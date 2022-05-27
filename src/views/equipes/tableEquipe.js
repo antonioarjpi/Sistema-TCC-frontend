@@ -13,6 +13,11 @@ export default props => {
                 <td>{equipe.descricaoConhecimento}</td>
                 <td>
                     <button type="button"  title="edit"
+                            className="btn btn-warning"
+                            onClick={e => props.visibleAction(equipe)}>
+                            <i className="pi pi-eye"></i>
+                    </button>
+                    <button type="button"  title="edit"
                             className="btn btn-primary"
                             onClick={e => props.editAction(equipe.id)}>
                             <i className="pi pi-pencil"></i>

@@ -1,29 +1,21 @@
 // eslint-disable-next-line import/no-anonymous-default-export
 export default props => {
 
-    const rows = props.aluno.map( aluno => {
+    const rows = props.alunos.map( alunos => {
         return(
-            <tr key={aluno.id}>
-                <td>{aluno.matricula}</td>
-                <td>{aluno.nome}</td>
-                <td>{aluno.email}</td>
+            <tr key={alunos.id}>
+                <td>{alunos.matricula}</td>
+                <td>{alunos.nome}</td>
+                <td>{alunos.email}</td>
                 <td>
-                <button className="btn btn-success" title="Efetivar"             
-                            type="button" disabled>
-                            <i className="pi pi-check"></i>
-                    </button>
-                    <button className="btn btn-warning"  title="Cancelar"             
-                            type="button" disabled>
-                            <i className="pi pi-times"></i>
-                    </button>
                     <button type="button"  title="edit"
                             className="btn btn-primary"
-                            onClick={e => props.editAction(aluno.id)}>
+                            onClick={e => props.editAction(alunos.id)}>
                             <i className="pi pi-pencil"></i>
                     </button>
                     <button type="button"  title="Excluir"
                             className="btn btn-danger" 
-                            onClick={ e => props.deleteAction(aluno)}>
+                            onClick={ e => props.deleteAction(alunos)}>
                             <i className="pi pi-trash"></i>
                     </button>
                 </td>

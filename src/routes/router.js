@@ -11,10 +11,12 @@ import SearchDevolutiva from "../views/devolutiva/searchDevolutiva";
 import SaveEquipe from "../views/equipes/saveEquipe";
 import SearchEquipe from "../views/equipes/searchEquipe";
 import Home from "../views/home";
+import Login from "../views/login";
 import SaveOrientacao from "../views/orientacao/saveOrientacao";
 import SearchOrientacao from "../views/orientacao/searchOrientacao";
 import SaveOrientador from "../views/orietadores/saveOrientador";
 import SearchOrientador from "../views/orietadores/searchOrientador";
+import SignUp from "../views/signup";
 
 
 
@@ -23,10 +25,15 @@ function Router (){
         <BrowserRouter>
             <Routes>
                 {/* <Route path="/" element={<Navigate to="/login" />} /> */}
-                <Route path="/" element={<Home />} />
+                <Route path="/" element={<Login />} />
+                <Route path="/login" element={<Login />} />
+                <Route path="/signup" element={<SignUp />} />
                 <Route path="/home" element={<Home />} />
+
                 <Route path="/cadastro-aluno" element={<SaveAluno />} />
                 <Route path="/alunos" element={<SearchAluno />} />
+                <Route path="/alunos/:id" element={<SaveAluno />} />
+
                 <Route path="/cadastro-orientador" element={<SaveOrientador />} />
                 <Route path="/orientadores" element={<SearchOrientador />} />
                 <Route path="/equipes" element={<SearchEquipe />} />

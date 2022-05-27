@@ -4,33 +4,33 @@ import ValidationError from '../exception/ValidationError';
 class UserService extends ApiService {
 
     constructor(){
-        super('/alunos')
+        super('/usuarios')
     }
 
     authenticate(credenciais){
         return this.post('/auth', credenciais)
     }
 
-    save(alunos){
-        return this.post('/', alunos);
+    save(usuario){
+        return this.post('/', usuario);
     }
 
-    validate(alunos){
+    validate(usuario){
         const errors = []
 
-        if(!alunos.nome){
+        if(!usuario.nome){
             errors.push('O campo Nome é obrigatório.')
         }
 
-        if(!alunos.email){
+        if(!usuario.email){
             errors.push('O campo Email é obrigatório.')
-        }else if( !alunos.email.match(/^[a-z0-9.]+@[a-z0-9]+\.[a-z]/) ){
+        }else if( !usuario.email.match(/^[a-z0-9.]+@[a-z0-9]+\.[a-z]/) ){
             errors.push('Informe um Email válido.')
         }
 
-        if(!alunos.senha || !alunos.senhaRepetida){
+        if(!usuario.senha || !usuario.senhaRepetida){
             errors.push('Digite a senha 2x.')
-        }else if( alunos.senha !== alunos.senhaRepetida ){
+        }else if( usuario.senha !== usuario.senhaRepetida ){
             errors.push('As senhas não batem.')
         }        
 

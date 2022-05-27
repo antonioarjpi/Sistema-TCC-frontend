@@ -19,7 +19,7 @@ class ApiService {
         return api.post(requestUrl, obj)
         .catch(error => {
             if (error.message === 'Network Error'){
-                messages.mensagemErro("Não foi possível conectar com servidor remoto")
+                messages.mensagemAlert("Não foi possível conectar com servidor remoto")
                 throw new ('');
             }
         })
@@ -40,7 +40,7 @@ class ApiService {
         return api.get(requestUrl)        
         .catch(error => {
             if (error.message === 'Network Error'){
-                messages.mensagemErro("Não foi possível conectar com servidor remoto")
+                messages.mensagemAlert("Não foi possível conectar com servidor remoto")
             }
         })
     }

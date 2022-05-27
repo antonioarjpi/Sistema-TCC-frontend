@@ -1,9 +1,9 @@
-import React from "react";
+import React, { useState } from "react";
 import Card from "../../components/card/card";
 import Form from "../../components/form/form";
 
 import * as messages from '../../components/toastr/toastr'
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import Navbar from "../../components/navbar/navbar";
 
 import {Dialog} from 'primereact/dialog';
@@ -11,74 +11,68 @@ import {Button} from 'primereact/button';
 import TableAluno from "./tableAluno";
 import AlunoService from "../../services/resource/alunoService";
 
+function SearchAluno(){
 
+    const [nome, setNome] = useState();
+    const [email, setEmail] = useState();
+    const [matricula, setMatricula] = useState();
+    const [showConfirmDialog, setShowConfirmDialog] = useState();
+    const [alunoDelete, setAlunoDelete] = useState({});
+    const [aluno, setAluno] = useState([]);
 
-class SearchAluno extends React.Component{
+    const navigate = useNavigate();
 
-    state = {
-        nome: '',
-        email: '', 
-        matricula: '',
-        showConfirmDialog: false,
-        alunoDelete: {},
-        aluno : []
-    }
+    const service = new AlunoService();
 
-    constructor(){
-        super();
-        this.service = new AlunoService();
-    }
-
-    search = () =>{
+    const search = () =>{
 
         const filter = {
-            nome: this.state.nome,
-            email: this.state.email,
-            matricula: this.state.matricula,
+            nome: nome,
+            email: email,
+            matricula: matricula,
         }
 
-        this.service.consult(filter)
+        service.consult(filter)
         .then(response => {
             const list = response.data
-            this.setState({aluno: list})
+            setAluno(list)
         }).catch(error =>{
-            console.log(error)
+            console.log(error.response.data.response)
         })
     }
   
-    edit = (id) =>{
-        this.props.navigation.navigate(`/register/${id}`)
+    const edit = (id) =>{
+        navigate(`/alunos/${id}`)
     }
 
-    erase = () => {
-        this.service
-        .del(this.state.alunoDelete.id)
+    const erase = () => {
+        service
+        .del(alunoDelete.id)
         .then(response =>{
-            const aluno = this.state.aluno;
-            const index = aluno.indexOf(this.state.alunoDelete)
-            aluno.splice(index, 1);
-            this.setState( { aluno: aluno } )
+            const alunos = aluno;
+            const index = alunos.indexOf(alunoDelete)
+            alunos.splice(index, 1);
+            setAluno( aluno )
             messages.mensagemSucesso('Aluno excluído com sucesso')
-            this.setState({ showConfirmDialog: false})
+            setShowConfirmDialog(false)
         }).catch(error =>{
-            messages.mensagemErro('Ocorreu um erro ao deletar')
+            messages.mensagemErro(error.message)
         })
     }
 
-    openDialog = (aluno) =>{
-        this.setState({ showConfirmDialog: true, alunoDelete: aluno })
+    const openDialog = (aluno) =>{
+        setShowConfirmDialog(true)
+        setAlunoDelete(aluno);
     }
 
-    cancelDialog = () =>{
-        this.setState({ showConfirmDialog : false, computerDeletar: {}  })
-    }
+     const cancelDialog = () =>{
+        setShowConfirmDialog(false, {computerDeletar: {}  })
+     }
 
-  
-render(){
     const confirmDialogFooter = (
         <div>
-            <Button label="Confirmar" icon="pi pi-check" onClick={this.erase} />
-            <Button label="Cancelar" icon="pi pi-times" onClick={this.cancelDialog} className="p-button-secondary" />
+            <Button label="Confirmar" icon="pi pi-check" onClick={erase} />
+            <Button label="Cancelar" icon="pi pi-times" onClick={cancelDialog} className="p-button-secondary" />
         </div>
     );
 
@@ -94,8 +88,8 @@ render(){
                                 <input type="text" 
                                        className="form-control" 
                                        id="nome" 
-                                       value={this.state.nome} 
-                                       onChange={e => this.setState({nome: e.target.value})}
+                                       value={nome} 
+                                       onChange={e => setNome(e.target.value)}
                                        placeholder="Digite o nome" />
                             </Form>
 
@@ -103,15 +97,15 @@ render(){
                                 <input type="email" 
                                        className="form-control" 
                                        id="email" 
-                                       value={this.state.email} 
-                                       onChange={e => this.setState({email: e.target.value})}
+                                       value={email} 
+                                       onChange={e => setEmail(e.target.value)}
                                        placeholder="Digite a descrição" />
                             </Form>
 
                             <Form htmlFor="matricula" label="Matricula: ">
                                 <input id="matricula" 
-                                    value={this.state.matricula} 
-                                    onChange={e => this.setState({matricula: e.target.value})}                           
+                                    value={matricula} 
+                                    onChange={e => setMatricula(e.target.value)}                           
                                     className="form-control"
                                     placeholder="Digite a matrícula" />
                             </Form>
@@ -119,7 +113,7 @@ render(){
                             <button 
                                     type="button" 
                                     className="btn btn-success mt-2"
-                                    onClick={this.search}>
+                                    onClick={search}>
                                     <i className="pi pi-search"></i> Buscar
                             </button>
                             <Link to={'/cadastro-aluno'}>
@@ -134,26 +128,26 @@ render(){
                         
                     </div>
                 </div>   
-                
-              
             </Card>
         
-        <TableAluno aluno={this.state.aluno}
-                        deleteAction={this.openDialog}
-                        editAction={this.edit}
+        <TableAluno alunos={aluno}
+                    deleteAction={openDialog}
+                    editAction={edit}
         />
+
         </div>
+
         <Dialog header="Confirmação" 
-                visible={this.state.showConfirmDialog} 
+                visible={showConfirmDialog} 
                 style={{width: '50vw'}}
                 footer={confirmDialogFooter} 
                 modal={true} 
-                onHide={() => this.setState({showConfirmDialog: false})}>
+                onHide={() => setShowConfirmDialog(false)}>
                 Confirma a exclusão deste ativo?
         </Dialog>        
         </>
     )
 }
-}
+
 
 export default SearchAluno;
