@@ -104,26 +104,19 @@ function SaveAluno(){
         <Navbar />
         <div className="container">
             <Card title={ atualizando ? 'Cadastro Aluno' : 'Atualização de Aluno' }>
-
-            {atualizando ? (
-                <></>
-                 
-            ) : (
                 <div className="row">
-                <div className="col-md-2">
-                    <Form id="matricula" label="Matricula: " >
-                        <input id="nome" type="text" 
-                            className="form-control" 
-                            name="matricula"
-                            disabled
-                            value={matricula}
-                            onChange={e => setMatricula(e.target.value)}
-                                />
-                    </Form>
-                </div>
-            </div> 
-            )}
-
+                    <div className="col-md-2">
+                        <Form id="matricula" label="Matricula: " >
+                            <input id="nome" type="text" 
+                                className="form-control" 
+                                name="matricula"
+                                disabled
+                                value={matricula}
+                                onChange={e => setMatricula(e.target.value)}
+                                    />
+                        </Form>
+                    </div>
+                </div> 
 
             <div className="row">
                 <div className="col-md-8">

@@ -36,6 +36,8 @@ function Router (){
 
                 <Route path="/cadastro-orientador" element={<SaveOrientador />} />
                 <Route path="/orientadores" element={<SearchOrientador />} />
+                <Route path="/orientadores/:id" element={<SaveOrientador />} />
+
                 <Route path="/equipes" element={<SearchEquipe />} />
                 <Route path="/cadastro-equipe" element={<SaveEquipe />} />
                 <Route path="/bancas" element={<SearchBanca />} />

@@ -1,9 +1,9 @@
-import React from "react";
+import React, { useState } from "react";
 import Card from "../../components/card/card";
 import Form from "../../components/form/form";
 
 import * as messages from '../../components/toastr/toastr'
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import Navbar from "../../components/navbar/navbar";
 
 import {Dialog} from 'primereact/dialog';
@@ -12,82 +12,74 @@ import OrientadorService from "../../services/resource/orientadorService";
 import TableOrientador from "./tableOrientador";
 
 
+function SearchOrientador(){
 
-class SearchOrientador extends React.Component{
+    const [nome, setNome] = useState();
+    const [matricula, setMatricula] = useState();
+    const [email, setEmail] = useState();
+    const [descricaoTitulacao, setDescricaoTitulacao] = useState();
+    const [grau, setGrau] = useState();
+    const [ies, setIes] = useState();
+    const [showConfirmDialog, setShowConfirmDialog] = useState();
+    const [orientadorDelete, setOrientadorDelete] = useState({});
+    const [orientador, setOrientador] = useState([]);
 
-    state = {
-        nome: '',
-        matricula: '',
-        ies: '', 
-        descricaoTitulacao: '',
-        grau: '',
-        showConfirmDialog: false,
-        orientadorDelete: {},
-        orientador : []
-    }
+    const navigate = useNavigate();
 
-    constructor(){
-        super();
-        this.service = new OrientadorService();
-    }
+    const service = new OrientadorService();
 
-    search = () =>{
+    const search = () =>{
 
         const filter = {
-            nome: this.state.nome,
-            matricula: this.state.matricula,
-            ies: this.state.ies,
-            descricaoTitulacao: this.state.descricaoTitulacao,
-            grau: this.state.grau
+            nome: nome,
+            email: email,
+            matricula: matricula,
+            descricaoTitulacao: descricaoTitulacao,
+            grau: grau,
+            ies: ies            
         }
 
-        this.service.consult(filter)
+        service.consult(filter)
         .then(response => {
             const list = response.data
-            this.setState({orientador: list})
+            setOrientador(list)
         }).catch(error =>{
-            console.log(error)
+            console.log(error.response.data.response)
         })
     }
   
-    edit = (id) =>{
-        this.props.navigation.navigate(`/register/${id}`)
+    const edit = (id) =>{
+        navigate(`/orientadores/${id}`)
     }
 
-    erase = () => {
-        
-        this.service
-        .del(this.state.orientadorDelete.id)
+    const erase = () => {
+        service
+        .del(orientadorDelete.id)
         .then(response =>{
-            const orientador = this.state.orientador;
-            const index = orientador.indexOf(this.state.orientadorDelete)
-            orientador.splice(index, 1);
-            this.setState( { orientador: orientador } )
+            const orientadores = orientador;
+            const index = orientadores.indexOf(orientadorDelete)
+            orientadores.splice(index, 1);
+            setOrientador( orientador )
             messages.mensagemSucesso('Orientador excluído com sucesso')
-            this.setState({ showConfirmDialog: false})
+            setShowConfirmDialog(false)
         }).catch(error =>{
-            
-            this.setState({ showConfirmDialog: false})
-            messages.mensagemErro('Ocorreu um erro ao deletar')
+            messages.mensagemErro(error.message)
         })
-
     }
 
-    openDialog = (orientador) =>{
-        this.setState({ showConfirmDialog: true, orientadorDelete: orientador })
-        console.log("computer Delete", orientador)
+    const openDialog = (orientador) =>{
+        setShowConfirmDialog(true)
+        setOrientadorDelete(orientador);
     }
 
-    cancelDialog = () =>{
-        this.setState({ showConfirmDialog : false, orientadorDelete: {}  })
-    }
+     const cancelDialog = () =>{
+        setShowConfirmDialog(false, {orientadorDelete: {}  })
+     }
 
-  
-render(){
     const confirmDialogFooter = (
         <div>
-            <Button label="Confirmar" icon="pi pi-check" onClick={this.erase} />
-            <Button label="Cancelar" icon="pi pi-times" onClick={this.cancelDialog} className="p-button-secondary" />
+            <Button label="Confirmar" icon="pi pi-check" onClick={erase} />
+            <Button label="Cancelar" icon="pi pi-times" onClick={cancelDialog} className="p-button-secondary" />
         </div>
     );
 
@@ -103,23 +95,32 @@ render(){
                                 <input type="text" 
                                        className="form-control" 
                                        id="nome" 
-                                       value={this.state.nome} 
-                                       onChange={e => this.setState({nome: e.target.value})}
+                                       value={nome} 
+                                       onChange={e => setNome(e.target.value)}
                                        placeholder="Digite o nome" />
                             </Form>
 
-                            <Form htmlFor="matricula" label="Matrícula: ">
+                            <Form htmlFor="email" label="E-mail: ">
+                                <input type="email" 
+                                       className="form-control" 
+                                       id="email" 
+                                       value={email} 
+                                       onChange={e => setEmail(e.target.value)}
+                                       placeholder="Digite a descrição" />
+                            </Form>
+
+                            <Form htmlFor="matricula" label="Matricula: ">
                                 <input id="matricula" 
-                                            value={this.state.matricula} 
-                                            onChange={e => this.setState({matricula: e.target.value})}                                         
-                                            className="form-control"
-                                            placeholder="Digite a matrícula" />            
+                                    value={matricula} 
+                                    onChange={e => setMatricula(e.target.value)}                           
+                                    className="form-control"
+                                    placeholder="Digite a matrícula" />
                             </Form>
 
                             <button 
                                     type="button" 
                                     className="btn btn-success mt-2"
-                                    onClick={this.search}>
+                                    onClick={search}>
                                     <i className="pi pi-search"></i> Buscar
                             </button>
                             <Link to={'/cadastro-orientador'}>
@@ -134,26 +135,26 @@ render(){
                         
                     </div>
                 </div>   
-                
-              
             </Card>
         
-        <TableOrientador orientador={this.state.orientador}
-                        deleteAction={this.openDialog}
-                        editAction={this.edit}
+        <TableOrientador orientadores={orientador}
+                    deleteAction={openDialog}
+                    editAction={edit}
         />
+
         </div>
+
         <Dialog header="Confirmação" 
-                visible={this.state.showConfirmDialog} 
+                visible={showConfirmDialog} 
                 style={{width: '50vw'}}
                 footer={confirmDialogFooter} 
                 modal={true} 
-                onHide={() => this.setState({showConfirmDialog: false})}>
+                onHide={() => setShowConfirmDialog(false)}>
                 Confirma a exclusão deste ativo?
         </Dialog>        
         </>
     )
 }
-}
+
 
 export default SearchOrientador;

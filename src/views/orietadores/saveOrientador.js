@@ -1,17 +1,15 @@
-import React, { useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import React, { useEffect, useState } from "react";
+import { Link, useNavigate, useParams } from "react-router-dom";
 import Card from "../../components/card/card";
 import Form from "../../components/form/form";
-
 
 import * as messages from '../../components/toastr/toastr'
 import Navbar from "../../components/navbar/navbar";
 import OrientadorService from "../../services/resource/orientadorService";
 
-
-
 function SaveOrientador(){
 
+    const [orientador, setOrientador] = useState();
     const [nome, setNome] = useState();
     const [matricula, setMatricula] = useState();
     const [email, setEmail] = useState();
@@ -20,15 +18,36 @@ function SaveOrientador(){
     const [grau, setGrau] = useState();
     const [ies, setIes] = useState();
     const [senhaRepetida, setSenhaRepetida] = useState();
-
+    const [atualizando, setAtualizando] = useState(true);
+    
     const navigate = useNavigate();
-
+    const { id } = useParams();
     const service = new OrientadorService();
 
-    const submit = () => {
-        
-        // let userBy = JSON.parse(localStorage.getItem("_usuario_logado"));
 
+    useEffect(() => {
+        if(id){
+        service.findId(id)
+        .then(response =>{
+            setOrientador(response.data.id)
+            setNome(response.data.nome);
+            setEmail(response.data.email);
+            setSenha(response.data.senha);
+            setSenhaRepetida(response.data.senha);
+            setMatricula(response.data.matricula);   
+            setDescricaoTitulacao(response.data.titulacao.descricao);
+            setIes(response.data.titulacao.ies);
+            setGrau(response.data.titulacao.grau);
+            setAtualizando(false);
+        })  
+        .catch(erros => {
+            messages.mensagemErro(erros.response.data)
+        })
+
+      }},[]);
+
+
+    const submit = () => {
         try{
             service.validate({
                 nome: nome,
@@ -58,26 +77,55 @@ function SaveOrientador(){
         })
     }
 
-    // const refresh = () => {
-    //     service.update({
-    //         id: id,
-    //         name: nome,
-    //         email: email,
-	
-    //     }).then(response => {
-    //         navigate('/consult')
-    //         messages.mensagemSucesso('Lançamento atualizado com sucesso!')
-    //     }).catch(error => {
-    //         console.log(id);
-    //         messages.mensagemErro(error.response.data.message)
-    //     })
-    // }
+    const update = () => {
+        try{
+            service.validate({
+                nome: nome,
+                email: email,
+                senha: senha,
+                senhaRepetida: senhaRepetida
+            })
+        }catch(error){
+            const msgs = error.message;
+            msgs.forEach(msg=> messages.mensagemErro(msg));
+            return false;
+        }
+     
+        service.update({
+            id: orientador,
+            nome: nome,
+            email: email,
+            senha: senha,
+            matricula: matricula,
+            ies: ies,
+            descricaoTitulacao: descricaoTitulacao,
+            grau: grau
+        }).then(response => {
+            navigate('/orientadores')
+            messages.mensagemSucesso('Orientador atualizado com sucesso!')
+        }).catch(error => {
+            messages.mensagemErro(error.response.data.message)
+        })
+    }
 
     return(
         <>
         <Navbar />
         <div className="container">
-            <Card title='Cadastro de Orientador'>
+            <Card title={ atualizando ? 'Cadastro Orientador' : 'Atualização de Orientador' }>
+            <div className="row">
+                    <div className="col-md-2">
+                        <Form id="matricula" label="Matricula: " >
+                            <input id="nome" type="text" 
+                                className="form-control" 
+                                name="matricula"
+                                disabled
+                                value={matricula}
+                                onChange={e => setMatricula(e.target.value)}
+                                    />
+                        </Form>
+                    </div>
+                </div> 
             <div className="row">
                 <div className="col-md-6">
                     <Form id="nome" label="Nome: *" >
@@ -102,17 +150,7 @@ function SaveOrientador(){
             </div>
 
             <div className="row">
-                <div className="col-md-4">
-                    <Form id="matricula" label="Matricula: *" >
-                        <input id="matricula" type="text" 
-                            className="form-control" 
-                            name="matricula"
-                            value={matricula}
-                            onChange={e => setMatricula(e.target.value)}
-                                />
-                    </Form>
-                </div>
-                <div className="col-md-8">
+                <div className="col-md-6">
                     <Form id="descricaoTitulacao" label="Descricao da titulação: *" >
                         <input id="descricaoTitulacao" type="text" 
                             className="form-control" 
@@ -132,7 +170,7 @@ function SaveOrientador(){
                                 />
                     </Form>
                 </div>
-                <div className="col-md-4">
+                <div className="col-md-6">
                     <Form id="ies" label="Instituição de Ensino: *" >
                         <input id="ies" type="text" 
                             className="form-control" 
@@ -171,9 +209,17 @@ function SaveOrientador(){
 
             <div className="row mt-2">
                 <div className="col-md-6" >
-                <button  onClick={submit} className="btn btn-primary">
-                    <i className="pi pi-save"></i>Salvar
-                </button>
+                { atualizando ? (
+                        <button  onClick={submit} className="btn btn-primary">
+                            <i className="pi pi-save"></i>Salvar
+                        </button>
+                    ) : (
+                        <button  onClick={update} className="btn btn-primary">
+                            <i className="pi pi-save"></i>Atualizar
+                        </button>                      
+                    )
+
+                    }         
                     <Link to={'/orientadores'}>
                     <button className="btn btn-danger">
                         <i className="pi pi-times"></i>Cancelar

@@ -1,32 +1,24 @@
 // eslint-disable-next-line import/no-anonymous-default-export
 export default props => {
 
-    const rows = props.orientador.map( orientador => {
+    const rows = props.orientadores.map( orientadores => {
         return(
-            <tr key={orientador.id}>
-                <td>{orientador.matricula}</td>
-                <td>{orientador.nome}</td>
-                <td>{orientador.email}</td>
-                <td>{orientador.grau}</td>
-                <td>{orientador.ies}</td>
-                <td>{orientador.descricaoTitulacao}</td>
+            <tr key={orientadores.id}>
+                <td>{orientadores.matricula}</td>
+                <td>{orientadores.nome}</td>
+                <td>{orientadores.email}</td>
+                <td>{orientadores.grau}</td>
+                <td>{orientadores.ies}</td>
+                <td>{orientadores.descricaoTitulacao}</td>
                 <td>
-                <button className="btn btn-success" title="Efetivar"             
-                            type="button" disabled>
-                            <i className="pi pi-check"></i>
-                    </button>
-                    <button className="btn btn-warning"  title="Cancelar"             
-                            type="button" disabled>
-                            <i className="pi pi-times"></i>
-                    </button>
                     <button type="button"  title="edit"
                             className="btn btn-primary"
-                            onClick={e => props.editAction(orientador.id)}>
+                            onClick={e => props.editAction(orientadores.id)}>
                             <i className="pi pi-pencil"></i>
                     </button>
                     <button type="button"  title="Excluir"
                             className="btn btn-danger" 
-                            onClick={ e => props.deleteAction(orientador)}>
+                            onClick={ e => props.deleteAction(orientadores)}>
                             <i className="pi pi-trash"></i>
                     </button>
                 </td>
