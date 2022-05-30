@@ -34,7 +34,7 @@ function SaveBanca(){
         }catch(error){
             const msgs = error.message;
             msgs.forEach(msg=> messages.mensagemErro(msg));
-            return false;
+           
         }
      
         service.save({
@@ -46,7 +46,7 @@ function SaveBanca(){
             membroMatricula: membroMatricula
         }).then(response => {
             navigate('/bancas')
-            messages.mensagemSucesso('Aluno cadastrado com sucesso!')
+            messages.mensagemSucesso('Banca agendada com sucesso!')
         }).catch(error => {
             messages.mensagemErro(error.response.data.message)
         })
@@ -56,7 +56,7 @@ function SaveBanca(){
         <>
         <Navbar />
         <div className="container">
-            <Card title='Cadastro de Aluno'>
+            <Card title='Agendamento de banca'>
             <div className="row">
                 <div className="col-md-12">
                     <Form id="descricao" label="Descrição: *" >

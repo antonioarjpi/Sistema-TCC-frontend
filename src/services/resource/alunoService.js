@@ -48,11 +48,15 @@ export default class AlunoService extends ApiService {
     }
 
 
-    consult(filter){
-        let params = `?name=${filter.name}`
+    consulta(filter){
+        let params = `?nome=${filter.nome}`
 
-        if(filter.type){
-            params = `${params}&type=${filter.type}`
+        if(filter.matricula){
+            params = `${params}&matricula=${filter.matricula}`
+        }
+
+        if(filter.email){
+            params = `${params}&email=${filter.email}`
         }
 
         return this.get(params);

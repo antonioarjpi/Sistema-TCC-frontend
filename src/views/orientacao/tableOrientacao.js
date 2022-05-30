@@ -5,10 +5,10 @@ export default props => {
         return(
             <tr key={orientacao.id}>
                 <td>{orientacao.id}</td>
-                <td>{orientacao.nome}</td>
+                <td>{orientacao.nomeOrientador}</td>
                 <td>{orientacao.matriculaOrientador}</td>
                 <td>{orientacao.descricaoTCC}</td>
-                <td>{orientacao.tipoTCC}</td>
+                <td>{orientacao.tccDescricao}</td>
                 <td>
                     <button type="button"  title="edit"
                             className="btn btn-primary"

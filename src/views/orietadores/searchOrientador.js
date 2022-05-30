@@ -14,7 +14,7 @@ import TableOrientador from "./tableOrientador";
 
 function SearchOrientador(){
 
-    const [nome, setNome] = useState();
+    const [nome, setNome] = useState('');
     const [matricula, setMatricula] = useState();
     const [email, setEmail] = useState();
     const [descricaoTitulacao, setDescricaoTitulacao] = useState();
@@ -29,7 +29,6 @@ function SearchOrientador(){
     const service = new OrientadorService();
 
     const search = () =>{
-
         const filter = {
             nome: nome,
             email: email,
@@ -88,10 +87,10 @@ function SearchOrientador(){
         <Navbar/>
         <div className="container">
         <Card title="Consulta Orientadores">
+                
                 <div className="row">
-                    <div className="col-md-6">
-                        <div className="bs-component">
-                            <Form htmlFor="nome" label="Nome: *">
+                    <div className="col-md-4"> 
+                            <Form htmlFor="nome" label="Nome: ">
                                 <input type="text" 
                                        className="form-control" 
                                        id="nome" 
@@ -99,24 +98,58 @@ function SearchOrientador(){
                                        onChange={e => setNome(e.target.value)}
                                        placeholder="Digite o nome" />
                             </Form>
+                            </div>
+                            <div className="col-md-4"> 
+                                <Form htmlFor="email" label="E-mail: ">
+                                    <input type="email" 
+                                        className="form-control" 
+                                        id="email" 
+                                        value={email} 
+                                        onChange={e => setEmail(e.target.value)}
+                                        placeholder="Digite a descrição" />
+                                </Form>                   
+                            </div>
+                            <div className="col-md-4">
+                                <Form htmlFor="matricula" label="Matricula: ">
+                                    <input id="matricula" 
+                                        value={matricula} 
+                                        onChange={e => setMatricula(e.target.value)}                           
+                                        className="form-control"
+                                        placeholder="Digite a matrícula" />
+                                </Form>
+                            </div>
+                        </div>   
+                        <div className="row">
+                            <div className="col-md-4">
+                                <Form htmlFor="descricaoTitulacao" label="Titulação: ">
+                                    <input id="descricaoTitulacao" 
+                                        value={descricaoTitulacao} 
+                                        onChange={e => setDescricaoTitulacao(e.target.value)}                           
+                                        className="form-control"
+                                        placeholder="Digite a titulação" />
+                                </Form>
+                            </div>
+                            <div className="col-md-4">
+                                <Form htmlFor="ies" label="Instituição de Ensino: ">
+                                    <input id="ies" 
+                                        value={ies} 
+                                        onChange={e => setIes(e.target.value)}                           
+                                        className="form-control"
+                                        placeholder="Instituição de ensino" />
+                                </Form>
+                            </div>
+                            <div className="col-md-4">
+                                <Form htmlFor="grau" label="Grau: ">
+                                    <input id="grau" 
+                                        value={grau} 
+                                        onChange={e => setGrau(e.target.value)}                           
+                                        className="form-control"
+                                        placeholder="Digite o grau" />
+                                </Form>
+                            </div>
 
-                            <Form htmlFor="email" label="E-mail: ">
-                                <input type="email" 
-                                       className="form-control" 
-                                       id="email" 
-                                       value={email} 
-                                       onChange={e => setEmail(e.target.value)}
-                                       placeholder="Digite a descrição" />
-                            </Form>
-
-                            <Form htmlFor="matricula" label="Matricula: ">
-                                <input id="matricula" 
-                                    value={matricula} 
-                                    onChange={e => setMatricula(e.target.value)}                           
-                                    className="form-control"
-                                    placeholder="Digite a matrícula" />
-                            </Form>
-
+                        </div> 
+                            
                             <button 
                                     type="button" 
                                     className="btn btn-success mt-2"
@@ -131,10 +164,6 @@ function SearchOrientador(){
                                 </button>
                             </Link>
 
-                        </div>
-                        
-                    </div>
-                </div>   
             </Card>
         
         <TableOrientador orientadores={orientador}
@@ -150,7 +179,7 @@ function SearchOrientador(){
                 footer={confirmDialogFooter} 
                 modal={true} 
                 onHide={() => setShowConfirmDialog(false)}>
-                Confirma a exclusão deste ativo?
+                Confirma a exclusão deste orientador?
         </Dialog>        
         </>
     )

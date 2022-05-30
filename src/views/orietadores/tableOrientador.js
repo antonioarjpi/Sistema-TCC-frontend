@@ -34,7 +34,7 @@ export default props => {
                 <table className="table table-striped table-sm">
                     <thead>
                         <tr>
-                            <th>Matriula</th>
+                            <th>Matricula</th>
                             <th>Nome</th>
                             <th>E-mail</th>      
                             <th>Grau</th>

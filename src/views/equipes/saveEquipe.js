@@ -1,5 +1,5 @@
-import React, { useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import React, { useEffect, useState } from "react";
+import { Link, useNavigate, useParams } from "react-router-dom";
 import Card from "../../components/card/card";
 import Form from "../../components/form/form";
 
@@ -8,10 +8,12 @@ import Navbar from "../../components/navbar/navbar";
 import EquipeService from "../../services/resource/equipeService";
 import axios from "axios";
 import { baseURL } from "../../services/api";
+import { isDisabled } from "@testing-library/user-event/dist/utils";
 
 
 function SaveEquipe(){
 
+    const [equipe, setEquipe] = useState();
     const [nome, setNome] = useState();
     const [dataCadastro, setDataCadastro] = useState();
     const [delimitacao, setDelimitacao] = useState();
@@ -19,12 +21,39 @@ function SaveEquipe(){
     const [array, setArray] = useState([]);
     const [descricaoLinha, setDescricaoLinha] = useState();
     const [descricaoConhecimento, setDescricaoConhecimento] = useState();
+    const [atualizando, setAtualizando] = useState(true);
 
+    const { id } = useParams();
     const navigate = useNavigate();
-
     const service = new EquipeService();
 
-    const sum = () => {     
+
+    
+    useEffect(() => {
+        if(id){
+        service.findId(id)
+        .then(response =>{
+            setEquipe(response.data.id)
+            setNome(response.data.nome);
+            setDataCadastro(response.data.dataCadastro)
+            for (let i=0; i < response.data.alunos.length; i++){
+                if(array.indexOf(response.data.alunos[i].matricula)){
+                    array.push(response.data.alunos[i].matricula)
+                }              
+            }          
+            setDelimitacao(response.data.tema)
+            setDescricaoConhecimento(response.data.conhecimento)
+            setDescricaoLinha(response.data.linhaPesquisa)
+            setAtualizando(false);
+        })  
+        .catch(erros => {
+            messages.mensagemErro(erros.response.data)
+        })
+
+      }},[]);
+
+
+    const adicionaMatricula = () => {     
         if(!matricula){
             throw new messages.mensagemErro("Matrícula não pode está em branco.")
         }
@@ -75,11 +104,40 @@ function SaveEquipe(){
         })
     }
 
+    const update = () => {      
+        try{
+            service.validate({
+                nome: nome,
+                matricula: array
+            })
+        }catch(error){
+            console.log(matricula)
+            const msgs = error.message;
+            msgs.forEach(msg=> messages.mensagemErro(msg));
+            return false;
+        }
+        console.log("array: ", array)
+        service.save({
+            nome: nome,
+            dataCadastro: dataCadastro,
+            delimitacao: delimitacao,
+            matricula: array,
+            descricaoLinha: descricaoLinha,
+            descricaoConhecimento: descricaoConhecimento
+        }).then(response => {
+            navigate('/equipes')
+            messages.mensagemSucesso('Equipe cadastrado com sucesso!')
+        }).catch(error => {
+            console.log(matricula)
+            messages.mensagemErro(error.response.data.message)
+        })
+    }
+
     return(
         <>
         <Navbar />
         <div className="container">
-            <Card title='Cadastro de Equipe'>
+            <Card title={ atualizando ? 'Cadastro Equipe' : 'Atualização de equipe'}>
             <div className="row">
                 <div className="col-md-6">
                     <Form id="nome" label="Nome da equipe: *" >
@@ -92,6 +150,8 @@ function SaveEquipe(){
                     </Form>
                 </div>
                 <div className="col-md-4">
+
+                    { atualizando ? (
                     <Form id="dataCadastro" label="Data de cadastro: *" >
                         <input id="dataCadastro" type="date" 
                             className="form-control" 
@@ -100,6 +160,18 @@ function SaveEquipe(){
                             onChange={e => setDataCadastro(e.target.value)}
                                 />
                     </Form>
+                    ) : (
+                        <Form id="dataCadastro" label="Data de cadastro: *" >
+                            <input id="dataCadastro" type="date" 
+                                className="form-control" 
+                                name="dataCadastro"
+                                disabled
+                                value={dataCadastro}
+                                onChange={e => setDataCadastro(e.target.value)}
+                                    />
+                        </Form>                    
+                    )
+                    }         
                 </div>
             </div>
 
@@ -123,7 +195,7 @@ function SaveEquipe(){
                 </div>        
                 <div className="col-md-4" style={{justifyContent: 'left', alignItems:'center', display: 'grid'}}>
                     <label>Adicione o aluno</label>
-                <button className="btn btn-primary" onClick={sum}>
+                <button className="btn btn-primary" onClick={adicionaMatricula}>
                         <i className="pi pi-plus"></i>
                     </button>
                 </div>        
@@ -167,9 +239,17 @@ function SaveEquipe(){
 
             <div className="row mt-2">
                 <div className="col-md-6" >
-                <button  onClick={submit} className="btn btn-primary">
-                    <i className="pi pi-save"></i>Salvar
-                </button>
+                { atualizando ? (
+                        <button  onClick={submit} className="btn btn-primary">
+                            <i className="pi pi-save"></i>Salvar
+                        </button>
+                    ) : (
+                        <button  onClick={update} className="btn btn-primary">
+                            <i className="pi pi-save"></i>Atualizar
+                        </button>                      
+                    )
+
+                    }         
                     <Link to={'/equipes'}>
                     <button className="btn btn-danger">
                         <i className="pi pi-times"></i>Cancelar

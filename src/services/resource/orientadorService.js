@@ -49,12 +49,27 @@ export default class OrientadorService extends ApiService {
 
 
     consult(filter){
-        let params = `?name=${filter.name}`
-
-        if(filter.type){
-            params = `${params}&type=${filter.type}`
+        let params = `?nome=${filter.nome}`
+        
+        if(filter.matricula){
+            params = `${params}&matricula=${filter.matricula}`
         }
 
+        if(filter.email){
+            params = `${params}&email=${filter.email}`
+        }
+
+        if(filter.descricaoTitulacao){
+            params = `${params}&descricaoTitulacao=${filter.descricaoTitulacao}`
+        }
+
+        if(filter.grau){
+            params = `${params}&grau=${filter.grau}`
+        }
+
+        if(filter.ies){
+            params = `${params}&ies=${filter.ies}`
+        }
         return this.get(params);
     }
 

@@ -3,7 +3,6 @@ import { Link, useNavigate, useParams } from "react-router-dom";
 import Card from "../../components/card/card";
 import Form from "../../components/form/form";
 
-
 import * as messages from '../../components/toastr/toastr'
 import Navbar from "../../components/navbar/navbar";
 import AlunoService from "../../services/resource/alunoService";
@@ -103,7 +102,7 @@ function SaveAluno(){
         <>
         <Navbar />
         <div className="container">
-            <Card title={ atualizando ? 'Cadastro Aluno' : 'Atualização de Aluno' }>
+            <Card title={ atualizando ? 'Cadastro Aluno' : 'Atualização de Aluno ' }>
                 <div className="row">
                     <div className="col-md-2">
                         <Form id="matricula" label="Matricula: " >

@@ -1,35 +1,36 @@
 // eslint-disable-next-line import/no-anonymous-default-export
 export default props => {
 
-    const rows = props.equipe.map( equipe => {
+    const rows = props.equipes.map( equipes => {           
         return(
-            <tr key={equipe.id}>
-                <td>{equipe.id}</td>
-                <td>{equipe.nome}</td>
-                <td>{equipe.dataCadastro}</td>
-                <td>{equipe.delimitacao}</td>
-                <td>{equipe.alunos}</td>
-                <td>{equipe.descricaoLinha}</td>
-                <td>{equipe.descricaoConhecimento}</td>
+            <tr key={equipes.id}>
+                <td>{equipes.id}</td>
+                <td>{equipes.nome}</td>
+                <td>{equipes.dataCadastro}</td>
+                <td>{equipes.alunos[0].nome}</td>
+                <td>{equipes.tema}</td>
+                <td>{equipes.linhaPesquisa}</td>
+                <td>{equipes.conhecimento}</td>
                 <td>
                     <button type="button"  title="edit"
                             className="btn btn-warning"
-                            onClick={e => props.visibleAction(equipe)}>
+                            onClick={e => props.visibleAction(equipes)}>
                             <i className="pi pi-eye"></i>
                     </button>
                     <button type="button"  title="edit"
                             className="btn btn-primary"
-                            onClick={e => props.editAction(equipe.id)}>
+                            onClick={e => props.editAction(equipes.id)}>
                             <i className="pi pi-pencil"></i>
                     </button>
                     <button type="button"  title="Excluir"
                             className="btn btn-danger" 
-                            onClick={ e => props.deleteAction(equipe)}>
+                            onClick={ e => props.deleteAction(equipes)}>
                             <i className="pi pi-trash"></i>
                     </button>
                 </td>
             </tr>
         )
+        
     })
 
 
@@ -43,8 +44,8 @@ export default props => {
                             <th>ID</th>
                             <th>Nome</th>
                             <th>Data de cadastro</th>
-                            <th>Delimitacao</th>
-                            <th>Alunos</th>
+                            <th>Lider da equipe</th>
+                            <th>Tema</th>
                             <th>Linha</th>
                             <th>Conhecimento</th>
                             <th scope="col">Ações</th>
