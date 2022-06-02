@@ -27,7 +27,6 @@ function Home(){
                 </Link>
             </p>
         </div>
-        <Footer />
         </>
     )
 }

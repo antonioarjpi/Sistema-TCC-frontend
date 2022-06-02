@@ -4,9 +4,9 @@ import NavItem from "../nav-item/navbarItem";
 
 function Navbar(props){
     return (
-        <div className="navbar navbar-expand-lg fixed-top navbar-dark bg-primary">
+        <div className="navbar navbar-expand-lg fixed-top navbar-light">
         <div className="container">
-          <a href="/home"><img src="https://logodownload.org/wp-content/uploads/2014/12/estacio-logo.png" className="mr-3" width={140}/></a>
+          <a className="m-1" href="/home"><img src="https://i.ibb.co/QPd6SkD/logo-fundo.png" className="mr-3" width={55}/></a>
           <button className="navbar-toggler" type="button" 
                   data-toggle="collapse" data-target="#navbarResponsive" 
                   aria-controls="navbarResponsive" aria-expanded="false" 
@@ -31,18 +31,13 @@ function Navbar(props){
                 <Link to={"/bancas"}>
                   <NavItem render={props.isUsuarioAutenticado} label="Bancas" />
                 </Link>
-                
-  
+                <Link to={"/orientacao"}>
+                  <NavItem render={props.isUsuarioAutenticado} label="Orientação" />
+                </Link>
+                <Link to={"/devolutivas"}>
+                  <NavItem render={props.isUsuarioAutenticado} label="Devolutivas" />
+                </Link>
 
-                  <li className="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                      Orientação
-                    </a>
-                    <div className="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-                    <Link to={"/orientacao"}><span className="dropdown-item">Orientações</span></Link>
-                    <Link to={"/devolutivas"}><a className="dropdown-item" href="#">Devolutivas</a></Link>
-                    </div>
-                  </li>
                 <NavItem render={props.isUsuarioAutenticado} onClick={props.deslogar} href="/login" label="Sair" />
                 
             </ul>

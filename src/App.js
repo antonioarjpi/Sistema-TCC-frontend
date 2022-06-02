@@ -1,6 +1,6 @@
 import React from 'react';
 
-import 'bootswatch/dist/superhero/bootstrap.css'
+import 'bootswatch/dist/litera/bootstrap.css'
 import 'toastr/build/toastr.css'
 import 'toastr/build/toastr.min.js'
 import './App.css';

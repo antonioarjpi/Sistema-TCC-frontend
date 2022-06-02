@@ -59,12 +59,12 @@ function Login(){
                         </Form>
                         <Form>
                             <span className="p-float-label">
-                                <Password className='block mb-2' id="senha"
+                                <Password className='' id="senha"
                                 value={senha} onChange={e => setSenha(e.target.value)} feedback={false} toggleMask/>
-                                <label htmlFor="senha">Senha</label>
+                                <label >Senha</label>
                             </span>
                         </Form>
-                        <Button className="mb-2" label="Entrar" loading={loading1} onClick={login} style={{display: 'flex', aling: 'center'}}/>            
+                        <Button className="mb-2" label="Entrar" loading={loading1} onClick={login} style={{display: 'flex', aling: 'center', marginTop: "10px"}}/>            
                         <a onClick={signup} href='/signup' type="buttom">Não tem acesso? Cadastra-se</a>
                     </div>
                 </div>

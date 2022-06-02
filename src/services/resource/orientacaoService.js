@@ -49,10 +49,22 @@ export default class OrientacaoService extends ApiService {
 
 
     consult(filter){
-        let params = `?name=${filter.name}`
+        let params = `?descricaoTCC=${filter.descricaoTCC}`
 
-        if(filter.type){
-            params = `${params}&type=${filter.type}`
+        if(filter.dataOrientacao){
+            params = `${params}&dataOrientacao=${filter.dataOrientacao}`
+        }
+
+        if(filter.nomeOrientador){
+            params = `${params}&nomeOrientador=${filter.nomeOrientador}`
+        }
+
+        if(filter.matriculaOrientador){
+            params = `${params}&matriculaOrientador=${filter.matriculaOrientador}`
+        }
+
+        if(filter.tccDescricao){
+            params = `${params}&tccDescricao=${filter.tccDescricao}`
         }
 
         return this.get(params);

@@ -1,26 +1,44 @@
-import React, { useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import React, { useEffect, useState } from "react";
+import { Link, useNavigate, useParams } from "react-router-dom";
 import Card from "../../components/card/card";
 import Form from "../../components/form/form";
 import * as messages from '../../components/toastr/toastr'
 import Navbar from "../../components/navbar/navbar";
 import OrientacaoService from "../../services/resource/orientacaoService";
+import { formatLocalDate } from "../../utils/format";
 
 
 function SaveOrientacao(){
 
+    const [orientacao, setOrientacao] = useState();
     const [descricaoTCC, setDescricaoTCC] = useState();
     const [dataOrientacao, setDataOrientacao] = useState();
     const [tipoTCC, setTipoTCC] = useState();
     const [matriculaOrientador, setMatriculaOrientador] = useState();
+    const [atualizando, setAtualizando] = useState(true);
 
 
+    const {id} = useParams();
     const navigate = useNavigate();
-
     const service = new OrientacaoService();
 
-    const submit = () => {
+    useEffect(() =>{
+        if(id){
+            service.findId(id)
+            .then(response =>{
+                setOrientacao(response.data.id);
+                setDescricaoTCC(response.data.descricaoTCC);
+                setDataOrientacao(formatLocalDate(response.data.dataOrientacao,"yyyy-MM-dd"));
+                setTipoTCC(response.data.tccDescricao);
+                setMatriculaOrientador(response.data.matriculaOrientador);
+                setAtualizando(false);
+            })
+            .catch(erros => {
+                messages.mensagemErro(erros.response.data)
+            })
+        }}, [])
 
+    const submit = () => {
         try{
             service.validate({
                 descricaoTCC: descricaoTCC,
@@ -48,11 +66,40 @@ function SaveOrientacao(){
         })
     }
 
+    const update = () => {
+        try{
+            service.validate({
+                descricaoTCC: descricaoTCC,
+                dataOrientacao: dataOrientacao,
+                tipoTCC: tipoTCC,
+                matriculaOrientador: matriculaOrientador,
+                
+            })
+        }catch(error){
+            const msgs = error.message;
+            msgs.forEach(msg=> messages.mensagemErro(msg));
+            return false;
+        }
+     
+        service.update({
+            id: orientacao,
+            descricaoTCC: descricaoTCC,
+            dataOrientacao: dataOrientacao,
+            tipoTCC: tipoTCC,
+            matriculaOrientador: matriculaOrientador,
+        }).then(response => {
+            navigate('/orientacao')
+            messages.mensagemSucesso('Orientação cadastrado com sucesso!')
+        }).catch(error => {
+            messages.mensagemErro(error.response.data.message)
+        })
+    }
+
     return(
         <>
         <Navbar />
         <div className="container">
-            <Card title='Cadastro de Orientação'>
+            <Card title={ atualizando ? 'Cadastro de Orientação' : 'Atualização de orientação' }>
             <div className="row">
                 <div className="col-md-12">
                     <Form id="descricaoTCC" label="Descrição: *" >
@@ -105,9 +152,15 @@ function SaveOrientacao(){
 
             <div className="row mt-2">
                 <div className="col-md-6" >
-                <button  onClick={submit} className="btn btn-primary">
-                    <i className="pi pi-save"></i>Salvar
-                </button>
+                { atualizando ? (
+                        <button  onClick={submit} className="btn btn-primary">
+                            <i className="pi pi-save"></i>Salvar
+                        </button>
+                    ) : (
+                        <button  onClick={update} className="btn btn-primary">
+                            <i className="pi pi-save"></i>Atualizar
+                        </button>                      
+                    )}         
                     <Link to={'/orientacao'}>
                     <button className="btn btn-danger">
                         <i className="pi pi-times"></i>Cancelar

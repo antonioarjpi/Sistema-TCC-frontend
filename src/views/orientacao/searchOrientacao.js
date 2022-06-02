@@ -1,9 +1,9 @@
-import React from "react";
+import React, { useState } from "react";
 import Card from "../../components/card/card";
 import Form from "../../components/form/form";
 
 import * as messages from '../../components/toastr/toastr'
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import Navbar from "../../components/navbar/navbar";
 
 import {Dialog} from 'primereact/dialog';
@@ -12,36 +12,31 @@ import TableOrientacao from "./tableOrientacao";
 import OrientacaoService from "../../services/resource/orientacaoService";
 
 
+function SearchOrientacao(){
 
-class SearchOrientacao extends React.Component{
+    const [descricaoTCC, setDescricaoTCC] = useState('');
+    const [dataOrientacao, setDataOrientacao] = useState();
+    const [tipoTCC, setTipoTCC] = useState();
+    const [matriculaOrientador, setMatriculaOrientador] = useState();
+    const [nomeOrientador, setNomeOrientador] = useState();
+    const [orientacao, setOrientacao] = useState([]);
+    const [orientacaoDelete, setOrientacaoDelete] = useState({});
+    const [showConfirmDialog, setShowConfirmDialog] = useState();
 
-    state = {
-        descricaoTCC: '',
-        dataOrientacao: '', 
-        tipoTCC: '',
-        matriculaOrientador: '',
-        showConfirmDialog: false,
-        orientacaoDelete: {},
-        orientacao : []
-    }
+    const navigate = useNavigate();
+    const service = new OrientacaoService();
 
-    constructor(){
-        super();
-        this.service = new OrientacaoService();
-    }
 
-    search = () =>{
-
+    const search = () =>{
         const filter = {
-            descricaoTCC: this.state.descricaoTCC,
-            tipoTCC: this.state.tipoTCC,
+            descricaoTCC: descricaoTCC,
+            tipoTCC: tipoTCC,
            
         }
-
-        this.service.consult(filter)
+        service.consult(filter)
         .then(response => {
             const list = response.data
-            this.setState({orientacao: list})
+            setOrientacao(list)
             if(list.length < 1){
                 messages.mensagemAlert("Nenhum resultado encontrado.");
             }
@@ -50,39 +45,39 @@ class SearchOrientacao extends React.Component{
         })
     }
   
-    edit = (id) =>{
-        this.props.navigation.navigate(`/register/${id}`)
+    const edit = (id) =>{
+        navigate(`/atualizacao-orientacao/${id}`)
     }
 
-    erase = () => {
-        this.service
-        .del(this.state.orientacaoDelete.id)
+    const erase = () => {
+        service
+        .del(orientacaoDelete.id)
         .then(response =>{
-            const orientacao = this.state.orientacao;
-            const index = orientacao.indexOf(this.state.orientacaoDelete)
-            orientacao.splice(index, 1);
-            this.setState( { orientacao: orientacao } )
+            const orientacoes = orientacao;
+            const index = orientacoes.indexOf(orientacaoDelete)
+            orientacoes.splice(index, 1);
+            setOrientacao(orientacao);
             messages.mensagemSucesso('Orientação excluído excluído com sucesso')
+            setShowConfirmDialog(false)
         }).catch(error =>{
             messages.mensagemErro(error.response.data.error)
         })
-        this.setState({ showConfirmDialog: false})
     }
 
-    openDialog = (orientacao) =>{
-        this.setState({ showConfirmDialog: true, orientacaoDelete: orientacao })
+    const openDialog = (orientacao) =>{
+       setShowConfirmDialog(true);
+       setOrientacaoDelete(orientacao);
     }
 
-    cancelDialog = () =>{
-        this.setState({ showConfirmDialog : false, orientacaoDelete: {}  })
+    const cancelDialog = () =>{
+        setShowConfirmDialog(false, {orientacaoDelete: {}  })
     }
 
   
-render(){
     const confirmDialogFooter = (
         <div>
-            <Button label="Confirmar" icon="pi pi-check" onClick={this.erase} />
-            <Button label="Cancelar" icon="pi pi-times" onClick={this.cancelDialog} className="p-button-secondary" />
+            <Button label="Confirmar" icon="pi pi-check" onClick={erase} />
+            <Button label="Cancelar" icon="pi pi-times" onClick={cancelDialog} className="p-button-secondary" />
         </div>
     );
 
@@ -91,22 +86,57 @@ render(){
         <Navbar/>
         <div className="container">
         <Card title="Consulta Orientação">
-                <div className="row">
-                    <div className="col-md-6">
-                        <div className="bs-component">
-                            <Form htmlFor="descricaoTCC" label="Descrição: *">
+        <div className="row">
+                    <div className="col-md-4"> 
+                            <Form htmlFor="descricaoTCC" label="Descrição de TCC: ">
                                 <input type="text" 
                                        className="form-control" 
                                        id="descricaoTCC" 
-                                       value={this.state.descricaoTCC} 
-                                       onChange={e => this.setState({descricaoTCC: e.target.value})}
-                                       placeholder="Digite a descricaoTCC" />
+                                       value={descricaoTCC} 
+                                       onChange={e => setDescricaoTCC(e.target.value)}/>
                             </Form>
-
+                            </div>
+                            <div className="col-md-4"> 
+                                <Form htmlFor="tipoTCC" label="Tipo de TCC: ">
+                                    <input type="text" 
+                                        className="form-control" 
+                                        id="tipoTCC" 
+                                        value={tipoTCC} 
+                                        onChange={e => setTipoTCC(e.target.value)}/>
+                                </Form>                   
+                            </div>
+                            <div className="col-md-4">
+                                <Form htmlFor="dataOrientacao" label="Data da orientação: ">
+                                    <input id="dataOrientacao" 
+                                        value={dataOrientacao} 
+                                        onChange={e => setDataOrientacao(e.target.value)}                           
+                                        className="form-control"/>
+                                </Form>
+                            </div>
+                            </div>   
+                            <div className="row">
+                                <div className="col-md-4">
+                                    <Form htmlFor="nomeOrientador" label="Nome orientador: ">
+                                        <input id="descricaoTitulacao" 
+                                            value={nomeOrientador} 
+                                            onChange={e => setNomeOrientador(e.target.value)}                           
+                                            className="form-control"/>
+                                    </Form>
+                                </div>
+                                <div className="col-md-4">
+                                    <Form htmlFor="matriculaOrientador" label="Matrícula do orientador: ">
+                                        <input id="matriculaOrientador" 
+                                            value={matriculaOrientador} 
+                                            onChange={e => setMatriculaOrientador(e.target.value)}                           
+                                            className="form-control"/>
+                                    </Form>
+                                </div>
+                            </div> 
+                            
                             <button 
                                     type="button" 
                                     className="btn btn-success mt-2"
-                                    onClick={this.search}>
+                                    onClick={search}>
                                     <i className="pi pi-search"></i> Buscar
                             </button>
                             <Link to={'/cadastro-orientacao'}>
@@ -116,31 +146,26 @@ render(){
                                         <i className="pi pi-plus"></i> Cadastrar
                                 </button>
                             </Link>
-
-                        </div>
-                        
-                    </div>
-                </div>   
                 
               
             </Card>
         
-        <TableOrientacao orientacao={this.state.orientacao}
-                        deleteAction={this.openDialog}
-                        editAction={this.edit}
+        <TableOrientacao orientacoes={orientacao}
+                        deleteAction={openDialog}
+                        editAction={edit}
         />
         </div>
         <Dialog header="Confirmação" 
-                visible={this.state.showConfirmDialog} 
+                visible={showConfirmDialog} 
                 style={{width: '50vw'}}
                 footer={confirmDialogFooter} 
                 modal={true} 
-                onHide={() => this.setState({showConfirmDialog: false})}>
-                Confirma a exclusão dessa orientação?
-        </Dialog>        
+                onHide={() => setShowConfirmDialog(false)}>
+                Confirma a exclusão desta orientação?
+        </Dialog>         
         </>
     )
 }
-}
+
 
 export default SearchOrientacao;

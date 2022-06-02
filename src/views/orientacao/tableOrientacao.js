@@ -1,23 +1,26 @@
+import { formatLocalDate } from "../../utils/format"
+
 // eslint-disable-next-line import/no-anonymous-default-export
 export default props => {
 
-    const rows = props.orientacao.map( orientacao => {
+    const rows = props.orientacoes.map( orientacoes => {
         return(
-            <tr key={orientacao.id}>
-                <td>{orientacao.id}</td>
-                <td>{orientacao.nomeOrientador}</td>
-                <td>{orientacao.matriculaOrientador}</td>
-                <td>{orientacao.descricaoTCC}</td>
-                <td>{orientacao.tccDescricao}</td>
+            <tr key={orientacoes.id}>
+                <td>{orientacoes.id}</td>
+                <td>{formatLocalDate(orientacoes.dataOrientacao, "dd/MM/yyyy")}</td>
+                <td>{orientacoes.nomeOrientador}</td>
+                <td>{orientacoes.matriculaOrientador}</td>
+                <td>{orientacoes.descricaoTCC}</td>
+                <td>{orientacoes.tccDescricao}</td>
                 <td>
                     <button type="button"  title="edit"
                             className="btn btn-primary"
-                            onClick={e => props.editAction(orientacao.id)}>
+                            onClick={e => props.editAction(orientacoes.id)}>
                             <i className="pi pi-pencil"></i>
                     </button>
                     <button type="button"  title="Excluir"
                             className="btn btn-danger" 
-                            onClick={ e => props.deleteAction(orientacao)}>
+                            onClick={ e => props.deleteAction(orientacoes)}>
                             <i className="pi pi-trash"></i>
                     </button>
                 </td>
@@ -34,6 +37,7 @@ export default props => {
                     <thead>
                         <tr>
                             <th>Código</th>
+                            <th>Data de orientacao</th>
                             <th>Orientador</th>
                             <th>Matricula Orientador</th>
                             <th>Descrição de TCC</th>

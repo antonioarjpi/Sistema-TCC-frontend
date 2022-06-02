@@ -24,7 +24,6 @@ function Router (){
     return (
         <BrowserRouter>
             <Routes>
-                {/* <Route path="/" element={<Navigate to="/login" />} /> */}
                 <Route path="/" element={<Login />} />
                 <Route path="/login" element={<Login />} />
                 <Route path="/signup" element={<SignUp />} />
@@ -49,6 +48,9 @@ function Router (){
 
                 <Route path="/orientacao" element={<SearchOrientacao />} />
                 <Route path="/cadastro-orientacao" element={<SaveOrientacao />} />
+                <Route path="/atualizacao-orientacao/:id" element={<SaveOrientacao />} />
+                
+
                 <Route path="/devolutivas" element={<SearchDevolutiva />} />
                 <Route path="/cadastro-devolutiva" element={<SaveDevolutiva />} />
                 
