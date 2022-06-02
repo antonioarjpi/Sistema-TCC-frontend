@@ -20,7 +20,6 @@ function ScheduleDefesa(){
         service.findId(id)
         .then(response =>{
             setDefesa(response.data.id);
-            setData(formatLocalDate(response.data.defesaDataDefesa, "yyyy-MM-dd"))
         })
         .catch(erros => {
             messages.mensagemErro(erros.response.data)
@@ -59,7 +58,7 @@ function ScheduleDefesa(){
         <>
         <Navbar />
         <div className="container">
-            <Card title='Cadastro de Defesa'>
+            <Card title='Agendamento de Defesa'>
             <div className="row">
                 <div className="col-md-6">
                     <Form id="data" label="Data de defesa: *" >

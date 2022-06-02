@@ -20,6 +20,9 @@ function SearchOrientador(){
     const [descricaoTitulacao, setDescricaoTitulacao] = useState();
     const [grau, setGrau] = useState();
     const [ies, setIes] = useState();
+    const [linhaPesquisaDescricao, setLinhaPesquisaDescricao] = useState();
+    const [conhecimento, setConhecimento] = useState();
+
     const [showConfirmDialog, setShowConfirmDialog] = useState();
     const [orientadorDelete, setOrientadorDelete] = useState({});
     const [orientador, setOrientador] = useState([]);
@@ -35,7 +38,9 @@ function SearchOrientador(){
             matricula: matricula,
             descricaoTitulacao: descricaoTitulacao,
             grau: grau,
-            ies: ies            
+            ies: ies,
+            linhaPesquisa: linhaPesquisaDescricao,
+            conhecimento: conhecimento            
         }
 
         service.consult(filter)
@@ -92,65 +97,74 @@ function SearchOrientador(){
         <Card title="Consulta Orientadores">
                 
                 <div className="row">
-                    <div className="col-md-4"> 
+                    <div className="col-md-3"> 
                             <Form htmlFor="nome" label="Nome: ">
                                 <input type="text" 
                                        className="form-control" 
                                        id="nome" 
                                        value={nome} 
-                                       onChange={e => setNome(e.target.value)}
-                                       placeholder="Digite o nome" />
+                                       onChange={e => setNome(e.target.value)}/>
                             </Form>
                             </div>
-                            <div className="col-md-4"> 
+                            <div className="col-md-3"> 
                                 <Form htmlFor="email" label="E-mail: ">
                                     <input type="email" 
                                         className="form-control" 
                                         id="email" 
                                         value={email} 
-                                        onChange={e => setEmail(e.target.value)}
-                                        placeholder="Digite a descrição" />
+                                        onChange={e => setEmail(e.target.value)}/>
                                 </Form>                   
                             </div>
-                            <div className="col-md-4">
+                            <div className="col-md-2">
                                 <Form htmlFor="matricula" label="Matricula: ">
                                     <input id="matricula" 
                                         value={matricula} 
                                         onChange={e => setMatricula(e.target.value)}                           
-                                        className="form-control"
-                                        placeholder="Digite a matrícula" />
+                                        className="form-control" />
                                 </Form>
                             </div>
-                        </div>   
-                        <div className="row">
                             <div className="col-md-4">
                                 <Form htmlFor="descricaoTitulacao" label="Titulação: ">
                                     <input id="descricaoTitulacao" 
                                         value={descricaoTitulacao} 
                                         onChange={e => setDescricaoTitulacao(e.target.value)}                           
-                                        className="form-control"
-                                        placeholder="Digite a titulação" />
+                                        className="form-control"/>
                                 </Form>
                             </div>
-                            <div className="col-md-4">
-                                <Form htmlFor="ies" label="Instituição de Ensino: ">
-                                    <input id="ies" 
-                                        value={ies} 
-                                        onChange={e => setIes(e.target.value)}                           
-                                        className="form-control"
-                                        placeholder="Instituição de ensino" />
+                        </div>   
+                        <div className="row">
+                            <div className="col-md-3">
+                                <Form htmlFor="linhaPesquisa" label="Linha de pesquisa: ">
+                                    <input id="linhaPesquisa" 
+                                        value={linhaPesquisaDescricao} 
+                                        onChange={e => setLinhaPesquisaDescricao(e.target.value)}                           
+                                        className="form-control"/>
                                 </Form>
                             </div>
-                            <div className="col-md-4">
+                            <div className="col-md-3">
+                                <Form htmlFor="conhecimento" label="Area de conhecimento: ">
+                                    <input id="conhecimento" 
+                                        value={conhecimento} 
+                                        onChange={e => setConhecimento(e.target.value)}                           
+                                        className="form-control"/>
+                                </Form>
+                            </div>
+                            <div className="col-md-3">
                                 <Form htmlFor="grau" label="Grau: ">
                                     <input id="grau" 
                                         value={grau} 
                                         onChange={e => setGrau(e.target.value)}                           
-                                        className="form-control"
-                                        placeholder="Digite o grau" />
+                                        className="form-control"/>
                                 </Form>
                             </div>
-
+                            <div className="col-md-3">
+                                <Form htmlFor="ies" label="Instituição de Ensino: ">
+                                    <input id="ies" 
+                                        value={ies} 
+                                        onChange={e => setIes(e.target.value)}                           
+                                        className="form-control"/>
+                                </Form>
+                            </div>
                         </div> 
                             
                             <button 

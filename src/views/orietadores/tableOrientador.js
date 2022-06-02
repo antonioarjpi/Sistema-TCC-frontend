@@ -8,8 +8,10 @@ export default props => {
                 <td>{orientadores.nome}</td>
                 <td>{orientadores.email}</td>
                 <td>{orientadores.titulacaoGrau}</td>
-                <td>{orientadores.titulacaoIes}</td>
                 <td>{orientadores.titulacaoDescricao}</td>
+                <td>{orientadores.linhaPesquisaDescricao}</td>
+                <td>{orientadores.areaConhecimento}</td>
+                <td>{orientadores.titulacaoIes}</td>
                 <td>
                     <button type="button"  title="edit"
                             className="btn btn-primary"
@@ -37,9 +39,11 @@ export default props => {
                             <th>Matricula</th>
                             <th>Nome</th>
                             <th>E-mail</th>      
-                            <th>Grau</th>
-                            <th>IES</th>
+                            <th>Grau</th>        
                             <th>Titulação</th>
+                            <th>Linha</th>
+                            <th>Conhecimento</th>
+                            <th>IES</th>
                             <th scope="col">Ações</th>
                         </tr>
                     </thead>

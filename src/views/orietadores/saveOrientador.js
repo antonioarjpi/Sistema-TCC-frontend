@@ -154,7 +154,7 @@ function SaveOrientador(){
             </div>
 
             <div className="row">
-                <div className="col-md-6">
+                <div className="col-md-4">
                     <Form id="titulacaoDescricao" label="Descricao da titulação: *" >
                         <input id="titulacaoDescricao" type="text" 
                             className="form-control" 
@@ -174,13 +174,36 @@ function SaveOrientador(){
                                 />
                     </Form>
                 </div>
-                <div className="col-md-6">
+                <div className="col-md-4">
                     <Form id="titulacaoIes" label="Instituição de Ensino: *" >
                         <input id="titulacaoIes" type="text" 
                             className="form-control" 
                             name="titulacaoIes"
                             value={titulacaoIes}
                             onChange={e => setIes(e.target.value)}
+                                />
+                    </Form>
+                </div>
+            </div>
+
+            <div className="row">
+                <div className="col-md-4">
+                    <Form id="titulacaoDescricao" label="Área de conhecimento: *" >
+                        <input id="titulacaoDescricao" type="text" 
+                            className="form-control" 
+                            name="titulacaoDescricao"
+                            value={titulacaoDescricao}
+                            onChange={e => setDescricaoTitulacao(e.target.value)}
+                                />
+                    </Form>
+                </div>
+                <div className="col-md-4">
+                    <Form id="titulacaoGrau" label="Linha de Pesquisa: *" >
+                        <input id="titulacaoGrau" type="text" 
+                            className="form-control" 
+                            name="titulacaoGrau"
+                            value={titulacaoGrau}
+                            onChange={e => setGrau(e.target.value)}
                                 />
                     </Form>
                 </div>

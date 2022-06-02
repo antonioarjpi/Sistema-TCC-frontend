@@ -55,6 +55,10 @@ function SearchEquipe(){
         navigate(`/atualizacao-equipe/${id}`)
     }
 
+    const find = (id) =>{
+        navigate(`/equipe/${id}`)
+    }
+
     const erase = () => {
         service
         .del(equipeDelete.id)
@@ -131,7 +135,7 @@ function SearchEquipe(){
                                 </Form>
                             </div>
                             <div className="col-md-4">
-                                <Form htmlFor="descricaoConhecimento" label="Descrição de conhecimento: ">
+                                <Form htmlFor="descricaoConhecimento" label="Área de conhecimento: ">
                                     <input id="descricaoConhecimento" 
                                         value={descricaoConhecimento} 
                                         onChange={e => setDescricaoConhecimento(e.target.value)}                           
@@ -163,6 +167,7 @@ function SearchEquipe(){
             </Card>
         
         <TableEquipe equipes={equipe}
+                        visibleAction={find}
                         deleteAction={openDialog}
                         editAction={edit}
         />

@@ -4,7 +4,6 @@ import Card from "../../components/card/card";
 import Form from "../../components/form/form";
 import * as messages from '../../components/toastr/toastr'
 import Navbar from "../../components/navbar/navbar";
-import OrientacaoService from "../../services/resource/orientacaoService";
 import DevolutivaService from "../../services/resource/devolutivaService";
 
 
@@ -18,13 +17,10 @@ function SaveDevolutiva(){
     const [localDeCorrecao, setLocalDeCorrecao] = useState();
     const [correcaoSugerida, setCorrecaoSugerida] = useState();
 
-
     const navigate = useNavigate();
-
     const service = new DevolutivaService();
 
     const submit = () => {
-
         try{
             service.validate({
               
@@ -37,13 +33,13 @@ function SaveDevolutiva(){
         }
      
         service.save({
-            orientacao: orientacao,
+            orientacaoId: orientacao,
             dataMudanca: dataMudanca,
             statusOrientacao: statusOrientacao,
-            descricaoDaDevolutiva: descricaoDaDevolutiva,
-            versaoDoc: versaoDoc,
-            localDeCorrecao: localDeCorrecao,
-            correcaoSugerida: correcaoSugerida
+            devolutivaDescricao: descricaoDaDevolutiva,
+            devolutivaVersaoDoc: versaoDoc,
+            devolutivaLocalCorrecaoLocal: localDeCorrecao,
+            devolutivaLocalCorrecaoCorrecaoSugerida: correcaoSugerida
         }).then(response => {
             navigate('/devolutivas')
             messages.mensagemSucesso('Orientação cadastrado com sucesso!')

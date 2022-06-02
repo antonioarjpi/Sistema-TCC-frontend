@@ -42,9 +42,14 @@ export default class OrientacaoService extends ApiService {
             errors.push('Campo descrição do TCC é obrigatório.')
         }
 
+        if(!orientacao.equipe){
+            errors.push('Campo código da equipe obrigatório.')
+        }
+
         if(errors && errors.length > 0){
             throw new ValidationError(errors);
         }
+        
     }
 
 

@@ -1,9 +1,9 @@
-import React from "react";
+import React, { useState } from "react";
 import Card from "../../components/card/card";
 import Form from "../../components/form/form";
 
 import * as messages from '../../components/toastr/toastr'
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import Navbar from "../../components/navbar/navbar";
 
 import {Dialog} from 'primereact/dialog';
@@ -12,36 +12,33 @@ import TableDevolutiva from "./tableDevolutiva";
 import DevolutivaService from "../../services/resource/devolutivaService";
 
 
-class SearchDevolutiva extends React.Component{
+function SearchDevolutiva(){
 
-    state = {
-        statusOrientacao: '',
-        dataMudancao: '', 
-        descricaoDaDevolutiva: '',
-        versaoDoc: '',
-        localDeCorrecao: '',
-        correcaoSugerida: '',
-        showConfirmDialog: false,
-        acompanhamentoDelete: {},
-        devolutiva : []
-    }
+    const [orientacao, setOrientacao] = useState();
+    const [dataMudanca, setDtaMudanca] = useState();
+    const [statusOrientacao, setStatusOrientacao] = useState();
+    const [descricaoDaDevolutiva, setDescricaoDaDevolutiva] = useState();
+    const [versaoDoc, setVersaoDoc] = useState();
+    const [localDeCorrecao, setLocalDeCorrecao] = useState();
+    const [correcaoSugerida, setCorrecaoSugerida] = useState();
+    const [devolutivaDelete, setDevolutivaDelete] = useState({});
+    const [devolutiva, setDevolutiva] = useState([]);
 
-    constructor(){
-        super();
-        this.service = new DevolutivaService();
-    }
+    const [showConfirmDialog, setShowConfirmDialog] = useState();
 
-    search = () =>{
+    const navigate = useNavigate();
+    const service = new DevolutivaService();
 
+    const search = () =>{
         const filter = {
-            statusOrientacao: this.state.statusOrientacao,
-            descricaoDaDevolutiva: this.state.descricaoDaDevolutiva,
+            statusOrientacao: statusOrientacao,
+            descricaoDaDevolutiva: descricaoDaDevolutiva,
         }
 
-        this.service.consult(filter)
+        service.consult(filter)
         .then(response => {
             const list = response.data
-            this.setState({devolutiva: list})
+            setDevolutiva(list)
             if(list.length < 1){
                 messages.mensagemAlert("Nenhum resultado encontrado.");
             }
@@ -50,39 +47,39 @@ class SearchDevolutiva extends React.Component{
         })
     }
   
-    edit = (id) =>{
-        this.props.navigation.navigate(`/register/${id}`)
+    const edit = (id) =>{
+        navigate(`/atualiza-devolutiva/${id}`)
     }
 
-    erase = () => {
-        this.service
-        .del(this.state.acompanhamentoDelete.id)
+    const erase = () => {
+        service
+        .del(devolutivaDelete.id)
         .then(response =>{
-            const devolutiva = this.state.devolutiva;
-            const index = devolutiva.indexOf(this.state.acompanhamentoDelete)
-            devolutiva.splice(index, 1);
-            this.setState( { devolutiva: devolutiva } )
-            messages.mensagemSucesso('Devolutiva excluído excluído com sucesso')
+            const devolutivas = devolutiva;
+            const index = devolutivas.indexOf(devolutivaDelete);
+            devolutivas.splice(index, 1);
+            setDevolutiva( devolutiva );
+            messages.mensagemSucesso('Devolutiva excluído com sucesso');
+            setShowConfirmDialog(false);
         }).catch(error =>{
-            messages.mensagemErro(error.response.data.error)
+            messages.mensagemErro(error.response.data.error);
         })
-        this.setState({ showConfirmDialog: false})
     }
 
-    openDialog = (devolutiva) =>{
-        this.setState({ showConfirmDialog: true, acompanhamentoDelete: devolutiva })
+    const openDialog = (devolutiva) =>{
+        setShowConfirmDialog(true);
+        setDevolutivaDelete(devolutiva)
     }
 
-    cancelDialog = () =>{
-        this.setState({ showConfirmDialog : false, acompanhamentoDelete: {}  })
+    const cancelDialog = () =>{
+        setShowConfirmDialog(false, {devolutivaDelete: {}});
     }
 
   
-render(){
     const confirmDialogFooter = (
         <div>
-            <Button label="Confirmar" icon="pi pi-check" onClick={this.erase} />
-            <Button label="Cancelar" icon="pi pi-times" onClick={this.cancelDialog} className="p-button-secondary" />
+            <Button label="Confirmar" icon="pi pi-check" onClick={erase} />
+            <Button label="Cancelar" icon="pi pi-times" onClick={cancelDialog} className="p-button-secondary" />
         </div>
     );
 
@@ -98,15 +95,14 @@ render(){
                                 <input type="text" 
                                        className="form-control" 
                                        id="statusOrientacao" 
-                                       value={this.state.statusOrientacao} 
-                                       onChange={e => this.setState({statusOrientacao: e.target.value})}
-                                       placeholder="Digite a statusOrientacao" />
+                                       value={statusOrientacao} 
+                                       onChange={e => setStatusOrientacao(e.target.value)} />
                             </Form>
 
                             <button 
                                     type="button" 
                                     className="btn btn-success mt-2"
-                                    onClick={this.search}>
+                                    onClick={search}>
                                     <i className="pi pi-search"></i> Buscar
                             </button>
                             <Link to={'/cadastro-devolutiva'}>
@@ -125,22 +121,22 @@ render(){
               
             </Card>
         
-        <TableDevolutiva devolutiva={this.state.devolutiva}
-                        deleteAction={this.openDialog}
-                        editAction={this.edit}
+        <TableDevolutiva devolutivas={devolutiva}
+                        deleteAction={openDialog}
+                        editAction={edit}
         />
         </div>
         <Dialog header="Confirmação" 
-                visible={this.state.showConfirmDialog} 
+                visible={showConfirmDialog} 
                 style={{width: '50vw'}}
                 footer={confirmDialogFooter} 
                 modal={true} 
-                onHide={() => this.setState({showConfirmDialog: false})}>
-                Confirma a exclusão dessa orientação?
-        </Dialog>        
+                onHide={() => setShowConfirmDialog(false)}>
+                Confirma a exclusão desta devolutiva?
+        </Dialog>              
         </>
     )
 }
-}
+
 
 export default SearchDevolutiva;

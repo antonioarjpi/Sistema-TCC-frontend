@@ -1,24 +1,26 @@
+import { formatLocalDate } from "../../utils/format"
+
 // eslint-disable-next-line import/no-anonymous-default-export
 export default props => {
 
-    const rows = props.devolutiva.map( devolutiva => {
+    const rows = props.devolutivas.map( devolutivas => {
         return(
-            <tr key={devolutiva.id}>
-                <td>{devolutiva.statusOrientacao}</td>
-                <td>{devolutiva.descricaoDaDevolutiva}</td>
-                <td>{devolutiva.versaoDoc}</td>
-                <td>{devolutiva.localDeCorrecao}</td>
-                <td>{devolutiva.correcaoSugerida}</td>
-                <td>{devolutiva.dataMudancao}</td>
+            <tr key={devolutivas.id}>
+                <td>{devolutivas.statusOrientacao}</td>
+                <td>{devolutivas.devolutivaDescricao}</td>
+                <td>{devolutivas.devolutivaVersaoDoc}</td>
+                <td>{devolutivas.devolutivaLocalCorrecaoLocal}</td>
+                <td>{devolutivas.devolutivaLocalCorrecaoCorrecaoSugerida}</td>
+                <td>{formatLocalDate(devolutivas.dataMudanca, "dd/MM/yyyy")}</td>
                 <td>
                     <button type="button"  title="edit"
                             className="btn btn-primary"
-                            onClick={e => props.editAction(devolutiva.id)}>
+                            onClick={e => props.editAction(devolutivas.id)}>
                             <i className="pi pi-pencil"></i>
                     </button>
                     <button type="button"  title="Excluir"
                             className="btn btn-danger" 
-                            onClick={ e => props.deleteAction(devolutiva)}>
+                            onClick={ e => props.deleteAction(devolutivas)}>
                             <i className="pi pi-trash"></i>
                     </button>
                 </td>

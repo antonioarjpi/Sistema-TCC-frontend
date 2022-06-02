@@ -58,7 +58,7 @@ function SearchAluno(){
             messages.mensagemSucesso('Aluno excluído com sucesso')
             setShowConfirmDialog(false)
         }).catch(error =>{
-            messages.mensagemErro(error.response.data.message)
+            console.log(error)
         })
     }
 
@@ -90,8 +90,7 @@ function SearchAluno(){
                                     className="form-control" 
                                     id="nome" 
                                     value={nome} 
-                                    onChange={e => setNome(e.target.value)}
-                                    placeholder="Digite o nome" />
+                                    onChange={e => setNome(e.target.value)} />
                         </Form>          
                     </div>
                     <div className="col-md-4">
@@ -100,8 +99,7 @@ function SearchAluno(){
                                     className="form-control" 
                                     id="email" 
                                     value={email} 
-                                    onChange={e => setEmail(e.target.value)}
-                                    placeholder="Digite o e-mail" />
+                                    onChange={e => setEmail(e.target.value)}/>
                         </Form>
                     </div>
                     <div className="col-md-4">
@@ -109,8 +107,7 @@ function SearchAluno(){
                             <input id="matricula" 
                                 value={matricula} 
                                 onChange={e => setMatricula(e.target.value)}                           
-                                className="form-control"
-                                placeholder="Digite a matrícula" />
+                                className="form-control"/>
                         </Form>
                     </div>
                     <div className="col-md-4">

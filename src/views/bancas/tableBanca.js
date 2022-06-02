@@ -24,7 +24,7 @@ export default props => {
                 )} 
                 
                 <td>
-                    <button type="button"  title="Editar"
+                    <button type="button"  title="Agendamento de defesa"
                             className="btn btn-secondary"
                             onClick={e => props.schedule(bancas.id)}>
                             <i className="pi pi-calendar-plus"></i>

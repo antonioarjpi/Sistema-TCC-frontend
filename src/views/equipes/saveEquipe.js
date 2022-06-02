@@ -212,18 +212,8 @@ function SaveEquipe(){
             </div>
 
                 <div className="row">
-                    <div className="col-md-12">
-                        <Form id="descricaoLinha" label="Descrição da linha: *" >
-                            <input id="descricaoLinha" type="text" 
-                                className="form-control" 
-                                name="descricaoLinha"
-                                value={descricaoLinha}
-                                onChange={e => setDescricaoLinha(e.target.value)}
-                                    />
-                        </Form>
-                    </div>
                 <div className="col-md-12">
-                    <Form id="delimitacao" label="Delimitação: *" >
+                    <Form id="delimitacao" label="Tema: *" >
                         <input id="delimitacao" type="text" 
                             className="form-control" 
                             name="delimitacao"
@@ -232,11 +222,21 @@ function SaveEquipe(){
                                 />
                     </Form>
                 </div>
+                    <div className="col-md-12">
+                        <Form id="descricaoLinha" label="Linha de pesquisa: *" >
+                            <textarea id="descricaoLinha" type="text" 
+                                className="form-control" 
+                                name="descricaoLinha"
+                                value={descricaoLinha}
+                                onChange={e => setDescricaoLinha(e.target.value)}
+                                    />
+                        </Form>
+                    </div>
             </div>
 
             <div className="row">
                 <div className="col-md-12">
-                    <Form id="descricaoConhecimento" label="Descrição de conhecimento: *" >
+                    <Form id="descricaoConhecimento" label="Área de conhecimento: *" >
                         <input id="descricaoConhecimento" type="text" 
                             className="form-control" 
                             name="descricaoConhecimento"

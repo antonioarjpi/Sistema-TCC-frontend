@@ -12,6 +12,7 @@ export default props => {
                 <td>{orientacoes.matriculaOrientador}</td>
                 <td>{orientacoes.descricaoTCC}</td>
                 <td>{orientacoes.tccDescricao}</td>
+                <td>{orientacoes.equipe}</td>
                 <td>
                     <button type="button"  title="edit"
                             className="btn btn-primary"
@@ -42,6 +43,7 @@ export default props => {
                             <th>Matricula Orientador</th>
                             <th>Descrição de TCC</th>
                             <th>Tipo de TCC</th>
+                            <th>Cód Equipe</th>
                             <th scope="col">Ações</th>
                         </tr>
                     </thead>

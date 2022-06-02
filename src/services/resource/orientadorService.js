@@ -70,6 +70,14 @@ export default class OrientadorService extends ApiService {
         if(filter.ies){
             params = `${params}&ies=${filter.ies}`
         }
+
+        if(filter.linhaPesquisa){
+            params = `${params}&linhaPesquisa=${filter.linhaPesquisa}`
+        }
+
+        if(filter.conhecimento){
+            params = `${params}&conhecimento=${filter.conhecimento}`
+        }
         return this.get(params);
     }
 

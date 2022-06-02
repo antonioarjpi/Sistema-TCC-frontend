@@ -136,7 +136,7 @@ function SaveBanca(){
             </div>
 
             <div className="row">
-                <div className="col-md-2">
+                <div className="col-md-3">
                     <Form id="dataBanca" label="Data da Banca: *" >
                         <input id="dataBanca" type="date" 
                             className="form-control" 
@@ -146,12 +146,9 @@ function SaveBanca(){
                                 />
                     </Form>
                 </div>
-            </div>
-
-            <div className="row">
-                <div className="col-md-2">
-                    <Form id="ordemApresentacao" label="Ordem de apresentação: *" >
-                        <input id="ordemApresentacao" type="text" 
+                <div className="col-md-4">
+                    <Form id="ordemApresentacao" label="Ordem de apresentação:" >
+                        <input id="ordemApresentacao" type="number" 
                             className="form-control" 
                             name="ordemApresentacao"
                             value={ordemApresentacao}
@@ -159,10 +156,14 @@ function SaveBanca(){
                                 />
                     </Form>
                 </div>
+            </div>
+
+            <div className="row">
+
    
                 <div className="col-md-4">
                     <Form id="matriculaOrientador" label="Matricula orientador: *" >
-                        <input id="matriculaOrientador" type="text" 
+                        <input id="matriculaOrientador" type="text" maxLength={8} max={5}
                             className="form-control" 
                             name="matriculaOrientador"
                             value={matriculaOrientador}
@@ -170,7 +171,7 @@ function SaveBanca(){
                                 />
                     </Form>
                 </div>
-                <div className="col-md-2">
+                <div className="col-md-4">
                     <Form id="equipe" label="Código da equipe: *" >
                         <input id="equipe" type="text" 
                             className="form-control" 
@@ -181,7 +182,7 @@ function SaveBanca(){
                     </Form>
                 </div>
                 <div className="col-md-4">
-                    <Form id="membroMatricula" label="Membro da equipe: *" >
+                    <Form id="membroMatricula" label="Convidado banca: *" >
                         <input id="membroMatricula" type="text" 
                             className="form-control" 
                             name="membroMatricula"

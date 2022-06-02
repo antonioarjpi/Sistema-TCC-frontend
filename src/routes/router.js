@@ -9,6 +9,7 @@ import SaveDevolutiva from "../views/devolutiva/saveDevolutiva";
 import SearchDevolutiva from "../views/devolutiva/searchDevolutiva";
 import SaveEquipe from "../views/equipes/saveEquipe";
 import SearchEquipe from "../views/equipes/searchEquipe";
+import SearchEquipeFull from "../views/equipes/searchFullEquipe";
 
 import Home from "../views/home";
 import Login from "../views/login";
@@ -40,6 +41,7 @@ function Router (){
                 <Route path="/equipes" element={<SearchEquipe />} />
                 <Route path="/cadastro-equipe" element={<SaveEquipe />} />
                 <Route path="/atualizacao-equipe/:id" element={<SaveEquipe />} />
+                <Route path="/equipe/:id" element={<SearchEquipeFull />} />
 
                 <Route path="/bancas" element={<SearchBanca />} />
                 <Route path="/cadastro-banca" element={<SaveBanca />} />

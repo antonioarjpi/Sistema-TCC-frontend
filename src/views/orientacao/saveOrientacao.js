@@ -15,6 +15,7 @@ function SaveOrientacao(){
     const [dataOrientacao, setDataOrientacao] = useState();
     const [tipoTCC, setTipoTCC] = useState();
     const [matriculaOrientador, setMatriculaOrientador] = useState();
+    const [equipe, setEquipe] = useState();
     const [atualizando, setAtualizando] = useState(true);
 
 
@@ -31,6 +32,7 @@ function SaveOrientacao(){
                 setDataOrientacao(formatLocalDate(response.data.dataOrientacao,"yyyy-MM-dd"));
                 setTipoTCC(response.data.tccDescricao);
                 setMatriculaOrientador(response.data.matriculaOrientador);
+                setEquipe(response.data.equipe)
                 setAtualizando(false);
             })
             .catch(erros => {
@@ -45,6 +47,7 @@ function SaveOrientacao(){
                 dataOrientacao: dataOrientacao,
                 tipoTCC: tipoTCC,
                 matriculaOrientador: matriculaOrientador,
+                equipe: equipe
                 
             })
         }catch(error){
@@ -54,6 +57,7 @@ function SaveOrientacao(){
         }
      
         service.save({
+            equipe: equipe,
             descricaoTCC: descricaoTCC,
             dataOrientacao: dataOrientacao,
             tipoTCC: tipoTCC,
@@ -73,7 +77,7 @@ function SaveOrientacao(){
                 dataOrientacao: dataOrientacao,
                 tipoTCC: tipoTCC,
                 matriculaOrientador: matriculaOrientador,
-                
+                equipe: equipe
             })
         }catch(error){
             const msgs = error.message;
@@ -89,7 +93,7 @@ function SaveOrientacao(){
             matriculaOrientador: matriculaOrientador,
         }).then(response => {
             navigate('/orientacao')
-            messages.mensagemSucesso('Orientação cadastrado com sucesso!')
+            messages.mensagemSucesso('Orientação atualizado com sucesso!')
         }).catch(error => {
             messages.mensagemErro(error.response.data.message)
         })
@@ -114,7 +118,7 @@ function SaveOrientacao(){
             </div>
 
             <div className="row">
-                <div className="col-md-2">
+                <div className="col-md-4">
                     <Form id="dataOrientacao" label="Data da Orientacao: *" >
                         <input id="dataOrientacao" type="date" 
                             className="form-control" 
@@ -124,10 +128,7 @@ function SaveOrientacao(){
                                 />
                     </Form>
                 </div>
-            </div>
-
-            <div className="row">
-                <div className="col-md-2">
+                <div className="col-md-4">
                     <Form id="tipoTCC" label="Tipo do tcc: *" >
                         <input id="tipoTCC" type="text" 
                             className="form-control" 
@@ -137,6 +138,22 @@ function SaveOrientacao(){
                                 />
                     </Form>
                 </div>
+            </div>
+
+            <div className="row">
+
+
+                <div className="col-md-4">
+                    <Form id="equipe" label="Código da equipe: *" >
+                        <input id="equipe" type="text" 
+                            className="form-control" 
+                            name="equipe"
+                            value={equipe}
+                            disabled={ atualizando ? false : true }
+                            onChange={e => setEquipe(e.target.value)}
+                                />
+                    </Form>
+                </div> 
    
                 <div className="col-md-4">
                     <Form id="matriculaOrientador" label="Matricula orientador: *" >
