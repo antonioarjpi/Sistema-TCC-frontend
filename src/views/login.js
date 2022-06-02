@@ -1,7 +1,10 @@
 
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import Button from "../components/button/button";
+import { Button } from "primereact/button";
+import { InputText } from 'primereact/inputtext';
+import { Password } from 'primereact/password';
+
 import Card from "../components/card/card";
 import Form from "../components/form/form";
 import UserService from "../services/resource/user";
@@ -12,12 +15,15 @@ function Login(){
 
     const [email, setEmail] = useState();
     const [senha, setSenha] = useState();
+    const [loading1, setLoading1] = useState(false);
+    const [loading2, setLoading2] = useState(false);
 
     const navigate = useNavigate();
-    
     const service = new UserService();
 
     const login = () =>{
+        setLoading1(true);
+        setTimeout(() => {
         service.authenticate({
             email: email,
             senha: senha
@@ -25,8 +31,14 @@ function Login(){
             LocalStorageService.addItem('_usuario_logado', response.data )
             navigate('/home')
         }).catch( error => {
-            messages.mensagemErro(error.response.data.message)
+            setTimeout(() => {
+                setLoading1(false);
+                messages.mensagemErro("Usuário ou senha inválida!")
+            }, 1000)
+            
+    
         })
+    }, 700)
     }
         
     const signup = () => {
@@ -39,16 +51,20 @@ function Login(){
                 <div className="row">
                     <div className="col-lg-12">
                         <Form>
-                            <input type="text" className="form-control" id="email" placeholder="E-mail"
-                            value={email} onChange={e => setEmail(e.target.value)}
-                            />
+                            <span className="p-float-label">
+                                <InputText type="text" className="block" id="email"
+                                value={email} onChange={e => setEmail(e.target.value)}/>
+                                <label htmlFor="email">E-mail</label>
+                            </span>
                         </Form>
                         <Form>
-                            <input type="password" className="form-control" id="senha" placeholder="Senha"
-                            value={senha} onChange={e => setSenha(e.target.value)}
-                            />
-                        </Form>                 
-                        <Button onClick={login} className="btn btn-success align-middle mb-3 mt-3" style={{display: 'flex', aling: 'center'}}>Entrar</Button>
+                            <span className="p-float-label">
+                                <Password className='block mb-2' id="senha"
+                                value={senha} onChange={e => setSenha(e.target.value)} feedback={false} toggleMask/>
+                                <label htmlFor="senha">Senha</label>
+                            </span>
+                        </Form>
+                        <Button className="mb-2" label="Entrar" loading={loading1} onClick={login} style={{display: 'flex', aling: 'center'}}/>            
                         <a onClick={signup} href='/signup' type="buttom">Não tem acesso? Cadastra-se</a>
                     </div>
                 </div>

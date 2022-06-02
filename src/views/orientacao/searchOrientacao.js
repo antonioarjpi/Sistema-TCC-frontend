@@ -35,12 +35,16 @@ class SearchOrientacao extends React.Component{
         const filter = {
             descricaoTCC: this.state.descricaoTCC,
             tipoTCC: this.state.tipoTCC,
+           
         }
 
         this.service.consult(filter)
         .then(response => {
             const list = response.data
             this.setState({orientacao: list})
+            if(list.length < 1){
+                messages.mensagemAlert("Nenhum resultado encontrado.");
+            }
         }).catch(error =>{
             console.log(error)
         })

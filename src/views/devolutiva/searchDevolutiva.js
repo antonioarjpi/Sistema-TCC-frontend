@@ -42,6 +42,9 @@ class SearchDevolutiva extends React.Component{
         .then(response => {
             const list = response.data
             this.setState({devolutiva: list})
+            if(list.length < 1){
+                messages.mensagemAlert("Nenhum resultado encontrado.");
+            }
         }).catch(error =>{
             console.log(error)
         })

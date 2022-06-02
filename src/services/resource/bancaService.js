@@ -23,6 +23,10 @@ export default class BancaService extends ApiService {
         return this.get(`/${id}`)
     }
 
+    scheduling(banca){
+        return this.post(`/${banca.id}`, banca);
+    }
+
     validate(banca){
         const errors = []
 
@@ -47,12 +51,39 @@ export default class BancaService extends ApiService {
         }
     }
 
+    validateScheduling(banca){
+        const errors = []
+
+        if(!banca.data){
+            errors.push('É obrigatório a data.')
+        }
+    
+        if(errors && errors.length > 0){
+            throw new ValidationError(errors);
+        }
+    }
 
     consult(filter){
-        let params = `?name=${filter.name}`
+        let params = `?descricao=${filter.descricao}`
 
-        if(filter.type){
-            params = `${params}&type=${filter.type}`
+        if(filter.dataBanca){
+            params = `${params}&dataBanca=${filter.dataBanca}`
+        }
+
+        if(filter.orientadorNome){
+            params = `${params}&orientadorNome=${filter.orientadorNome}`
+        }
+
+        if(filter.equipeId){
+            params = `${params}&equipeId=${filter.equipeId}`
+        }
+
+        if(filter.id){
+            params = `${params}&id=${filter.id}`
+        }
+
+        if(filter.membroMatricula){
+            params = `${params}&membroMatricula=${filter.membroMatricula}`
         }
 
         return this.get(params);

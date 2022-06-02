@@ -14,9 +14,9 @@ function SaveOrientador(){
     const [matricula, setMatricula] = useState();
     const [email, setEmail] = useState();
     const [senha, setSenha] = useState();
-    const [descricaoTitulacao, setDescricaoTitulacao] = useState();
-    const [grau, setGrau] = useState();
-    const [ies, setIes] = useState();
+    const [titulacaoDescricao, setDescricaoTitulacao] = useState();
+    const [titulacaoGrau, setGrau] = useState();
+    const [titulacaoIes, setIes] = useState();
     const [senhaRepetida, setSenhaRepetida] = useState();
     const [atualizando, setAtualizando] = useState(true);
     
@@ -66,13 +66,17 @@ function SaveOrientador(){
             email: email,
             senha: senha,
             matricula: matricula,
-            ies: ies,
-            descricaoTitulacao: descricaoTitulacao,
-            grau: grau
+            titulacaoIes: titulacaoIes,
+            titulacaoDescricao: titulacaoDescricao,
+            titulacaoGrau: titulacaoGrau
         }).then(response => {
             navigate('/orientadores')
             messages.mensagemSucesso('Orientador cadastrado com sucesso!')
         }).catch(error => {
+            if (error.message === 'Network Error'){
+                messages.mensagemAlert("Não foi possível conectar com servidor remoto")
+                throw new ('');
+            }   
             messages.mensagemErro(error.response.data.message)
         })
     }
@@ -97,9 +101,9 @@ function SaveOrientador(){
             email: email,
             senha: senha,
             matricula: matricula,
-            ies: ies,
-            descricaoTitulacao: descricaoTitulacao,
-            grau: grau
+            titulacaoIes: titulacaoIes,
+            titulacaoDescricao: titulacaoDescricao,
+            titulacaoGrau: titulacaoGrau
         }).then(response => {
             navigate('/orientadores')
             messages.mensagemSucesso('Orientador atualizado com sucesso!')
@@ -151,31 +155,31 @@ function SaveOrientador(){
 
             <div className="row">
                 <div className="col-md-6">
-                    <Form id="descricaoTitulacao" label="Descricao da titulação: *" >
-                        <input id="descricaoTitulacao" type="text" 
+                    <Form id="titulacaoDescricao" label="Descricao da titulação: *" >
+                        <input id="titulacaoDescricao" type="text" 
                             className="form-control" 
-                            name="descricaoTitulacao"
-                            value={descricaoTitulacao}
+                            name="titulacaoDescricao"
+                            value={titulacaoDescricao}
                             onChange={e => setDescricaoTitulacao(e.target.value)}
                                 />
                     </Form>
                 </div>
                 <div className="col-md-4">
-                    <Form id="grau" label="Grau: *" >
-                        <input id="grau" type="text" 
+                    <Form id="titulacaoGrau" label="Grau: *" >
+                        <input id="titulacaoGrau" type="text" 
                             className="form-control" 
-                            name="grau"
-                            value={grau}
+                            name="titulacaoGrau"
+                            value={titulacaoGrau}
                             onChange={e => setGrau(e.target.value)}
                                 />
                     </Form>
                 </div>
                 <div className="col-md-6">
-                    <Form id="ies" label="Instituição de Ensino: *" >
-                        <input id="ies" type="text" 
+                    <Form id="titulacaoIes" label="Instituição de Ensino: *" >
+                        <input id="titulacaoIes" type="text" 
                             className="form-control" 
-                            name="ies"
-                            value={ies}
+                            name="titulacaoIes"
+                            value={titulacaoIes}
                             onChange={e => setIes(e.target.value)}
                                 />
                     </Form>

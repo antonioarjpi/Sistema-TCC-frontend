@@ -17,12 +17,6 @@ class ApiService {
     post(url, obj){
         const requestUrl = `${this.apiurl}${url}`
         return api.post(requestUrl, obj)
-        .catch(error => {
-            if (error.message === 'Network Error'){
-                messages.mensagemAlert("Não foi possível conectar com servidor remoto")
-                throw new ('');
-            }
-        })
     }
 
     put(url, obj){

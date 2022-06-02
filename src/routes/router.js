@@ -3,9 +3,8 @@ import { BrowserRouter, Route, Routes  } from 'react-router-dom';
 import SaveAluno from "../views/alunos/saveAluno";
 import SearchAluno from "../views/alunos/searchAluno";
 import SaveBanca from "../views/bancas/saveBanca";
+import ScheduleDefesa from "../views/bancas/scheduleBanca";
 import SearchBanca from "../views/bancas/searchBanca";
-import SaveDefesa from "../views/defesas/saveDefesa";
-import SearchDefesa from "../views/defesas/searchDefesa";
 import SaveDevolutiva from "../views/devolutiva/saveDevolutiva";
 import SearchDevolutiva from "../views/devolutiva/searchDevolutiva";
 import SaveEquipe from "../views/equipes/saveEquipe";
@@ -33,20 +32,21 @@ function Router (){
 
                 <Route path="/cadastro-aluno" element={<SaveAluno />} />
                 <Route path="/alunos" element={<SearchAluno />} />
-                <Route path="/alunos/:id" element={<SaveAluno />} />
+                <Route path="/atualizacao-aluno/:id" element={<SaveAluno />} />
 
                 <Route path="/cadastro-orientador" element={<SaveOrientador />} />
                 <Route path="/orientadores" element={<SearchOrientador />} />
-                <Route path="/orientadores/:id" element={<SaveOrientador />} />
+                <Route path="/atualizacao-orientador/:id" element={<SaveOrientador />} />
 
                 <Route path="/equipes" element={<SearchEquipe />} />
                 <Route path="/cadastro-equipe" element={<SaveEquipe />} />
-                <Route path="/cadastro-equipe/:id" element={<SaveEquipe />} />
+                <Route path="/atualizacao-equipe/:id" element={<SaveEquipe />} />
 
                 <Route path="/bancas" element={<SearchBanca />} />
                 <Route path="/cadastro-banca" element={<SaveBanca />} />
-                <Route path="/defesas" element={<SearchDefesa />} />
-                <Route path="/cadastro-defesa" element={<SaveDefesa />} />
+                <Route path="/atualizacao-banca/:id" element={<SaveBanca />} />
+                <Route path="/agendamento-defesa/:id" element={<ScheduleDefesa />} />
+
                 <Route path="/orientacao" element={<SearchOrientacao />} />
                 <Route path="/cadastro-orientacao" element={<SaveOrientacao />} />
                 <Route path="/devolutivas" element={<SearchDevolutiva />} />

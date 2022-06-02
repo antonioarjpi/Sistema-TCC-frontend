@@ -35,13 +35,16 @@ function SearchAluno(){
         .then(response => {
             const list = response.data
             setAluno(list)
+            if(list.length < 1){
+                messages.mensagemAlert("Nenhum resultado encontrado.");
+            }
         }).catch(error =>{
             messages.mensagemErro("Não foi possível carregar")
         })
     }
   
     const edit = (id) =>{
-        navigate(`/alunos/${id}`)
+        navigate(`/atualizacao-aluno/${id}`)
     }
 
     const erase = () => {

@@ -7,9 +7,9 @@ export default props => {
                 <td>{orientadores.matricula}</td>
                 <td>{orientadores.nome}</td>
                 <td>{orientadores.email}</td>
-                <td>{orientadores.grau}</td>
-                <td>{orientadores.ies}</td>
-                <td>{orientadores.descricaoTitulacao}</td>
+                <td>{orientadores.titulacaoGrau}</td>
+                <td>{orientadores.titulacaoIes}</td>
+                <td>{orientadores.titulacaoDescricao}</td>
                 <td>
                     <button type="button"  title="edit"
                             className="btn btn-primary"

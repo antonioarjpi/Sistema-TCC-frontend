@@ -34,6 +34,18 @@ export default class EquipeService extends ApiService {
             errors.push('Nenhuma matrícula foi adicionada.')
         }
 
+        if(!equipe.delimitacao){
+            errors.push('O campo tema é obrigatório.')
+        }
+
+        if(!equipe.dataCadastro){
+            errors.push('Nenhuma data foi adicionada.')
+        }
+
+        if(!equipe.descricaoConhecimento){
+            errors.push('Nenhuma conhecimento foi adicionada.')
+        }
+
         if(errors && errors.length > 0){
             throw new ValidationError(errors);
         }
@@ -41,12 +53,34 @@ export default class EquipeService extends ApiService {
 
 
     consult(filter){
-        let params = `?name=${filter.name}`
+        let params = `?nome=${filter.nome}`
+        
 
-        if(filter.type){
-            params = `${params}&type=${filter.type}`
+        if(filter.matricula){
+            params = `${params}&matricula=${filter.matricula}`
         }
 
+        if(filter.tema){
+            params = `${params}&tema=${filter.tema}`
+        }
+
+        if(filter.dataCadastro){
+            params = `${params}&dataCadastro=${filter.dataCadastro}`
+        }
+
+        if(filter.delimitacao){
+            params = `${params}&delimitacao=${filter.delimitacao}`
+        }
+
+        if(filter.descricaoLinha){
+            params = `${params}&descricaoLinha=${filter.descricaoLinha}`
+        }
+
+        if(filter.descricaoConhecimento){
+            params = `${params}&descricaoConhecimento=${filter.descricaoConhecimento}`
+        }
+
+        
         return this.get(params);
     }
 

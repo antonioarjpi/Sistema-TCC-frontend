@@ -4,7 +4,9 @@ import { useNavigate } from 'react-router-dom';
 import UserService from '../services/resource/user';
 import Card from '../components/card/card';
 import Form from '../components/form/form';
-import Button from '../components/button/button';
+import { Button } from "primereact/button";
+import { InputText } from 'primereact/inputtext';
+import { Password } from 'primereact/password';
 
 
 function SignUp(){
@@ -54,27 +56,28 @@ function SignUp(){
         <>
         <div style={{display: 'flex', justifyContent: 'center'}}>
             <Card title="Cadastro de Usuário">
-                <div classnome="row">
-                    <div classnome="col-md-12">
+                <div className="row">
+                    <div className="col-md-12">
                         
                             <Form label="Nome: *" htmlFor="nome">
-                                <input type="text" onChange={e => setNome(e.target.value)} />
+                                <InputText className='block' id="nome" onChange={e => setNome(e.target.value)} />
                             </Form>
 
                             <Form label="Email: *" htmlFor="123">
-                                <input type="email" onChange={e => setEmail(e.target.value)} />
+                                <InputText className='block' type="email" onChange={e => setEmail(e.target.value)} />
                             </Form>
 
                             <Form label="Senha: *" htmlFor="senha">
-                                <input type="password" onChange={e => setSenha(e.target.value)} />
+                                <Password className='block' value={senha} onChange={(e) => setSenha(e.target.value)} toggleMask />
                             </Form>
 
                             <Form label="Repita a Senha: *" htmlFor="senhaRepetida">
-                                <input classnome='mb-4' type="password" onChange={e => setSenhaRepetida(e.target.value)} />
+                                <Password className='block mb-3' feedback={false} value={senhaRepetida} onChange={(e) => setSenhaRepetida(e.target.value)} toggleMask />
                             </Form>
+            
 
-                            <Button onClick={cancel} type="button" classnome="btn btn-danger">Cancelar</Button>
-                            <Button onClick={signup} type="button" classnome="btn btn-success mr-5">Salvar</Button>
+                            <Button onClick={cancel} type="button" className="p-button-danger" style={{marginRight: '6px'}}>Cancelar</Button>
+                            <Button onClick={signup} type="button" className="p-button-success">Salvar</Button>
                                     
                     </div>
                 </div>

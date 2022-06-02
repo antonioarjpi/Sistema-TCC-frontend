@@ -1,0 +1,69 @@
+footer{
+    padding-top: 3.1rem;
+    padding-bottom: 3.1rem;
+    background-color: #28208C;
+    color: #ffff;
+    font-size: 12px;
+    width: 100%;
+    height: 100%;
+    border-radius: 10px 10px 0 0;
+    display: flex;
+    justify-content: space-evenly;
+    
+}
+
+.footer{
+    position:fixed;
+    bottom: 0;
+    min-height: 15%;
+    display: flex;
+    justify-content: center;
+    text-align: right;
+}
+
+.fas{
+    font-size: 30px;
+    color: #d0d0d0;
+    height: 60px;
+    width: 60px; 
+    text-decoration: none;
+    transition:color 0.4s;
+}
+
+.fa-linkedin:hover{
+   color: #0A66C2;
+}
+
+.fa-linkedin:focus{
+    color: #0A66C2; 
+}
+
+.fa-envelope-square:hover{
+    color: #0A66C2;
+}
+.fa-envelope-square:focus{
+    color: #0A66C2;
+}
+.fa-whatsapp:hover{
+    color: #0A66C2;
+
+}
+.fa-whatsapp:focus{
+    color:#00aced;
+}
+
+
+.font-footer{
+    font-size: 0.7rem;
+    color: #d0d0d0;
+}
+
+.font-footer-f{
+    line-height: 20px;
+    font-size: 0.7rem;
+    color: #d0d0d0;
+  }
+
+.title-footer{
+    font-size: 17px;
+  }

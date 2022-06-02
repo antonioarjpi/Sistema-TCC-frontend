@@ -1,27 +1,43 @@
+
+import { Button } from "primereact/button"
+import { formatLocalDate } from "../../utils/format"
 // eslint-disable-next-line import/no-anonymous-default-export
 export default props => {
 
-    const rows = props.banca.map( banca => {
+    const rows = props.bancas.map( bancas => {
         return(
-            <tr key={banca.id}>
-                <td>{banca.id}</td>
-                <td>{banca.descricao}</td>
-                <td>{banca.dataBanca}</td>
-                <td>{banca.ordemDeApresentacao}</td>
-                <td>{banca.nomeOrientador}</td>
-                <td>{banca.integrantes}</td>
-                <td>{banca.nomeEquipe}</td>
-                <td>{banca.membroMatricula}</td>
-                <td>{banca.dataEquipe}</td>
+            <tr key={bancas.id}>
+                <td>{bancas.id}</td>
+                <td>{bancas.descricao}</td>
+                <td>{formatLocalDate(bancas.dataBanca, "dd/MM/yyyy")}</td>
+                <td>{bancas.ordemApresentacao}</td>
+                <td>{bancas.orientadorNome}</td>
+                <td>{bancas.equipeAlunos[0].nome}</td>
+                <td>{bancas.equipeId}</td>
+                <td>{formatLocalDate(bancas.equipeDataCadastro, "dd/MM/yyyy")}</td>
+                <td>{bancas.membroMatricula}</td>
+                {bancas.defesaDataDefesa !== null && (
+                    <td>{formatLocalDate(bancas.defesaDataDefesa, "dd/MM/yyyy")}</td>
+                )} 
+                 {bancas.defesaDataDefesa === null && (
+                    <td><Button label="Agendar Defesa" className="p-button-outlined p-button-sm"  onClick={e => props.schedule(bancas.id)} /></td>
+                )} 
+                
                 <td>
-                    <button type="button"  title="edit"
+                    <button type="button"  title="Editar"
+                            className="btn btn-secondary"
+                            onClick={e => props.schedule(bancas.id)}>
+                            <i className="pi pi-calendar-plus"></i>
+                    </button>
+                    
+                    <button type="button"  title="Editar"
                             className="btn btn-primary"
-                            onClick={e => props.editAction(banca.id)}>
+                            onClick={e => props.editAction(bancas.id)}>
                             <i className="pi pi-pencil"></i>
                     </button>
                     <button type="button"  title="Excluir"
                             className="btn btn-danger" 
-                            onClick={ e => props.deleteAction(banca)}>
+                            onClick={ e => props.deleteAction(bancas)}>
                             <i className="pi pi-trash"></i>
                     </button>
                 </td>
@@ -38,14 +54,15 @@ export default props => {
                     <thead>
                         <tr>
                             <th>Código</th>
-                            <th>Descrição</th>
+                            <th>Descrição banca</th>
                             <th>Data da Banca</th>
                             <th>Ordem</th>
                             <th>Orientador</th>
-                            <th>integrantes da equipe</th>
-                            <th>Nome da equipe</th>
-                            <th>Membro Banca</th>
+                            <th>Lider de equipe</th>
+                            <th>Cod Equipe</th>
                             <th>Data Equipe</th>
+                            <th>Membro Banca</th>
+                            <th>Data Defesa</th>
                             <th scope="col">Ações</th>
                         </tr>
                     </thead>

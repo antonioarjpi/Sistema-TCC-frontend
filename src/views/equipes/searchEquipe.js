@@ -13,34 +13,46 @@ import EquipeService from "../../services/resource/equipeService";
 
 function SearchEquipe(){
 
-    const [nome, setNome] = useState();
+    const [nome, setNome] = useState('');
     const [dataCadastro, setDataCadastro] = useState();
     const [tema, setTema] = useState();
     const [equipeDelete, setEquipeDelete] = useState({});
     const [equipe, setEquipe] = useState([]);
+    const [matricula, setMatricula] = useState();
+    const [descricaoLinha, setDescricaoLinha] = useState();
+    const [descricaoConhecimento, setDescricaoConhecimento] = useState();
     const [showConfirmDialog, setShowConfirmDialog] = useState();
 
     const navigate = useNavigate();
     const service = new EquipeService();
 
     const search = () =>{
+        console.log(dataCadastro)
         const filter = {
             nome: nome,
             dataCadastro: dataCadastro,
             tema: tema,
+            descricaoLinha: descricaoLinha,
+            descricaoConhecimento: descricaoConhecimento
+
         }
 
         service.consult(filter)
         .then(response => {
             const list = response.data
+            console.log(dataCadastro)
             setEquipe(list)
+            if(list.length < 1){
+                messages.mensagemAlert("Nenhum resultado encontrado.");
+            }
         }).catch(error =>{
             console.log(error)
+            console.log(dataCadastro)
         })
     }
   
     const edit = (id) =>{
-        navigate(`/cadastro-equipe/${id}`)
+        navigate(`/atualizacao-equipe/${id}`)
     }
 
     const erase = () => {
@@ -79,36 +91,62 @@ function SearchEquipe(){
         <>
         <Navbar/>
         <div className="container">
-        <Card title="Consulta Equipes">
+        <Card title="Consulta Equipes">      
                 <div className="row">
-                    <div className="col-md-6">
-                        <div className="bs-component">
-                            <Form htmlFor="nome" label="Nome: *">
+                    <div className="col-md-4"> 
+                            <Form htmlFor="nome" label="Nome da equipe: ">
                                 <input type="text" 
                                        className="form-control" 
-                                       id="nome" 
+                                       id="tema" 
                                        value={nome} 
-                                       onChange={e => setNome(e.target.value)}
-                                       placeholder="Digite o nome" />
+                                       onChange={e => setNome(e.target.value)} />
                             </Form>
-
-                            <Form htmlFor="dataCadastro" label="E-mail: ">
-                                <input type="email" 
-                                       className="form-control" 
-                                       id="dataCadastro" 
-                                       value={dataCadastro} 
-                                       onChange={e => setDataCadastro(e.target.value)}
-                                       placeholder="Digite a descrição" />
-                            </Form>
-
-                            <Form htmlFor="Tema" label="Tema: ">
-                                <input id="tema" 
-                                    value={tema} 
-                                    onChange={e => setTema(e.target.value)}                           
-                                    className="form-control"
-                                    placeholder="Digite a matrícula" />
-                            </Form>
-
+                            </div>
+                            <div className="col-md-4"> 
+                                <Form htmlFor="dataCadastro" label="Data de cadastro: ">
+                                    <input type="date" 
+                                        className="form-control" 
+                                        id="dataCadastro" 
+                                        value={dataCadastro} 
+                                        onChange={e => setDataCadastro(e.target.value)}
+                                        />
+                                </Form>                   
+                            </div>
+                            <div className="col-md-4">
+                                <Form htmlFor="tema" label="Tema: ">
+                                    <input id="tema" 
+                                        value={tema} 
+                                        onChange={e => setTema(e.target.value)}                           
+                                        className="form-control"/>
+                                </Form>
+                            </div>
+                        </div>   
+                        <div className="row">
+                            <div className="col-md-4">
+                                <Form htmlFor="descricaoLinha" label="Descrição da linha: ">
+                                    <input id="descricaoLinha" 
+                                        value={descricaoLinha} 
+                                        onChange={e => setDescricaoLinha(e.target.value)}                           
+                                        className="form-control"/>
+                                </Form>
+                            </div>
+                            <div className="col-md-4">
+                                <Form htmlFor="descricaoConhecimento" label="Descrição de conhecimento: ">
+                                    <input id="descricaoConhecimento" 
+                                        value={descricaoConhecimento} 
+                                        onChange={e => setDescricaoConhecimento(e.target.value)}                           
+                                        className="form-control"/>
+                                </Form>
+                            </div>
+                            <div className="col-md-4">
+                                <Form htmlFor="matricula" label="Matrícula: ">
+                                    <input id="matricula" 
+                                        value={matricula} 
+                                        onChange={e => setMatricula(e.target.value)}                           
+                                        className="form-control"/>
+                                </Form>
+                            </div>
+                        </div>           
                             <button 
                                     type="button" 
                                     className="btn btn-success mt-2"
@@ -122,13 +160,6 @@ function SearchEquipe(){
                                         <i className="pi pi-plus"></i> Cadastrar
                                 </button>
                             </Link>
-
-                        </div>
-                        
-                    </div>
-                </div>   
-                
-              
             </Card>
         
         <TableEquipe equipes={equipe}

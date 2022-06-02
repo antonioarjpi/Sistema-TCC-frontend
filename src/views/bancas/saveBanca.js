@@ -1,28 +1,50 @@
-import React, { useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import React, { useEffect, useState } from "react";
+import { Link, useNavigate, useParams } from "react-router-dom";
 import Card from "../../components/card/card";
 import Form from "../../components/form/form";
 import * as messages from '../../components/toastr/toastr'
 import Navbar from "../../components/navbar/navbar";
 import BancaService from "../../services/resource/bancaService";
+import { formatLocalDate } from "../../utils/format";
 
 
 function SaveBanca(){
 
+    const [banca, setBanca] = useState();
     const [descricao, setDescricao] = useState();
     const [dataBanca, setDataBanca] = useState();
     const [ordemApresentacao, setOrdemApresentacao] = useState();
     const [matriculaOrientador, setMatriculaOrientador] = useState();
     const [equipe, setEquipe] = useState();
     const [membroMatricula, setMembroMatricula] = useState();
+    const [atualizando, setAtualizando] = useState(true);
 
-
+    const { id } = useParams();
     const navigate = useNavigate();
+
+    useEffect(() => {
+        if(id){
+        service.findId(id)
+        .then(response =>{
+            setBanca(response.data.id)
+            setDescricao(response.data.descricao);
+            setDataBanca(formatLocalDate(response.data.dataBanca, "yyyy-MM-dd"))      
+            setOrdemApresentacao(response.data.ordemApresentacao)
+            setMatriculaOrientador(response.data.orientadorMatricula)
+            setEquipe(response.data.equipeId)
+            setMembroMatricula(response.data.membroMatricula)
+            setAtualizando(false);
+        })  
+        .catch(erros => {
+            messages.mensagemErro(erros.response.data)
+        })
+      
+
+      }},[]);
 
     const service = new BancaService();
 
     const submit = () => {
-
         try{
             service.validate({
                 descricao: descricao,
@@ -34,7 +56,7 @@ function SaveBanca(){
         }catch(error){
             const msgs = error.message;
             msgs.forEach(msg=> messages.mensagemErro(msg));
-           
+            return false;           
         }
      
         service.save({
@@ -45,18 +67,61 @@ function SaveBanca(){
             equipe: equipe,
             membroMatricula: membroMatricula
         }).then(response => {
+            messages.mensagemSucesso('Banca cadastrada com sucesso!')
             navigate('/bancas')
-            messages.mensagemSucesso('Banca agendada com sucesso!')
-        }).catch(error => {
+        }).catch(error => {       
+            if (error.message === 'Network Error'){
+                messages.mensagemAlert("Não foi possível conectar com servidor remoto")
+                throw new ('');
+            }    
             messages.mensagemErro(error.response.data.message)
+            return false
         })
     }
+
+
+    const update = () => {
+        try{
+            service.validate({
+                descricao: descricao,
+                dataBanca: dataBanca,
+                ordemApresentacao: ordemApresentacao,
+                matriculaOrientador: matriculaOrientador,
+                equipe: equipe
+            })
+        }catch(error){
+            const msgs = error.message;
+            msgs.forEach(msg=> messages.mensagemErro(msg));
+            return false;           
+        }
+     
+        service.update({
+            id: banca,
+            descricao: descricao,
+            dataBanca: dataBanca,
+            ordemApresentacao: ordemApresentacao,
+            matriculaOrientador: matriculaOrientador,
+            equipe: equipe,
+            membroMatricula: membroMatricula
+        }).then(response => {
+            messages.mensagemSucesso('Banca atualizada com sucesso!')
+            navigate('/bancas')
+        }).catch(error => {       
+            if (error.message === 'Network Error'){
+                messages.mensagemAlert("Não foi possível conectar com servidor remoto")
+                throw new ('');
+            }    
+            messages.mensagemErro(error.response.data.message)
+            return false
+        })
+    }
+
 
     return(
         <>
         <Navbar />
         <div className="container">
-            <Card title='Agendamento de banca'>
+        <Card title={ atualizando ? 'Cadastro de banca' : 'Atualização de banca' }>
             <div className="row">
                 <div className="col-md-12">
                     <Form id="descricao" label="Descrição: *" >
@@ -129,9 +194,17 @@ function SaveBanca(){
 
             <div className="row mt-2">
                 <div className="col-md-6" >
-                <button  onClick={submit} className="btn btn-primary">
-                    <i className="pi pi-save"></i>Salvar
-                </button>
+                { atualizando ? (
+                        <button  onClick={submit} className="btn btn-primary">
+                            <i className="pi pi-save"></i>Salvar
+                        </button>
+                    ) : (
+                        <button  onClick={update} className="btn btn-primary">
+                            <i className="pi pi-save"></i>Atualizar
+                        </button>                      
+                    )
+
+                    }         
                     <Link to={'/bancas'}>
                     <button className="btn btn-danger">
                         <i className="pi pi-times"></i>Cancelar

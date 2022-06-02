@@ -6,7 +6,7 @@ function Navbar(props){
     return (
         <div className="navbar navbar-expand-lg fixed-top navbar-dark bg-primary">
         <div className="container">
-          <a href="/home" className="navbar-brand">Gerenciamento de TCC</a>
+          <a href="/home"><img src="https://logodownload.org/wp-content/uploads/2014/12/estacio-logo.png" className="mr-3" width={140}/></a>
           <button className="navbar-toggler" type="button" 
                   data-toggle="collapse" data-target="#navbarResponsive" 
                   aria-controls="navbarResponsive" aria-expanded="false" 
@@ -28,16 +28,11 @@ function Navbar(props){
                 <Link to={"/equipes"}>
                   <NavItem render={props.isUsuarioAutenticado}label="Equipes" />
                 </Link>
+                <Link to={"/bancas"}>
+                  <NavItem render={props.isUsuarioAutenticado} label="Bancas" />
+                </Link>
                 
-                  <li className="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                      Bancas
-                    </a>
-                    <div className="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-                    <Link to={"/bancas"}><span className="dropdown-item">Bancas</span></Link>
-                    <Link to={"/defesas"}><a className="dropdown-item" href="#">Defesa</a></Link>
-                    </div>
-                  </li>
+  
 
                   <li className="nav-item dropdown">
                     <a class="nav-link dropdown-toggle" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">

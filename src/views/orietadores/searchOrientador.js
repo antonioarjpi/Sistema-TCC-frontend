@@ -42,13 +42,16 @@ function SearchOrientador(){
         .then(response => {
             const list = response.data
             setOrientador(list)
+            if(list.length < 1){
+                messages.mensagemAlert("Nenhum resultado encontrado.");
+            }
         }).catch(error =>{
             console.log(error.response.data.response)
         })
     }
   
     const edit = (id) =>{
-        navigate(`/orientadores/${id}`)
+        navigate(`/atualizacao-orientador/${id}`)
     }
 
     const erase = () => {

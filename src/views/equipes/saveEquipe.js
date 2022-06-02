@@ -8,13 +8,12 @@ import Navbar from "../../components/navbar/navbar";
 import EquipeService from "../../services/resource/equipeService";
 import axios from "axios";
 import { baseURL } from "../../services/api";
-import { isDisabled } from "@testing-library/user-event/dist/utils";
-
+import { formatLocalDate } from "../../utils/format";
 
 function SaveEquipe(){
 
     const [equipe, setEquipe] = useState();
-    const [nome, setNome] = useState();
+    const [nome, setNome] = useState('');
     const [dataCadastro, setDataCadastro] = useState();
     const [delimitacao, setDelimitacao] = useState();
     const [matricula, setMatricula] = useState();
@@ -35,7 +34,7 @@ function SaveEquipe(){
         .then(response =>{
             setEquipe(response.data.id)
             setNome(response.data.nome);
-            setDataCadastro(response.data.dataCadastro)
+            setDataCadastro(formatLocalDate(response.data.dataCadastro, "yyyy-MM-dd"))
             for (let i=0; i < response.data.alunos.length; i++){
                 if(array.indexOf(response.data.alunos[i].matricula)){
                     array.push(response.data.alunos[i].matricula)
@@ -49,6 +48,7 @@ function SaveEquipe(){
         .catch(erros => {
             messages.mensagemErro(erros.response.data)
         })
+      
 
       }},[]);
 
@@ -79,10 +79,13 @@ function SaveEquipe(){
         try{
             service.validate({
                 nome: nome,
-                matricula: array
+                matricula: array,
+                delimitacao: delimitacao,
+                dataCadastro: dataCadastro,
+                descricaoConhecimento: descricaoConhecimento
             })
         }catch(error){
-            console.log(matricula)
+            console.log(dataCadastro)
             const msgs = error.message;
             msgs.forEach(msg=> messages.mensagemErro(msg));
             return false;
@@ -99,7 +102,10 @@ function SaveEquipe(){
             navigate('/equipes')
             messages.mensagemSucesso('Equipe cadastrado com sucesso!')
         }).catch(error => {
-            console.log(matricula)
+            if (error.message === 'Network Error'){
+                messages.mensagemAlert("Não foi possível conectar com servidor remoto")
+                throw new ('');
+            }   
             messages.mensagemErro(error.response.data.message)
         })
     }
@@ -117,16 +123,16 @@ function SaveEquipe(){
             return false;
         }
         console.log("array: ", array)
-        service.save({
+        service.update({
+            id: equipe,
             nome: nome,
-            dataCadastro: dataCadastro,
             delimitacao: delimitacao,
             matricula: array,
             descricaoLinha: descricaoLinha,
             descricaoConhecimento: descricaoConhecimento
         }).then(response => {
             navigate('/equipes')
-            messages.mensagemSucesso('Equipe cadastrado com sucesso!')
+            messages.mensagemSucesso('Equipe atualizado com sucesso!')
         }).catch(error => {
             console.log(matricula)
             messages.mensagemErro(error.response.data.message)
