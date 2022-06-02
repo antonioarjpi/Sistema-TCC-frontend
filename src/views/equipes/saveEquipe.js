@@ -114,7 +114,11 @@ function SaveEquipe(){
         try{
             service.validate({
                 nome: nome,
-                matricula: array
+                dataCadastro: dataCadastro,
+                delimitacao: delimitacao,
+                matricula: array,
+                descricaoLinha: descricaoLinha,
+                descricaoConhecimento: descricaoConhecimento
             })
         }catch(error){
             console.log(matricula)
