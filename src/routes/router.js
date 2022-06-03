@@ -55,6 +55,7 @@ function Router (){
 
                 <Route path="/devolutivas" element={<SearchDevolutiva />} />
                 <Route path="/cadastro-devolutiva" element={<SaveDevolutiva />} />
+                <Route path="/atualizacao-devolutiva/:id" element={<SaveDevolutiva />} />
                 
             </Routes>      
         </BrowserRouter>

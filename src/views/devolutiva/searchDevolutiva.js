@@ -48,7 +48,7 @@ function SearchDevolutiva(){
     }
   
     const edit = (id) =>{
-        navigate(`/atualiza-devolutiva/${id}`)
+        navigate(`/atualizacao-devolutiva/${id}`)
     }
 
     const erase = () => {

@@ -11,7 +11,7 @@ export default props => {
                 <td>{orientacoes.nomeOrientador}</td>
                 <td>{orientacoes.matriculaOrientador}</td>
                 <td>{orientacoes.descricaoTCC}</td>
-                <td>{orientacoes.tccDescricao}</td>
+                <td>{orientacoes.tipoTccDescricao}</td>
                 <td>{orientacoes.equipe}</td>
                 <td>
                     <button type="button"  title="edit"
