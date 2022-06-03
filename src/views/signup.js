@@ -1,4 +1,3 @@
-import {  mensagemSucesso, mensagemErro } from '../components/toastr/toastr';
 import React, { useState } from 'react'
 import { useNavigate } from 'react-router-dom';
 import UserService from '../services/resource/user';
@@ -7,6 +6,7 @@ import Form from '../components/form/form';
 import { Button } from "primereact/button";
 import { InputText } from 'primereact/inputtext';
 import { Password } from 'primereact/password';
+import * as messages from '../components/toastr/toastr';
 
 
 function SignUp(){
@@ -15,12 +15,14 @@ function SignUp(){
      const [nome, setNome] = useState();
      const [email, setEmail] = useState();
      const [senha, setSenha] = useState();
-     const [senhaRepetida, setSenhaRepetida] = useState();       
+     const [senhaRepetida, setSenhaRepetida] = useState(); 
+     const [loading, setLoading] = useState(false);
+      
 
     const service = new UserService();
 
     const signup = async () => {
-
+        setLoading(true)
          try{
              service.validate({
                  nome: nome,
@@ -30,7 +32,8 @@ function SignUp(){
              })
          }catch(error){
              const msgs = error.message;
-             msgs.forEach(msg=> mensagemErro(msg));
+             msgs.forEach(msg=> messages.mensagemErro(msg));
+             setLoading(false);
              return false;
          }
 
@@ -40,12 +43,21 @@ function SignUp(){
             senha: senha,
             senhaRepetida: senhaRepetida,
         }).then(response => {
-            mensagemSucesso('Usuário cadastrado com sucesso!')
+            messages.mensagemSucesso('Usuário cadastrado com sucesso!')
             navigate('/login')
         }).catch(error => {
-            mensagemErro(error.response.data.message)
+            setTimeout(() => { 
+                if(error.message  === "Network Error"   ){
+                    messages.mensagemErro("Servidor não está disponível. tente novamente em alguns instantes") 
+                }else{
+                    messages.mensagemErro(error.response.data.message)   
+                    
+                }         
+                setLoading(false);
+            }, 1000)
+            
         })
-
+        
     }
 
     const cancel = () => {
@@ -77,7 +89,7 @@ function SignUp(){
             
 
                             <Button onClick={cancel} type="button" className="p-button-danger" style={{marginRight: '6px'}}>Cancelar</Button>
-                            <Button onClick={signup} type="button" className="p-button-success">Salvar</Button>
+                            <Button className="" label="Cadastrar" loading={loading} onClick={signup} style={{aling: 'center'}}/> 
                                     
                     </div>
                 </div>

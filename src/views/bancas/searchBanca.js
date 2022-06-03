@@ -108,9 +108,10 @@ function SearchBanca(){
                     </div>
                     <div className="col-md-4">
                         <Form htmlFor="dataBanca" label="Data Banca: ">
-                            <input type="date" 
+                            <input type="" 
                                     className="form-control" 
                                     id="dataBanca" 
+                                    disabled
                                     value={dataBanca} 
                                     onChange={e => setDataBanca(e.target.value)}/>
                         </Form>

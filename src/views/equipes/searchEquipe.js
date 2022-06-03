@@ -18,7 +18,6 @@ function SearchEquipe(){
     const [tema, setTema] = useState();
     const [equipeDelete, setEquipeDelete] = useState({});
     const [equipe, setEquipe] = useState([]);
-    const [matricula, setMatricula] = useState();
     const [descricaoLinha, setDescricaoLinha] = useState();
     const [descricaoConhecimento, setDescricaoConhecimento] = useState();
     const [showConfirmDialog, setShowConfirmDialog] = useState();
@@ -27,27 +26,23 @@ function SearchEquipe(){
     const service = new EquipeService();
 
     const search = () =>{
-        console.log(dataCadastro)
         const filter = {
             nome: nome,
             dataCadastro: dataCadastro,
             tema: tema,
             descricaoLinha: descricaoLinha,
             descricaoConhecimento: descricaoConhecimento
-
         }
 
         service.consult(filter)
         .then(response => {
             const list = response.data
-            console.log(dataCadastro)
             setEquipe(list)
             if(list.length < 1){
                 messages.mensagemAlert("Nenhum resultado encontrado.");
             }
         }).catch(error =>{
             console.log(error)
-            console.log(dataCadastro)
         })
     }
   
@@ -108,9 +103,10 @@ function SearchEquipe(){
                             </div>
                             <div className="col-md-4"> 
                                 <Form htmlFor="dataCadastro" label="Data de cadastro: ">
-                                    <input type="date" 
+                                    <input type="text" 
                                         className="form-control" 
                                         id="dataCadastro" 
+                                        disabled
                                         value={dataCadastro} 
                                         onChange={e => setDataCadastro(e.target.value)}
                                         />
@@ -139,14 +135,6 @@ function SearchEquipe(){
                                     <input id="descricaoConhecimento" 
                                         value={descricaoConhecimento} 
                                         onChange={e => setDescricaoConhecimento(e.target.value)}                           
-                                        className="form-control"/>
-                                </Form>
-                            </div>
-                            <div className="col-md-4">
-                                <Form htmlFor="matricula" label="Matrícula: ">
-                                    <input id="matricula" 
-                                        value={matricula} 
-                                        onChange={e => setMatricula(e.target.value)}                           
                                         className="form-control"/>
                                 </Form>
                             </div>

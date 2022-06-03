@@ -54,8 +54,6 @@ export default class DevolutivaService extends ApiService {
             errors.push('O campo local de correção da orientação é obrigatório.')
         }
         
-        
-
         if(errors && errors.length > 0){
             throw new ValidationError(errors);
         }
@@ -63,10 +61,30 @@ export default class DevolutivaService extends ApiService {
 
 
     consult(filter){
-        let params = `?name=${filter.name}`
+        let params = `?statusOrientacao=${filter.statusOrientacao}`
 
-        if(filter.type){
-            params = `${params}&type=${filter.type}`
+        if(filter.dataMudanca){
+            params = `${params}&dataMudanca=${filter.dataMudanca}`
+        }
+
+        if(filter.orientacaoId){
+            params = `${params}&orientacaoId=${filter.orientacaoId}`
+        }
+
+        if(filter.devolutivaDescricao){
+            params = `${params}&devolutivaDescricao=${filter.devolutivaDescricao}`
+        }
+
+        if(filter.devolutivaVersaoDoc){
+            params = `${params}&devolutivaVersaoDoc=${filter.devolutivaVersaoDoc}`
+        }
+
+        if(filter.devolutivaLocalCorrecaoCorrecaoSugerida){
+            params = `${params}&devolutivaLocalCorrecaoCorrecaoSugerida=${filter.devolutivaLocalCorrecaoCorrecaoSugerida}`
+        }
+
+        if(filter.devolutivaLocalCorrecaoLocal){
+            params = `${params}&devolutivaLocalCorrecaoLocal=${filter.devolutivaLocalCorrecaoLocal}`
         }
 
         return this.get(params);

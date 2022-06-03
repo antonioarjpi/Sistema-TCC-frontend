@@ -1,14 +1,13 @@
 import React, { useEffect, useState } from "react";
-import { Link, useNavigate, useParams } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import Card from "../../components/card/card";
-import Form from "../../components/form/form";
 
 import * as messages from '../../components/toastr/toastr'
 import Navbar from "../../components/navbar/navbar";
-import EquipeService from "../../services/resource/equipeService";
 import axios from "axios";
 import { baseURL } from "../../services/api";
 import { formatLocalDate } from "../../utils/format";
+import TableAlunoEquipe from "./tableAlunoEquipe";
 
 function SearchEquipeFull(){
 
@@ -16,7 +15,6 @@ function SearchEquipeFull(){
     const [nome, setNome] = useState('');
     const [dataCadastro, setDataCadastro] = useState();
     const [delimitacao, setDelimitacao] = useState();
-    const [array, setArray] = useState([]);
     const [descricaoLinha, setDescricaoLinha] = useState();
     const [descricaoConhecimento, setDescricaoConhecimento] = useState();
     const [orientacaoId, setOrientacaoId] = useState();
@@ -31,7 +29,7 @@ function SearchEquipeFull(){
     const [devolutivaVersaoDoc, setDevolutivaVersaoDoc] = useState();
     const [devolutivaLocalCorrecao, setDevolutivaLocalCorrecao] = useState();
     const [devolutivaCorrecaoSugerida, setDevolutivaCorrecaoSugerida] = useState();
-
+    const [aluno, setAluno] = useState([]);
 
 
     const { id } = useParams();
@@ -44,10 +42,8 @@ function SearchEquipeFull(){
             setNome(response.data.nome);
             setDataCadastro(formatLocalDate(response.data.dataCadastro, "dd/MM/yyyy"))
             for (let i=0; i < response.data.alunos.length; i++){
-                if(array.indexOf(response.data.alunos[i].matricula)){
-                    array.push(response.data.alunos[i].matricula)
-                }              
-            }          
+                setAluno(response.data.alunos)
+            }            
             setDelimitacao(response.data.temaDelimitacao)
             setDescricaoConhecimento(response.data.temaLinhaPesquisaAreaConhecimentoDescricao)
             setDescricaoLinha(response.data.temaLinhaPesquisaDescricao)
@@ -70,6 +66,7 @@ function SearchEquipeFull(){
       
       }},[]);
 
+
     return(
         <>
         <Navbar />
@@ -86,13 +83,8 @@ function SearchEquipeFull(){
                         <strong>Data de cadastro: </strong>
                             <label>{dataCadastro}</label>                        
                     </div>
-                    <div className="col-md-3">
-                                   
-                        <div>{array.map(entry =>
-                            <div className="">Matrícula aluno: {entry}</div>
-                            )}
-                        </div>
-                    </div>  
+
+                    <TableAlunoEquipe alunos={aluno} />
                 </div>
             </Card>
 

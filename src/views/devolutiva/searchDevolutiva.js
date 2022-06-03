@@ -15,8 +15,8 @@ import DevolutivaService from "../../services/resource/devolutivaService";
 function SearchDevolutiva(){
 
     const [orientacao, setOrientacao] = useState();
-    const [dataMudanca, setDtaMudanca] = useState();
-    const [statusOrientacao, setStatusOrientacao] = useState();
+    const [dataMudanca, setDataMudanca] = useState();
+    const [statusOrientacao, setStatusOrientacao] = useState('');
     const [descricaoDaDevolutiva, setDescricaoDaDevolutiva] = useState();
     const [versaoDoc, setVersaoDoc] = useState();
     const [localDeCorrecao, setLocalDeCorrecao] = useState();
@@ -33,6 +33,12 @@ function SearchDevolutiva(){
         const filter = {
             statusOrientacao: statusOrientacao,
             descricaoDaDevolutiva: descricaoDaDevolutiva,
+            dataMudanca: dataMudanca,
+            orientacaoId: orientacao,
+            devolutivaDescricao: descricaoDaDevolutiva,
+            devolutivaVersaoDoc: versaoDoc,
+            devolutivaLocalCorrecaoCorrecaoSugerida: correcaoSugerida,
+            devolutivaLocalCorrecaoLocal: localDeCorrecao
         }
 
         service.consult(filter)
@@ -89,33 +95,67 @@ function SearchDevolutiva(){
         <div className="container">
         <Card title="Consulta Devolutivas">
                 <div className="row">
-                    <div className="col-md-6">
-                        <div className="bs-component">
-                            <Form htmlFor="statusOrientacao" label="Status: *">
+                    <div className="col-md-4">
+                            <Form htmlFor="statusOrientacao" label="Status: ">
+                                <select id="statusOrientacao" required className="form-control" name="statusOrientacao" value={statusOrientacao}
+                                onChange={e => setStatusOrientacao(e.target.value)}>
+                                    <option ></option>
+                                    <option>Cancelado</option>
+                                    <option>Pendente</option>
+                                    <option>Finalizado</option>
+                                    <option>Resolvido</option>
+                                </select>
+                            </Form>
+                        </div>
+                        <div className="col-md-4">
+                            <Form htmlFor="versaoDoc" label="Versão DOC:">
+                                <input type="text" 
+                                       className="form-control" 
+                                       id="versaoDoc" 
+                                       value={versaoDoc} 
+                                       onChange={e => setVersaoDoc(e.target.value)} />
+                            </Form>
+                        </div>
+                        <div className="col-md-4">
+                            <Form htmlFor="orientacaoId" label="Cód Orientação: ">
+                                <input type="text" 
+                                       className="form-control" 
+                                       id="orientacaoId" 
+                                       value={descricaoDaDevolutiva} 
+                                       onChange={e => setDescricaoDaDevolutiva(e.target.value)} />
+                            </Form>
+                        </div>
+                        <div className="col-md-12">
+                            <Form htmlFor="statusOrientacao" label="Local de Correção: ">
                                 <input type="text" 
                                        className="form-control" 
                                        id="statusOrientacao" 
-                                       value={statusOrientacao} 
-                                       onChange={e => setStatusOrientacao(e.target.value)} />
+                                       value={localDeCorrecao} 
+                                       onChange={e => setLocalDeCorrecao(e.target.value)} />
                             </Form>
-
-                            <button 
-                                    type="button" 
-                                    className="btn btn-success mt-2"
-                                    onClick={search}>
-                                    <i className="pi pi-search"></i> Buscar
-                            </button>
-                            <Link to={'/cadastro-devolutiva'}>
-                                <button 
-                                        type="button" 
-                                        className="btn btn-danger mt-2">
-                                        <i className="pi pi-plus"></i> Cadastrar
-                                </button>
-                            </Link>
-
                         </div>
-                        
-                    </div>
+                        <div className="col-md-12">
+                            <Form htmlFor="statusOrientacao" label="Correção sugerida: ">
+                                <input type="text" 
+                                       className="form-control" 
+                                       id="statusOrientacao" 
+                                       value={correcaoSugerida} 
+                                       onChange={e => setCorrecaoSugerida(e.target.value)} />
+                            </Form>
+                        </div>
+
+                        <div className="row">
+                            <div className="col-md-6">
+                                <button type="button" className="btn btn-success mt-2" onClick={search}>
+                                        <i className="pi pi-search"></i> Buscar
+                                </button>
+                                <Link to={'/cadastro-devolutiva'}>
+                                    <button type="button" className="btn btn-danger mt-2">
+                                        <i className="pi pi-plus"></i> Cadastrar
+                                    </button>
+                                </Link>
+                            </div> 
+                        </div> 
                 </div>   
                 
               

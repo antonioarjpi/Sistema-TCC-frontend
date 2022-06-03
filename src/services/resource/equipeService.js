@@ -30,8 +30,8 @@ export default class EquipeService extends ApiService {
             errors.push('O campo Nome é obrigatório.')
         }
 
-        if(!equipe.matricula){
-            errors.push('Nenhuma matrícula foi adicionada.')
+        if(!equipe.alunos){
+            errors.push('Nenhum aluno foi adicionada.')
         }
 
         if(!equipe.delimitacao){
@@ -54,11 +54,6 @@ export default class EquipeService extends ApiService {
 
     consult(filter){
         let params = `?nome=${filter.nome}`
-        
-
-        if(filter.matricula){
-            params = `${params}&matricula=${filter.matricula}`
-        }
 
         if(filter.tema){
             params = `${params}&tema=${filter.tema}`
@@ -83,5 +78,7 @@ export default class EquipeService extends ApiService {
         
         return this.get(params);
     }
+
+    
 
 }

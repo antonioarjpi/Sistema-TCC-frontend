@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { Link, useNavigate, useParams } from "react-router-dom";
 import Card from "../../components/card/card";
 import Form from "../../components/form/form";
-
+import { MultiSelect } from 'primereact/multiselect';
 import * as messages from '../../components/toastr/toastr'
 import Navbar from "../../components/navbar/navbar";
 import EquipeService from "../../services/resource/equipeService";
@@ -16,18 +16,16 @@ function SaveEquipe(){
     const [nome, setNome] = useState('');
     const [dataCadastro, setDataCadastro] = useState();
     const [delimitacao, setDelimitacao] = useState();
-    const [matricula, setMatricula] = useState();
-    const [array, setArray] = useState([]);
     const [descricaoLinha, setDescricaoLinha] = useState();
     const [descricaoConhecimento, setDescricaoConhecimento] = useState();
+    const [selectedAlunos, setSelectedAlunos] = useState(null);
+    const [alunos, setAlunos] = useState({});
     const [atualizando, setAtualizando] = useState(true);
 
     const { id } = useParams();
     const navigate = useNavigate();
     const service = new EquipeService();
 
-
-    
     useEffect(() => {
         if(id){
         service.findId(id)
@@ -36,10 +34,8 @@ function SaveEquipe(){
             setNome(response.data.nome);
             setDataCadastro(formatLocalDate(response.data.dataCadastro, "yyyy-MM-dd"))
             for (let i=0; i < response.data.alunos.length; i++){
-                if(array.indexOf(response.data.alunos[i].matricula)){
-                    array.push(response.data.alunos[i].matricula)
-                }              
-            }          
+                setSelectedAlunos(response.data.alunos)
+            }         
             setDelimitacao(response.data.tema)
             setDescricaoConhecimento(response.data.conhecimento)
             setDescricaoLinha(response.data.linhaPesquisa)
@@ -51,56 +47,31 @@ function SaveEquipe(){
       
 
       }},[]);
-
-
-    const adicionaMatricula = () => {     
-        if(!matricula){
-            throw new messages.mensagemErro("Matrícula não pode está em branco.")
-        }
-
-        if(array.indexOf(matricula) > -1){
-            throw new messages.mensagemErro("Matrícula já foi adicionada.")
-        }
-
-        axios.get(`${baseURL}/alunos/matricula/${matricula}`)
-        .then(response => {
-            array.push(matricula);
-            setMatricula('')
-        }).catch(error =>{
-            if(error.message  === "Network Error"   ){
-                messages.mensagemErro("Não foi possível conectar com o servidor remoto") 
-            }else{
-                messages.mensagemErro(error.response.data.message)    
-            }         
-        })
-    }  
         
     const submit = () => {      
         try{
             service.validate({
                 nome: nome,
-                matricula: array,
+                alunos: selectedAlunos,
                 delimitacao: delimitacao,
                 dataCadastro: dataCadastro,
                 descricaoConhecimento: descricaoConhecimento
             })
         }catch(error){
-            console.log(dataCadastro)
             const msgs = error.message;
             msgs.forEach(msg=> messages.mensagemErro(msg));
             return false;
         }
-        console.log("array: ", array)
         service.save({
             nome: nome,
             dataCadastro: dataCadastro,
             delimitacao: delimitacao,
-            matricula: array,
+            alunos: selectedAlunos,
             descricaoLinha: descricaoLinha,
             descricaoConhecimento: descricaoConhecimento
         }).then(response => {
             navigate('/equipes')
-            messages.mensagemSucesso('Equipe cadastrado com sucesso!')
+            messages.mensagemSucesso('Equipe cadastrado com sucesso!' )
         }).catch(error => {
             if (error.message === 'Network Error'){
                 messages.mensagemAlert("Não foi possível conectar com servidor remoto")
@@ -116,33 +87,75 @@ function SaveEquipe(){
                 nome: nome,
                 dataCadastro: dataCadastro,
                 delimitacao: delimitacao,
-                matricula: array,
+                alunos: selectedAlunos,
                 descricaoLinha: descricaoLinha,
                 descricaoConhecimento: descricaoConhecimento
             })
         }catch(error){
-            console.log(matricula)
             const msgs = error.message;
             msgs.forEach(msg=> messages.mensagemErro(msg));
             return false;
         }
-        console.log("array: ", array)
         service.update({
             id: equipe,
             nome: nome,
             delimitacao: delimitacao,
-            matricula: array,
+            alunos: selectedAlunos,
             descricaoLinha: descricaoLinha,
             descricaoConhecimento: descricaoConhecimento
         }).then(response => {
             navigate('/equipes')
             messages.mensagemSucesso('Equipe atualizado com sucesso!')
         }).catch(error => {
-            console.log(matricula)
             messages.mensagemErro(error.response.data.message)
         })
     }
 
+
+    //Select from alunos
+    useEffect(() => {
+        axios.get(`${baseURL}/alunos`)
+        .then(response => {
+            setAlunos(response.data) 
+        }).catch(error =>{
+            if(error.message  === "Network Error"   ){
+                messages.mensagemErro("Não foi possível conectar com o servidor remoto") 
+            }else{
+                messages.mensagemErro(error.message)    
+            }         
+        }) 
+    }, [])
+
+    const alunoTemplate = (option) => {
+        return (
+            <div>
+                <div>{option.matricula} - {option.nome}</div>  
+            </div>
+        );
+    }
+
+    const selectedAlunosTemplate = (option) => {
+        if (option) {
+            return (
+                <span>
+                    <span className="selected-alunos">{option.matricula} - {option.nome}</span>
+                </span>
+            );
+        }
+        return "Matrícula do aluno(s)";
+    }
+
+    const panelFooter = () => {
+        const selectedItems = selectedAlunos;
+        const length = selectedItems ? selectedItems.length : 0;
+        return (
+            <div className="py-2 px-3">
+                <b>{length}</b> Aluno{length > 1 ? 's' : ''} selecionado{length > 1 ? 's' : ''}.
+            </div>
+        );
+    }
+
+    
     return(
         <>
         <Navbar />
@@ -185,31 +198,22 @@ function SaveEquipe(){
                 </div>
             </div>
 
-            <div className="row">
-                <div className="col-md-4">
-                    <Form id="matricula" label="Matricula do aluno: *" >
-                        <input id="matricula" type="text" 
-                            className="form-control" 
-                            name="matricula"
-                            value={matricula}
-                            onChange={e => setMatricula(e.target.value)}
-                                />
-                    </Form>
-
-                    
-                    <div>{array.map(entry =>
-                        <div className="bg-success m-1">Matrícula: {entry}</div>
-                        )}
+                <div className="row">
+                    <div className="col-md-12">
+                        <Form id="dataCadastro" label="Alunos: *">
+                        <MultiSelect value={selectedAlunos} options={alunos} 
+                                    onChange={(e) => setSelectedAlunos(e.value)} 
+                                    optionLabel="matricula"
+                                    filter className="multiselect-custom"
+                                    itemTemplate={alunoTemplate} 
+                                    selectedItemTemplate={selectedAlunosTemplate} 
+                                    panelFooterTemplate={panelFooter} />
+                        
+                        </Form>
+                        
                     </div>
-
-                </div>        
-                <div className="col-md-4" style={{justifyContent: 'left', alignItems:'center', display: 'grid'}}>
-                    <label>Adicione o aluno</label>
-                <button className="btn btn-primary" onClick={adicionaMatricula}>
-                        <i className="pi pi-plus"></i>
-                    </button>
-                </div>        
-            </div>
+                </div> 
+            
 
                 <div className="row">
                 <div className="col-md-12">

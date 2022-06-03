@@ -16,7 +16,7 @@ function Login(){
     const [email, setEmail] = useState();
     const [senha, setSenha] = useState();
     const [loading1, setLoading1] = useState(false);
-    const [loading2, setLoading2] = useState(false);
+
 
     const navigate = useNavigate();
     const service = new UserService();
@@ -33,7 +33,12 @@ function Login(){
         }).catch( error => {
             setTimeout(() => {
                 setLoading1(false);
-                messages.mensagemErro("Usuário ou senha inválida!")
+                if(error.message  === "Network Error"   ){
+                    messages.mensagemErro("Servidor não está disponível. tente novamente") 
+                }else{
+                    messages.mensagemErro("Usuário ou senha inválida!")   
+                }         
+                
             }, 1000)
             
     
@@ -57,13 +62,14 @@ function Login(){
                                 <label htmlFor="email">E-mail</label>
                             </span>
                         </Form>
+                        
                         <Form>
                             <span className="p-float-label">
-                                <Password className='' id="senha"
-                                value={senha} onChange={e => setSenha(e.target.value)} feedback={false} toggleMask/>
+                                <Password id="senha" value={senha} onChange={e => setSenha(e.target.value)} feedback={false} toggleMask/>
                                 <label >Senha</label>
                             </span>
                         </Form>
+                    
                         <Button className="mb-2" label="Entrar" loading={loading1} onClick={login} style={{display: 'flex', aling: 'center', marginTop: "10px"}}/>            
                         <a onClick={signup} href='/signup' type="buttom">Não tem acesso? Cadastra-se</a>
                     </div>
