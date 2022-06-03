@@ -30,7 +30,7 @@ function SaveOrientacao(){
                 setOrientacao(response.data.id);
                 setDescricaoTCC(response.data.descricaoTCC);
                 setDataOrientacao(formatLocalDate(response.data.dataOrientacao,"yyyy-MM-dd"));
-                setTipoTCC(response.data.tccDescricao);
+                setTipoTCC(response.data.tipoTccDescricao);
                 setMatriculaOrientador(response.data.matriculaOrientador);
                 setEquipe(response.data.equipe)
                 setAtualizando(false);

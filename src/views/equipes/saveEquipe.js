@@ -205,6 +205,7 @@ function SaveEquipe(){
                                     onChange={(e) => setSelectedAlunos(e.value)} 
                                     optionLabel="matricula"
                                     filter className="multiselect-custom"
+                                    filterPlaceholder="Digite a matrícula"
                                     itemTemplate={alunoTemplate} 
                                     selectedItemTemplate={selectedAlunosTemplate} 
                                     panelFooterTemplate={panelFooter} />

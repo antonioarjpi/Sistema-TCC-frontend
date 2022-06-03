@@ -13,7 +13,7 @@ function Home(){
             <h1 className="display-3">Bem vindo!</h1>
             <p className="lead">Esse é seu sistema de gerenciamento de TCC.</p>
             <hr className="my-4" />
-            <p>E essa é sua área administrativa, utilize um dos menus ou botões abaixo para navegar pelo sistema.</p>
+            <p>E essa é área administrativa, fique a vontade para utilizar um dos menus ou botões para navegar pelo sistema</p>
             <p className="lead">
                 <Link to={'/cadastro-aluno'}>
                     <Button className="btn btn-primary btn-lg" role="button"><i className="pi pi-users"/>
