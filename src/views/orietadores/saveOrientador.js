@@ -40,6 +40,8 @@ function SaveOrientador(){
             setDescricaoTitulacao(response.data.titulacao.descricao);
             setIes(response.data.titulacao.ies);
             setGrau(response.data.titulacao.grau);
+            setLinhaPesquisaDescricao(response.data.linhaPesquisa.descricao);
+            setLinhaPesquisaAreaconhecimentoDescricao(response.data.linhaPesquisa.areaConhecimento.descricao);
             setAtualizando(false);
         })  
         .catch(erros => {
@@ -107,7 +109,9 @@ function SaveOrientador(){
             matricula: matricula,
             titulacaoIes: titulacaoIes,
             titulacaoDescricao: titulacaoDescricao,
-            titulacaoGrau: titulacaoGrau
+            titulacaoGrau: titulacaoGrau,
+            linhaPesquisaDescricao: linhaPesquisaDescricao,
+            linhaPesquisaAreaconhecimentoDescricao: linhaPesquisaAreaconhecimentoDescricao
         }).then(response => {
             navigate('/orientadores')
             messages.mensagemSucesso('Orientador atualizado com sucesso!')
