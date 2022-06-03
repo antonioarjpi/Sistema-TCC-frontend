@@ -70,7 +70,7 @@ function SearchBanca(){
             messages.mensagemSucesso('Banca excluído com sucesso');
             setShowConfirmDialog(false);
         }).catch(error =>{
-            messages.mensagemErro(error.response.data.error);
+            messages.mensagemErro(error.response.data.message)
         })
     }
 

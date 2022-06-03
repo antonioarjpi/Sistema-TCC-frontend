@@ -70,7 +70,7 @@ function SearchEquipe(){
             messages.mensagemSucesso('Equipe excluído com sucesso')
             setShowConfirmDialog(false)     
         }).catch(error =>{
-            messages.mensagemErro(error.message)
+            messages.mensagemErro(error.response.data.message)
         })
     }
 

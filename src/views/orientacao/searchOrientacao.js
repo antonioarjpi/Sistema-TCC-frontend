@@ -60,7 +60,7 @@ function SearchOrientacao(){
             messages.mensagemSucesso('Orientação excluído excluído com sucesso')
             setShowConfirmDialog(false)
         }).catch(error =>{
-            messages.mensagemErro(error.response.data.error)
+            messages.mensagemErro(error.response.data.message)
         })
     }
 

@@ -70,7 +70,7 @@ function SearchOrientador(){
             messages.mensagemSucesso('Orientador excluído com sucesso')
             setShowConfirmDialog(false)
         }).catch(error =>{
-            messages.mensagemErro(error.message)
+            messages.mensagemErro(error.response.data.message)
         })
     }
 

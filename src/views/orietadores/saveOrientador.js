@@ -17,6 +17,8 @@ function SaveOrientador(){
     const [titulacaoDescricao, setDescricaoTitulacao] = useState();
     const [titulacaoGrau, setGrau] = useState();
     const [titulacaoIes, setIes] = useState();
+    const [linhaPesquisaDescricao, setLinhaPesquisaDescricao] = useState();
+    const [linhaPesquisaAreaconhecimentoDescricao, setLinhaPesquisaAreaconhecimentoDescricao] = useState();
     const [senhaRepetida, setSenhaRepetida] = useState();
     const [atualizando, setAtualizando] = useState(true);
     
@@ -68,7 +70,9 @@ function SaveOrientador(){
             matricula: matricula,
             titulacaoIes: titulacaoIes,
             titulacaoDescricao: titulacaoDescricao,
-            titulacaoGrau: titulacaoGrau
+            titulacaoGrau: titulacaoGrau,
+            linhaPesquisaDescricao: linhaPesquisaDescricao,
+            linhaPesquisaAreaconhecimentoDescricao: linhaPesquisaAreaconhecimentoDescricao
         }).then(response => {
             navigate('/orientadores')
             messages.mensagemSucesso('Orientador cadastrado com sucesso!')
@@ -192,18 +196,18 @@ function SaveOrientador(){
                         <input id="titulacaoDescricao" type="text" 
                             className="form-control" 
                             name="titulacaoDescricao"
-                            value={titulacaoDescricao}
-                            onChange={e => setDescricaoTitulacao(e.target.value)}
+                            value={linhaPesquisaAreaconhecimentoDescricao}
+                            onChange={e => setLinhaPesquisaAreaconhecimentoDescricao(e.target.value)}
                                 />
                     </Form>
                 </div>
                 <div className="col-md-4">
-                    <Form id="titulacaoGrau" label="Linha de Pesquisa: *" >
-                        <input id="titulacaoGrau" type="text" 
+                    <Form id="linhaPesquisa" label="Linha de Pesquisa: *" >
+                        <input id="linhaPesquisa" type="text" 
                             className="form-control" 
-                            name="titulacaoGrau"
-                            value={titulacaoGrau}
-                            onChange={e => setGrau(e.target.value)}
+                            name="linhaPesquisa"
+                            value={linhaPesquisaDescricao}
+                            onChange={e => setLinhaPesquisaDescricao(e.target.value)}
                                 />
                     </Form>
                 </div>

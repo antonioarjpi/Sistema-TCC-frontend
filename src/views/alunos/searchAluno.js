@@ -39,7 +39,7 @@ function SearchAluno(){
                 messages.mensagemAlert("Nenhum resultado encontrado.");
             }
         }).catch(error =>{
-            messages.mensagemErro("Não foi possível carregar")
+            console.log(error)
         })
     }
   
@@ -58,7 +58,7 @@ function SearchAluno(){
             messages.mensagemSucesso('Aluno excluído com sucesso')
             setShowConfirmDialog(false)
         }).catch(error =>{
-            console.log(error)
+            messages.mensagemErro(error.response.data.message)
         })
     }
 
