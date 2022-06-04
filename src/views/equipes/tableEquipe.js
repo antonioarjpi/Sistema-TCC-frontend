@@ -19,17 +19,22 @@ export default props => {
                             onClick={e => props.visibleAction(equipes.id)}>
                             <i className="pi pi-eye"></i>
                     </button>
+                </td>
+                <td>
                     <button type="button"  title="edit"
                             className="btn btn-primary"
                             onClick={e => props.editAction(equipes.id)}>
                             <i className="pi pi-pencil"></i>
                     </button>
+                </td>
+                <td>
                     <button type="button"  title="Excluir"
                             className="btn btn-danger" 
                             onClick={ e => props.deleteAction(equipes)}>
                             <i className="pi pi-trash"></i>
                     </button>
                 </td>
+                
             </tr>
         )
         
@@ -50,7 +55,9 @@ export default props => {
                             <th>Tema</th>
                             <th>Linha</th>
                             <th>Conhecimento</th>
-                            <th className="td-table" scope="col">Ações</th>
+                            <th className="td-table" scope="col">Exibir</th>
+                            <th className="td-table" scope="col">Editar</th>
+                            <th className="td-table" scope="col">Excluir</th>
                         </tr>
                     </thead>
                     <tbody>

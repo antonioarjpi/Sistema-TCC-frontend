@@ -19,6 +19,8 @@ export default props => {
                             onClick={e => props.editAction(orientacoes.id)}>
                             <i className="pi pi-pencil"></i>
                     </button>
+                </td>   
+                <td>
                     <button type="button"  title="Excluir"
                             className="btn btn-danger" 
                             onClick={ e => props.deleteAction(orientacoes)}>
@@ -44,7 +46,8 @@ export default props => {
                             <th>Descrição de TCC</th>
                             <th>Tipo de TCC</th>
                             <th>Cód Equipe</th>
-                            <th className="td-table" scope="col">Ações</th>
+                            <th className="td-table" scope="col">Editar</th>
+                            <th className="td-table" scope="col">Excluir</th>
                         </tr>
                     </thead>
                     <tbody>

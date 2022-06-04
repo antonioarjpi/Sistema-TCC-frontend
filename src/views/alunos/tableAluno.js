@@ -9,16 +9,19 @@ export default props => {
                 <td>{alunos.email}</td>
                 <td >
                     <button type="button"  title="edit"
-                            className="btn btn-primary"
-                            onClick={e => props.editAction(alunos.id)}>
-                            <i className="pi pi-pencil"></i>
+                        className="btn btn-primary" onClick={e => props.editAction(alunos.id)}>
+                        <i className="pi pi-pencil"></i>
                     </button>
+                </td >
+                <td >
                     <button type="button"  title="Excluir"
                             className="btn btn-danger" 
                             onClick={ e => props.deleteAction(alunos)}>
                             <i className="pi pi-trash"></i>
                     </button>
                 </td>
+             
+                
             </tr>
         )
     })
@@ -34,7 +37,8 @@ export default props => {
                             <th>Matrícula</th>
                             <th>Nome</th>
                             <th>E-mail</th>
-                            <th className="td-table" scope="col">Ações</th>
+                            <th className="td-table" >Editar</th>
+                            <th className="td-table" >Excluir</th>
                         </tr>
                     </thead>
                     <tbody>

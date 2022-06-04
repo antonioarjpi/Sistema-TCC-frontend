@@ -29,12 +29,15 @@ export default props => {
                             onClick={e => props.schedule(bancas.id)}>
                             <i className="pi pi-calendar-plus"></i>
                     </button>
-                    
+                </td> 
+                <td>   
                     <button type="button"  title="Editar"
                             className="btn btn-primary"
                             onClick={e => props.editAction(bancas.id)}>
                             <i className="pi pi-pencil"></i>
                     </button>
+                </td>
+                <td>    
                     <button type="button"  title="Excluir"
                             className="btn btn-danger" 
                             onClick={ e => props.deleteAction(bancas)}>
@@ -63,7 +66,9 @@ export default props => {
                             <th>Data Equipe</th>
                             <th>Membro Banca</th>
                             <th>Data Defesa</th>
-                            <th className="td-table" scope="col">Ações</th>
+                            <th className="td-table" scope="col">Defesa</th>
+                            <th className="td-table" scope="col">Editar</th>
+                            <th className="td-table" scope="col">Excluir</th>
                         </tr>
                     </thead>
                     <tbody>

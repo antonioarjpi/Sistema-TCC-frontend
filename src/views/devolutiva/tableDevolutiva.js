@@ -18,6 +18,8 @@ export default props => {
                             onClick={e => props.editAction(devolutivas.id)}>
                             <i className="pi pi-pencil"></i>
                     </button>
+                </td>    
+                <td>
                     <button type="button"  title="Excluir"
                             className="btn btn-danger" 
                             onClick={ e => props.deleteAction(devolutivas)}>
@@ -42,7 +44,8 @@ export default props => {
                             <th>Local de correção</th>
                             <th>Correção sugerida</th>
                             <th>Data mudança</th>
-                            <th className="td-table" scope="col">Ações</th>
+                            <th className="td-table" scope="col">Editar</th>
+                            <th className="td-table" scope="col">Excluir</th>
                         </tr>
                     </thead>
                     <tbody>
