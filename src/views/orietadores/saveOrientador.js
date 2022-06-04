@@ -2,12 +2,16 @@ import React, { useEffect, useState } from "react";
 import { Link, useNavigate, useParams } from "react-router-dom";
 import { InputText } from 'primereact/inputtext';
 import { Password } from 'primereact/password';
+import { Button } from 'primereact/button';
 import Card from "../../components/card/card";
 import Form from "../../components/form/form";
 
 import * as messages from '../../components/toastr/toastr'
 import Navbar from "../../components/navbar/navbar";
 import OrientadorService from "../../services/resource/orientadorService";
+
+import axios from "axios";
+import { baseURL } from "../../services/api";
 
 function SaveOrientador(){
 
@@ -22,11 +26,13 @@ function SaveOrientador(){
     const [linhaPesquisaDescricao, setLinhaPesquisaDescricao] = useState();
     const [linhaPesquisaAreaconhecimentoDescricao, setLinhaPesquisaAreaconhecimentoDescricao] = useState();
     const [senhaRepetida, setSenhaRepetida] = useState();
+    const [imagem, setImagem] = useState();
     const [atualizando, setAtualizando] = useState(true);
     
     const navigate = useNavigate();
     const { id } = useParams();
     const service = new OrientadorService();
+    const formData = new FormData();
 
 
     useEffect(() => {
@@ -37,6 +43,7 @@ function SaveOrientador(){
             setNome(response.data.nome);
             setEmail(response.data.email);
             setSenha(response.data.senha);
+            setImagem(response.data.imagem)
             setSenhaRepetida(response.data.senha);
             setMatricula(response.data.matricula);   
             setDescricaoTitulacao(response.data.titulacao.descricao);
@@ -52,7 +59,6 @@ function SaveOrientador(){
 
       }},[]);
 
-
     const submit = () => {
         try{
             service.validate({
@@ -65,7 +71,7 @@ function SaveOrientador(){
             const msgs = error.message;
             msgs.forEach(msg=> messages.mensagemErro(msg));
             return false;
-        }
+    }
      
         service.save({
             nome: nome,
@@ -122,6 +128,33 @@ function SaveOrientador(){
         })
     }
 
+    const handleSubmit = (event) => {
+        event.preventDefault()   
+        formData.append("file", imagem);
+        try {
+          axios({
+            method: "post",
+            url: `${baseURL}/orientadores/imagem/${id}`,
+            data: formData,
+            headers: { "Content-Type": "multipart/form-data" },
+            
+          });
+          
+          messages.mensagemSucesso('Foto salva com sucesso!')
+        } catch(error) {
+            messages.mensagemErro(error.error)
+            
+        }
+        
+      }
+
+      const handleFileSelect = (event) => {
+        setImagem(event.target.files[0])
+      }
+
+      
+    
+
     return(
         <>
         <Navbar />
@@ -139,7 +172,22 @@ function SaveOrientador(){
                                     />
                         </Form>
                     </div>
-                </div> 
+                    { atualizando ? (
+                        <></>
+                    ) : (
+                        <>
+                            <form className="form" onSubmit={handleSubmit}>                    
+                                <img className="image" type='file' src={imagem} width={127} height={130}></img>
+                                <div className="col-md-4">
+                                    <InputText className="mt-4 mb-2" type='file' onChange={handleFileSelect}></InputText>
+                                    <Button label="Salvar Foto"  type='submit' className="p-button-outlined" onClick={() => window.location.reload()} />
+                                </div>
+                            </form>
+                        </>                  
+                    )
+                    }   
+                </div>
+
             <div className="row">
                 <div className="col-md-6">
                     <Form id="nome" label="Nome: *" >

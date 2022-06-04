@@ -59,6 +59,10 @@ function SearchOrientador(){
         navigate(`/atualizacao-orientador/${id}`)
     }
 
+    const display = (id) =>{
+        navigate(`/orientador/${id}`)
+    }
+
     const erase = () => {
         service
         .del(orientadorDelete.id)
@@ -186,6 +190,7 @@ function SearchOrientador(){
         <TableOrientador orientadores={orientador}
                     deleteAction={openDialog}
                     editAction={edit}
+                    visibleAction={display}
         />
 
         </div>

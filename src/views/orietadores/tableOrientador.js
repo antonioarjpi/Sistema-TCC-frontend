@@ -13,6 +13,13 @@ export default props => {
                 <td>{orientadores.areaConhecimento}</td>
                 <td>{orientadores.titulacaoIes}</td>
                 <td>
+                    <button type="button"  title="Visualização completa"
+                            className="btn btn-warning"
+                            onClick={e => props.visibleAction(orientadores.id)}>
+                            <i className="pi pi-eye"></i>
+                    </button>
+                </td>
+                <td>
                     <button type="button"  title="edit"
                             className="btn btn-primary"
                             onClick={e => props.editAction(orientadores.id)}>
@@ -47,6 +54,7 @@ export default props => {
                             <th>Linha</th>
                             <th>Conhecimento</th>
                             <th>IES</th>
+                            <th className="td-table" scope="col">Exibir</th>
                             <th className="td-table" scope="col">Editar</th>
                             <th className="td-table" scope="col">Excluir</th>
                         </tr>

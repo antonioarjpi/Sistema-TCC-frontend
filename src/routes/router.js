@@ -15,6 +15,7 @@ import Home from "../views/home";
 import Login from "../views/login";
 import SaveOrientacao from "../views/orientacao/saveOrientacao";
 import SearchOrientacao from "../views/orientacao/searchOrientacao";
+import DisplayOrientador from "../views/orietadores/displayOrientador";
 import SaveOrientador from "../views/orietadores/saveOrientador";
 import SearchOrientador from "../views/orietadores/searchOrientador";
 import SignUp from "../views/signup";
@@ -37,6 +38,7 @@ function Router (){
                 <Route path="/cadastro-orientador" element={<SaveOrientador />} />
                 <Route path="/orientadores" element={<SearchOrientador />} />
                 <Route path="/atualizacao-orientador/:id" element={<SaveOrientador />} />
+                <Route path="/orientador/:id" element={<DisplayOrientador />} />
 
                 <Route path="/equipes" element={<SearchEquipe />} />
                 <Route path="/cadastro-equipe" element={<SaveEquipe />} />

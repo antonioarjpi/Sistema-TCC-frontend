@@ -19,6 +19,20 @@ label{
     vertical-align: middle;
 }
 
+.profile{
+    width: 150px;
+    height: 160px;
+    border: 1px solid rgb(82, 82, 82);
+    box-shadow: rgba(5, 5, 5, 0.315) 2px 3px 9px 0px;
+    border-radius: 1.0rem;
+
+}
+
+.profile-group{
+    justify-content: flex-start;
+    display: flex;
+}
+
 input{
     width: 100%;
 }
@@ -33,6 +47,21 @@ td{
     align-items: center;
     vertical-align: middle;
 }
+
+.form{
+    
+    display: flex;
+    margin-right: 10px;
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+
+.image{
+    margin-right: 10px;
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+
 
 a{
     text-decoration: none;
@@ -85,7 +114,6 @@ a{
     
 }
 
-
 .mr-3{
     margin-right: 1.0rem;
 }
@@ -98,6 +126,8 @@ a{
     border-radius: 5px;
     margin-right: 1.0rem;
 }
+
+
 
 
 
