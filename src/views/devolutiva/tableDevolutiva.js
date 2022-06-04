@@ -42,7 +42,7 @@ export default props => {
                             <th>Local de correção</th>
                             <th>Correção sugerida</th>
                             <th>Data mudança</th>
-                            <th scope="col">Ações</th>
+                            <th className="td-table" scope="col">Ações</th>
                         </tr>
                     </thead>
                     <tbody>

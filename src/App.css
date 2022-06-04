@@ -29,11 +29,24 @@ i{
     text-align: center;
 }
 
+.td-table{
+    display: grid;
+    width: 190px;
+    text-align: start;
+}
+
 td{
-    
     align-items: center;
     grid: flex;
     vertical-align: middle;
+}
+
+a{
+    text-decoration: none;
+}
+
+.pi{
+    margin-right: 6px;
 }
  
 .alert{
@@ -66,10 +79,6 @@ td{
     box-shadow: #161616;
     box-sizing: border-box;
     box-shadow: rgba(0, 0, 0, 0.2) 1px 0px 0px 0px
-}
-
-a{
-    text-decoration: none;
 }
 
 .card-body{

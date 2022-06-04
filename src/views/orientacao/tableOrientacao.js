@@ -44,7 +44,7 @@ export default props => {
                             <th>Descrição de TCC</th>
                             <th>Tipo de TCC</th>
                             <th>Cód Equipe</th>
-                            <th scope="col">Ações</th>
+                            <th className="td-table" scope="col">Ações</th>
                         </tr>
                     </thead>
                     <tbody>

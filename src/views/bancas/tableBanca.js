@@ -63,7 +63,7 @@ export default props => {
                             <th>Data Equipe</th>
                             <th>Membro Banca</th>
                             <th>Data Defesa</th>
-                            <th scope="col">Ações</th>
+                            <th className="td-table" scope="col">Ações</th>
                         </tr>
                     </thead>
                     <tbody>

@@ -50,7 +50,7 @@ export default props => {
                             <th>Tema</th>
                             <th>Linha</th>
                             <th>Conhecimento</th>
-                            <th scope="col">Ações</th>
+                            <th className="td-table" scope="col">Ações</th>
                         </tr>
                     </thead>
                     <tbody>

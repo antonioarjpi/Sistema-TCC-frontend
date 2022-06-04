@@ -7,7 +7,7 @@ export default props => {
                 <td>{alunos.matricula}</td>
                 <td>{alunos.nome}</td>
                 <td>{alunos.email}</td>
-                <td>
+                <td >
                     <button type="button"  title="edit"
                             className="btn btn-primary"
                             onClick={e => props.editAction(alunos.id)}>
@@ -26,7 +26,7 @@ export default props => {
 
     return (
         <>
-        <div className="container mt-3 mb-5">   
+        <div className=" mt-3 mb-5">   
             <div className="table-responsive">
                 <table className="table table-striped table-sm">
                     <thead>
@@ -34,7 +34,7 @@ export default props => {
                             <th>Matrícula</th>
                             <th>Nome</th>
                             <th>E-mail</th>
-                            <th scope="col">Ações</th>
+                            <th className="td-table" scope="col">Ações</th>
                         </tr>
                     </thead>
                     <tbody>

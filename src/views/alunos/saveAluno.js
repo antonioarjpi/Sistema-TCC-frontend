@@ -1,5 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { Link, useNavigate, useParams } from "react-router-dom";
+import { InputText } from 'primereact/inputtext';
+import { Password } from 'primereact/password';
 import Card from "../../components/card/card";
 import Form from "../../components/form/form";
 
@@ -118,50 +120,31 @@ function SaveAluno(){
                 </div> 
 
             <div className="row">
-                <div className="col-md-8">
+                <div className="col-md-12">
                     <Form id="nome" label="Nome: *" >
-                        <input id="nome" type="text" 
-                            className="form-control" 
-                            name="nome"
-                            value={nome}
-                            onChange={e => setNome(e.target.value)}
-                                />
+                        <InputText className="p-inputtext-sm block mb-1"  keyfilter={/^[^</0!@#'+|$%´`¨&*"()1:;2=34,5_67}{[8\\9./>*!]+$/} value={nome} onChange={e => setNome(e.target.value)}/>        
                     </Form>
+                    
                 </div>
             </div>
 
             <div className="row">
-                <div className="col-md-8">
+                <div className="col-md-12">
                     <Form id="email" label="Email: *" >
-                        <input id="email" type="text" 
-                            className="form-control" 
-                            name="email"
-                            value={email}
-                            onChange={e => setEmail(e.target.value)}
-                                />
+                        <InputText className="p-inputtext-sm block mb-1" id="email" value={email} onChange={e => setEmail(e.target.value)}/>
                     </Form>
                 </div>
             </div>
 
             <div className="row">
-                <div className="col-md-4">
+                <div className="col-md-3">
                     <Form id="senha" label="Senha: *" >
-                        <input id="senha" type="password" 
-                            className="form-control" 
-                            name="senha"
-                            value={senha}
-                            onChange={e => setSenha(e.target.value)}
-                                />
+                        <Password className="p-inputtext-sm block mb-1" toggleMask value={senha} onChange={(e) => setSenha(e.target.value)} feedback={false} />        
                     </Form>
                 </div>
-                <div className="col-md-4">
+                <div className="col-md-3">
                     <Form id="senhaRepetida" label="Repita a senha: *" >
-                        <input id="senhaRepetida" type="password" 
-                            className="form-control" 
-                            name="senhaRepetida"
-                            value={senhaRepetida}
-                            onChange={e => setSenhaRepetida(e.target.value)}
-                                />
+                        <Password className="p-inputtext-sm block mb-1" toggleMask value={senhaRepetida} onChange={(e) => setSenhaRepetida(e.target.value)} feedback={false} />  
                     </Form>
                 </div>
             </div>
