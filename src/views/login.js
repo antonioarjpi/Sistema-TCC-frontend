@@ -33,11 +33,15 @@ function Login(){
         }).catch( error => {
             setTimeout(() => {
                 setLoading1(false);
-                if(error.message  === "Network Error"   ){
+                if(error.message  === "Network Error"){
                     messages.mensagemErro("Servidor não está disponível. tente novamente") 
+                }else if (error.response.data.message  === "Senha incorreta."){
+                    messages.mensagemErro("Senha incorreta!") 
+                }else if (error.response.data.message  === "Usuário não encontrado."){
+                    messages.mensagemErro("Usuário não encontrado!") 
                 }else{
-                    messages.mensagemErro("Usuário ou senha inválida!")   
-                }         
+                    messages.mensagemErro(error.error) 
+                }    
                 
             }, 1000)
             

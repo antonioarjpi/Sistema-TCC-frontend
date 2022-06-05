@@ -47,6 +47,11 @@ function SearchAluno(){
         navigate(`/atualizacao-aluno/${id}`)
     }
 
+    const display = (id) =>{
+        navigate(`/aluno/${id}`)
+    }
+
+
     const erase = () => {
         service
         .del(alunoDelete.id)
@@ -127,6 +132,7 @@ function SearchAluno(){
             </Card>
         
         <TableAluno alunos={aluno}
+                    visibleAction={display}
                     deleteAction={openDialog}
                     editAction={edit}
         />

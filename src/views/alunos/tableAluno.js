@@ -7,6 +7,13 @@ export default props => {
                 <td>{alunos.matricula}</td>
                 <td>{alunos.nome}</td>
                 <td>{alunos.email}</td>
+                <td>
+                    <button type="button"  title="Visualização completa"
+                            className="btn btn-warning"
+                            onClick={e => props.visibleAction(alunos.id)}>
+                            <i className="pi pi-eye"></i>
+                    </button>
+                </td>
                 <td >
                     <button type="button"  title="edit"
                         className="btn btn-primary" onClick={e => props.editAction(alunos.id)}>
@@ -37,6 +44,7 @@ export default props => {
                             <th>Matrícula</th>
                             <th>Nome</th>
                             <th>E-mail</th>
+                            <th className="td-table" scope="col">Exibir</th>
                             <th className="td-table" >Editar</th>
                             <th className="td-table" >Excluir</th>
                         </tr>

@@ -1,5 +1,6 @@
 import React from "react";
 import { BrowserRouter, Route, Routes  } from 'react-router-dom';
+import DisplayAluno from "../views/alunos/displayAluno";
 import SaveAluno from "../views/alunos/saveAluno";
 import SearchAluno from "../views/alunos/searchAluno";
 import SaveBanca from "../views/bancas/saveBanca";
@@ -9,7 +10,7 @@ import SaveDevolutiva from "../views/devolutiva/saveDevolutiva";
 import SearchDevolutiva from "../views/devolutiva/searchDevolutiva";
 import SaveEquipe from "../views/equipes/saveEquipe";
 import SearchEquipe from "../views/equipes/searchEquipe";
-import SearchEquipeFull from "../views/equipes/searchFullEquipe";
+import SearchEquipeFull from "../views/equipes/displayEquipe";
 
 import Home from "../views/home";
 import Login from "../views/login";
@@ -34,6 +35,7 @@ function Router (){
                 <Route path="/cadastro-aluno" element={<SaveAluno />} />
                 <Route path="/alunos" element={<SearchAluno />} />
                 <Route path="/atualizacao-aluno/:id" element={<SaveAluno />} />
+                <Route path="/aluno/:id" element={<DisplayAluno />} />
 
                 <Route path="/cadastro-orientador" element={<SaveOrientador />} />
                 <Route path="/orientadores" element={<SearchOrientador />} />
