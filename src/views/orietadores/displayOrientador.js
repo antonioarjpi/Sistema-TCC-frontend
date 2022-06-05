@@ -19,7 +19,7 @@ function DisplayOrientador(){
     const [linhaPesquisaDescricao, setLinhaPesquisaDescricao] = useState();
     const [linhaPesquisaAreaconhecimentoDescricao, setLinhaPesquisaAreaconhecimentoDescricao] = useState();
     const [imagem, setImagem] = useState();
-    const [nullImage, setNullImage] = useState('https://sistema-gerenciamento-tcc.s3.sa-east-1.amazonaws.com/avatar-blank.png');
+    const [nullImage] = useState('https://sistema-gerenciamento-tcc.s3.sa-east-1.amazonaws.com/avatar-blank.png');
 
     const { id } = useParams();
     const service = new OrientadorService();
