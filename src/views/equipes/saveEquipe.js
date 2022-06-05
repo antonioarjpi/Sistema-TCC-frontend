@@ -64,11 +64,11 @@ function SaveEquipe(){
         }
         service.save({
             nome: nome,
+            temaDelimitacao: delimitacao,
             dataCadastro: dataCadastro,
-            delimitacao: delimitacao,
             alunos: selectedAlunos,
-            descricaoLinha: descricaoLinha,
-            descricaoConhecimento: descricaoConhecimento
+            temaLinhapesquisaDescricao: descricaoLinha,
+            temaLinhaPesquisaAreaConhecimentoDescricao: descricaoConhecimento
         }).then(response => {
             navigate('/equipes')
             messages.mensagemSucesso('Equipe cadastrado com sucesso!' )
@@ -85,10 +85,9 @@ function SaveEquipe(){
         try{
             service.validate({
                 nome: nome,
-                dataCadastro: dataCadastro,
-                delimitacao: delimitacao,
                 alunos: selectedAlunos,
-                descricaoLinha: descricaoLinha,
+                delimitacao: delimitacao,
+                dataCadastro: dataCadastro,
                 descricaoConhecimento: descricaoConhecimento
             })
         }catch(error){
@@ -99,10 +98,11 @@ function SaveEquipe(){
         service.update({
             id: equipe,
             nome: nome,
-            delimitacao: delimitacao,
+            temaDelimitacao: delimitacao,
+            dataCadastro: dataCadastro,
             alunos: selectedAlunos,
-            descricaoLinha: descricaoLinha,
-            descricaoConhecimento: descricaoConhecimento
+            temaLinhapesquisaDescricao: descricaoLinha,
+            temaLinhaPesquisaAreaConhecimentoDescricao: descricaoConhecimento
         }).then(response => {
             navigate('/equipes')
             messages.mensagemSucesso('Equipe atualizado com sucesso!')
