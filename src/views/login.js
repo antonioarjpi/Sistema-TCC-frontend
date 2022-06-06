@@ -35,13 +35,17 @@ function Login(){
                 setLoading1(false);
                 if(error.message  === "Network Error"){
                     messages.mensagemErro("Servidor não está disponível. tente novamente") 
-                }else if (error.response.data.message  === "Senha incorreta."){
-                    messages.mensagemErro("Senha incorreta!") 
-                }else if (error.response.data.message  === "Usuário não encontrado."){
-                    messages.mensagemErro("Usuário não encontrado!") 
-                }else{
+                }
+                else{
                     messages.mensagemErro(error.error) 
-                }    
+                    messages.mensagemErro("Servidor está 'acordando', tente novamente em instantes") 
+                }               
+                if (error.response.data.message  === "Senha incorreta."){
+                    messages.mensagemErro("Senha incorreta!") 
+                }
+                if (error.response.data.message  === "Usuário não encontrado."){
+                    messages.mensagemErro("Usuário não encontrado!") 
+                }
                 
             }, 1000)
             
