@@ -38,10 +38,6 @@ export default class EquipeService extends ApiService {
             errors.push('O campo tema é obrigatório.')
         }
 
-        if(!equipe.dataCadastro){
-            errors.push('Nenhuma data foi adicionada.')
-        }
-
         if(!equipe.descricaoConhecimento){
             errors.push('Nenhuma conhecimento foi adicionada.')
         }

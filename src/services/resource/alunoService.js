@@ -47,6 +47,25 @@ export default class AlunoService extends ApiService {
         }
     }
 
+    validateUpdate(alunos){
+        const errors = []
+
+        if(!alunos.nome){
+            errors.push('O campo Nome é obrigatório.')
+        }
+
+        if(!alunos.email){
+            errors.push('O campo Email é obrigatório.')
+        }else if( !alunos.email.match(/^[a-z0-9.]+@[a-z0-9]+\.[a-z]/) ){
+            errors.push('Informe um Email válido.')
+        }   
+
+        if(errors && errors.length > 0){
+            throw new ValidationError(errors);
+        }
+    }
+
+
 
     consulta(filter){
         let params = `?nome=${filter.nome}`

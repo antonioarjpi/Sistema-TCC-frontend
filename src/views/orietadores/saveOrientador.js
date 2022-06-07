@@ -36,8 +36,6 @@ function SaveOrientador(){
             setOrientador(response.data.id)
             setNome(response.data.nome);
             setEmail(response.data.email);
-            setSenha(response.data.senha);
-            setSenhaRepetida(response.data.senha);
             setMatricula(response.data.matricula);   
             setDescricaoTitulacao(response.data.titulacao.descricao);
             setIes(response.data.titulacao.ies);
@@ -58,7 +56,9 @@ function SaveOrientador(){
                 nome: nome,
                 email: email,
                 senha: senha,
-                senhaRepetida: senhaRepetida
+                senhaRepetida: senhaRepetida,
+                titulacaoDescricao: titulacaoDescricao,
+                titulacaoGrau: titulacaoGrau
             })
         }catch(error){
             const msgs = error.message;
@@ -90,11 +90,11 @@ function SaveOrientador(){
 
     const update = () => {
         try{
-            service.validate({
+            service.validateUpdate({
                 nome: nome,
                 email: email,
-                senha: senha,
-                senhaRepetida: senhaRepetida
+                titulacaoDescricao: titulacaoDescricao,
+                titulacaoGrau: titulacaoGrau
             })
         }catch(error){
             const msgs = error.message;
@@ -106,7 +106,6 @@ function SaveOrientador(){
             id: orientador,
             nome: nome,
             email: email,
-            senha: senha,
             matricula: matricula,
             titulacaoIes: titulacaoIes,
             titulacaoDescricao: titulacaoDescricao,
@@ -185,6 +184,7 @@ function SaveOrientador(){
                 </div>
             </div>
 
+            { atualizando ? (
             <div className="row">
                 <div className="col-md-2">
                     <Form id="senha" label="Senha: *" >
@@ -197,6 +197,10 @@ function SaveOrientador(){
                     </Form>
                 </div>
             </div>
+            ) : ( 
+                <></> 
+            )}
+
 
             <div className="row mt-2">
                 <div className="col-md-6" >

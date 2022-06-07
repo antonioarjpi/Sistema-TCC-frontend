@@ -37,7 +37,6 @@ function Login(){
                     messages.mensagemErro("Servidor não está disponível. tente novamente") 
                 }
                 else{
-                    messages.mensagemErro(error.error) 
                     messages.mensagemErro("Servidor está 'acordando', tente novamente em instantes") 
                 }               
                 if (error.response.data.message  === "Senha incorreta."){

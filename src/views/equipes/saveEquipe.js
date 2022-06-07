@@ -54,7 +54,6 @@ function SaveEquipe(){
                 nome: nome,
                 alunos: selectedAlunos,
                 delimitacao: delimitacao,
-                dataCadastro: dataCadastro,
                 descricaoConhecimento: descricaoConhecimento
             })
         }catch(error){
@@ -65,7 +64,6 @@ function SaveEquipe(){
         service.save({
             nome: nome,
             temaDelimitacao: delimitacao,
-            dataCadastro: dataCadastro,
             alunos: selectedAlunos,
             temaLinhapesquisaDescricao: descricaoLinha,
             temaLinhaPesquisaAreaConhecimentoDescricao: descricaoConhecimento
@@ -87,7 +85,6 @@ function SaveEquipe(){
                 nome: nome,
                 alunos: selectedAlunos,
                 delimitacao: delimitacao,
-                dataCadastro: dataCadastro,
                 descricaoConhecimento: descricaoConhecimento
             })
         }catch(error){
@@ -99,7 +96,6 @@ function SaveEquipe(){
             id: equipe,
             nome: nome,
             temaDelimitacao: delimitacao,
-            dataCadastro: dataCadastro,
             alunos: selectedAlunos,
             temaLinhapesquisaDescricao: descricaoLinha,
             temaLinhaPesquisaAreaConhecimentoDescricao: descricaoConhecimento

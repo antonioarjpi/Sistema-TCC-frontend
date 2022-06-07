@@ -20,6 +20,7 @@ function ScheduleDefesa(){
         service.findId(id)
         .then(response =>{
             setDefesa(response.data.id);
+            setData(response.data.defesaDataDefesa)
         })
         .catch(erros => {
             messages.mensagemErro(erros.response.data)

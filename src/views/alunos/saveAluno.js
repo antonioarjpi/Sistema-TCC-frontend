@@ -31,9 +31,7 @@ function SaveAluno(){
             setAluno(response.data.id)
             setNome(response.data.nome);
             setEmail(response.data.email);
-            setSenha(response.data.senha);
-            setMatricula(response.data.matricula)
-            setSenhaRepetida(response.data.senha);
+            setMatricula(response.data.matricula);
             setAtualizando(false);
         })  
         .catch(erros => {
@@ -75,11 +73,9 @@ function SaveAluno(){
 
     const update = () => {
         try{
-            service.validate({
+            service.validateUpdate({
                 nome: nome,
-                email: email,
-                senha: senha,
-                senhaRepetida: senhaRepetida
+                email: email
             })
         }catch(error){
             const msgs = error.message;
@@ -90,8 +86,7 @@ function SaveAluno(){
         service.update({
             id: aluno,
             nome: nome,
-            email: email,
-            senha: senha
+            email: email
         }).then(response => {
             navigate('/alunos')
             messages.mensagemSucesso('Aluno atualizado com sucesso!')
@@ -136,7 +131,8 @@ function SaveAluno(){
                 </div>
             </div>
 
-            <div className="row">
+            { atualizando ? (
+                <div className="row">
                 <div className="col-md-3">
                     <Form id="senha" label="Senha: *" >
                         <Password className="p-inputtext-sm block mb-1" toggleMask value={senha} onChange={(e) => setSenha(e.target.value)} feedback={false} />        
@@ -148,6 +144,9 @@ function SaveAluno(){
                     </Form>
                 </div>
             </div>
+            ) : (
+                <></>
+            )}
 
             <div className="row mt-2">
                 <div className="col-md-6" >

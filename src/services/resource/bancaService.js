@@ -24,7 +24,7 @@ export default class BancaService extends ApiService {
     }
 
     scheduling(banca){
-        return this.post(`/${banca.id}`, banca);
+        return this.put(`/agendamento/${banca.id}`, banca);
     }
 
     validate(banca){
