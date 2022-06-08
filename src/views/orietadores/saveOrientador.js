@@ -27,6 +27,7 @@ function SaveOrientador(){
     
     const navigate = useNavigate();
     const { id } = useParams();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     const service = new OrientadorService();
 
     useEffect(() => {
@@ -48,7 +49,7 @@ function SaveOrientador(){
             messages.mensagemErro(erros.response.data)
         })
 
-      }},[]);
+      }},[id, service]);
 
     const submit = () => {
         try{
@@ -82,7 +83,7 @@ function SaveOrientador(){
         }).catch(error => {
             if (error.message === 'Network Error'){
                 messages.mensagemAlert("Não foi possível conectar com servidor remoto")
-                throw new ('');
+                throw new ('')();
             }   
             messages.mensagemErro(error.response.data.message)
         })

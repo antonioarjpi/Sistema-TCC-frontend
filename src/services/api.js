@@ -4,14 +4,19 @@ import * as messages from '../components/toastr/toastr'
 export const baseURL = process.env.REACT_APP_APP_BACKEND_URL ?? "http://localhost:8080"
 
 const api = axios.create({
-        baseURL: baseURL,
-        timeout: 5000 
+        baseURL: baseURL
     });
 
 class ApiService {
 
     constructor(apiurl){
         this.apiurl = apiurl;
+    }
+
+    static registrarToken(token){
+        if(token){
+            api.defaults.headers.common['Authorization'] = `Bearer ${token}`
+        }        
     }
 
     post(url, obj){
@@ -34,7 +39,7 @@ class ApiService {
         return api.get(requestUrl)        
         .catch(error => {
             if (error.message === 'Network Error'){
-                messages.mensagemAlert("Não foi possível conectar com servidor remoto")
+                messages.mensagemAlert(error.message)
             }
         })
     }

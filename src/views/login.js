@@ -11,17 +11,21 @@ import UserService from "../services/resource/user";
 import * as messages from '../components/toastr/toastr';
 import LocalStorageService from "../services/resource/localstorageService";
 
+import { Panel } from 'primereact/panel';
+
+
+
 function Login(){
 
     const [email, setEmail] = useState();
     const [senha, setSenha] = useState();
     const [loading1, setLoading1] = useState(false);
-
-
     const navigate = useNavigate();
     const service = new UserService();
+    
 
-    const login = () =>{
+    const login = () =>{      
+
         setLoading1(true);
         setTimeout(() => {
         service.authenticate({
@@ -32,13 +36,7 @@ function Login(){
             navigate('/home')
         }).catch( error => {
             setTimeout(() => {
-                setLoading1(false);
-                if(error.message  === "Network Error"){
-                    messages.mensagemErro("Servidor não está disponível. tente novamente") 
-                }
-                else{
-                    messages.mensagemErro("Servidor está 'acordando', tente novamente em instantes") 
-                }               
+                setLoading1(false);              
                 if (error.response.data.message  === "Senha incorreta."){
                     messages.mensagemErro("Senha incorreta!") 
                 }
@@ -46,9 +44,7 @@ function Login(){
                     messages.mensagemErro("Usuário não encontrado!") 
                 }
                 
-            }, 1000)
-            
-    
+            }, 1000);   
         })
     }, 700)
     }
@@ -58,6 +54,7 @@ function Login(){
     }
 
     return(
+        <>
         <div className="col col-md-12" style={{display: 'flex', justifyContent: 'center'}}>
             <Card title='Acesso ao sistema'>
                 <div className="row">
@@ -82,8 +79,22 @@ function Login(){
                     </div>
                 </div>
             </Card>
+
             
+            
+        </div>
+        <Form>
+        <div className="col col-md-12" >
+        <div className="container" style={{display: 'flex', justifyContent: 'center', verticalAlign: 'middle', width: '800px', alignItems: 'middle', }}>
+            <div className="row">
+                <Panel toggleable header="Aviso">
+                <p>O Site é hospedado de forma gratuita, então pode levar um tempo até carregar todas as informações.</p>
+                </Panel>
+            </div>
+        </div>
         </div>  
+        </Form>
+    </>
     )
     
 }

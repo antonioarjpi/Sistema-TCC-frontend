@@ -1,5 +1,5 @@
 import React from "react";
-import { BrowserRouter, Route, Routes  } from 'react-router-dom';
+import { BrowserRouter, Navigate, Route, Routes  } from 'react-router-dom';
 import DisplayAluno from "../views/alunos/displayAluno";
 import SaveAluno from "../views/alunos/saveAluno";
 import SearchAluno from "../views/alunos/searchAluno";
@@ -21,16 +21,23 @@ import SaveOrientador from "../views/orietadores/saveOrientador";
 import SearchOrientador from "../views/orietadores/searchOrientador";
 import SignUp from "../views/signup";
 
-
+// const PrivateRoute = ({ children, redirectTo }) => {
+//     const isAuthenticated = localStorage.getItem("token") !== null;
+//     console.log("isAuth: ", isAuthenticated);
+//     return isAuthenticated ? children : <Navigate to={redirectTo} />;
+//   };
 
 function Router (){
     return (
+    
         <BrowserRouter>
             <Routes>
                 <Route path="/" element={<Login />} />
                 <Route path="/login" element={<Login />} />
                 <Route path="/signup" element={<SignUp />} />
                 <Route path="/home" element={<Home />} />
+
+                {/* <Route path="/home" element={<PrivateRoute redirectTo="/"><Home /></PrivateRoute>} /> */}
 
                 <Route path="/cadastro-aluno" element={<SaveAluno />} />
                 <Route path="/alunos" element={<SearchAluno />} />
@@ -65,5 +72,6 @@ function Router (){
         </BrowserRouter>
         )
 }
+
 
 export default Router;
