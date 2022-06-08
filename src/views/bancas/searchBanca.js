@@ -35,8 +35,7 @@ function SearchBanca(){
             membroMatricula: membroMatricula,
             orientadorNome: orientadorNome,
             equipeId: equipeId,
-            id: id,
-            dataBanca: dataBanca
+            id: id
         }
 
         service.consult(filter)
