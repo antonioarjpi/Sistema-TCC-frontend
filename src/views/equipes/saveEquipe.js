@@ -169,28 +169,14 @@ function SaveEquipe(){
                     </Form>
                 </div>
                 <div className="col-md-4">
-
-                    { atualizando ? (
                     <Form id="dataCadastro" label="Data de cadastro: *" >
                         <input id="dataCadastro" type="date" 
                             className="form-control" 
                             name="dataCadastro"
-                            value={dataCadastro}
-                            onChange={e => setDataCadastro(e.target.value)}
-                                />
-                    </Form>
-                    ) : (
-                        <Form id="dataCadastro" label="Data de cadastro: *" >
-                            <input id="dataCadastro" type="date" 
-                                className="form-control" 
-                                name="dataCadastro"
-                                disabled
-                                value={dataCadastro}
-                                onChange={e => setDataCadastro(e.target.value)}
-                                    />
-                        </Form>                    
-                    )
-                    }         
+                            disabled
+                            value={dataCadastro}/>
+                    </Form>                    
+                          
                 </div>
             </div>
 
