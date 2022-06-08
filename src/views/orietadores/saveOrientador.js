@@ -49,7 +49,7 @@ function SaveOrientador(){
             messages.mensagemErro(erros.response.data)
         })
 
-      }},[id, service]);
+      }},[]);
 
     const submit = () => {
         try{
