@@ -6,9 +6,8 @@ import { MultiSelect } from 'primereact/multiselect';
 import * as messages from '../../components/toastr/toastr'
 import Navbar from "../../components/navbar/navbar";
 import EquipeService from "../../services/resource/equipeService";
-import axios from "axios";
-import { baseURL } from "../../services/api";
 import { formatLocalDate } from "../../utils/format";
+import AlunoService from "../../services/resource/alunoService";
 
 function SaveEquipe(){
 
@@ -25,6 +24,8 @@ function SaveEquipe(){
     const { id } = useParams();
     const navigate = useNavigate();
     const service = new EquipeService();
+    const alunoService = new AlunoService();
+   
 
     useEffect(() => {
         if(id){
@@ -110,10 +111,11 @@ function SaveEquipe(){
 
     //Select from alunos
     useEffect(() => {
-        axios.get(`${baseURL}/alunos`)
+        alunoService.findAll()
         .then(response => {
             setAlunos(response.data) 
         }).catch(error =>{
+            console.log()
             if(error.message  === "Network Error"   ){
                 messages.mensagemErro("Não foi possível conectar com o servidor remoto") 
             }else{

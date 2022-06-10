@@ -4,10 +4,9 @@ import Card from "../../components/card/card";
 
 import * as messages from '../../components/toastr/toastr'
 import Navbar from "../../components/navbar/navbar";
-import axios from "axios";
-import { baseURL } from "../../services/api";
 import { formatLocalDate } from "../../utils/format";
 import TableAlunoEquipe from "./tableAlunoEquipe";
+import EquipeService from "../../services/resource/equipeService";
 
 function SearchEquipeFull(){
 
@@ -31,12 +30,14 @@ function SearchEquipeFull(){
     const [devolutivaCorrecaoSugerida, setDevolutivaCorrecaoSugerida] = useState();
     const [aluno, setAluno] = useState([]);
 
+    const service = new EquipeService();
 
     const { id } = useParams();
 
     useEffect(() => {
         if(id){
-        axios.get(`${baseURL}/equipes/devolutivas/${id}`)
+        
+        service.findDevolutivas(id)
         .then(response =>{
             setEquipe(response.data.id)
             setNome(response.data.nome);

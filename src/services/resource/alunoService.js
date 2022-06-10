@@ -23,6 +23,10 @@ export default class AlunoService extends ApiService {
         return this.get(`/${id}`)
     }
 
+    findAll(){
+        return this.get(``)
+    }
+
     validate(alunos){
         const errors = []
 
@@ -64,8 +68,6 @@ export default class AlunoService extends ApiService {
             throw new ValidationError(errors);
         }
     }
-
-
 
     consulta(filter){
         let params = `?nome=${filter.nome}`

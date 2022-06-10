@@ -23,6 +23,10 @@ export default class EquipeService extends ApiService {
         return this.get(`/${id}`)
     }
 
+    findDevolutivas(id){
+        return this.get(`/devolutivas/${id}`)
+    }
+
     validate(equipe){
         const errors = []
 

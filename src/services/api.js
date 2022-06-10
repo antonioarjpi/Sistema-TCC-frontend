@@ -1,11 +1,10 @@
 import axios from 'axios';
-import * as messages from '../components/toastr/toastr'
 
 export const baseURL = process.env.REACT_APP_APP_BACKEND_URL ?? "http://localhost:8080"
 
 const api = axios.create({
         baseURL: baseURL,
-    });
+});
 
 class ApiService {
 
@@ -20,29 +19,28 @@ class ApiService {
         }        
     }
 
-    post(url, obj){
+    async post(url, obj){
         const requestUrl = `${this.apiurl}${url}`
         return api.post(requestUrl, obj)
     }
 
-    put(url, obj){
+    async put(url, obj){
         const requestUrl = `${this.apiurl}${url}`
         return api.put(requestUrl, obj);
     }
 
-    delete(url){
+    async delete(url){
         const requestUrl = `${this.apiurl}${url}`
         return api.delete(requestUrl)
     }
 
-    get(url){
-        const requestUrl = `${this.apiurl}${url}`
-        return api.get(requestUrl)        
-        .catch(error => {
-            if (error.message === 'Network Error'){
-                messages.mensagemAlert(error.message)
-            }
-        })
+    async get(url){
+        try{
+            const response = api.get(`${this.apiurl}${url}`)
+            return response
+        } catch (error){
+            return false;
+        }
     }
 }
 
@@ -56,6 +54,41 @@ api.interceptors.request.use(config => {
     }
      return config;
 });
+
+
+api.interceptors.response.use(
+    (value) => {
+      return Promise.resolve(value);
+    },
+    (error) => {
+      const { isAxiosError = false, response = null } = error;
+  
+      if (isAxiosError && response && response.status === 401) {
+        // Regra de redirecionamento de usuário para página de login
+        return Promise.reject(error);
+      }
+      return Promise.reject(error);
+    }
+);
+
+let counter = 1;
+
+api.interceptors.response.use(
+  (response) => {
+    return response;
+  },
+  (error) => {
+    if (
+      error.response.status >= 500 &&
+      counter < Number(process.env.REACT_APP_RETRY)
+    ) {
+      counter++;
+      return api.request(error.config);
+    }
+    counter = 1;
+    return Promise.reject(error);
+  }
+);
 
 
 export default ApiService;

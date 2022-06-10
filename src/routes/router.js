@@ -34,7 +34,7 @@ function Router (){
                 <Route path="/" element={<PrivateRoute redirectTo="/login"><Home /></PrivateRoute>} />
                 <Route path="/login" element={<Login />} />
                 <Route path="/signup" element={<SignUp />} />
-                {/* <Route path="/home" element={<Home />} /> */}
+                <Route path="/home" element={<Home />} />
 
                 <Route path="/home" element={<PrivateRoute redirectTo="/login"><Home /></PrivateRoute>} />
 
@@ -66,43 +66,6 @@ function Router (){
                 <Route path="/devolutivas" element={<PrivateRoute redirectTo="/login"><SearchDevolutiva /></PrivateRoute>} />
                 <Route path="/cadastro-devolutiva" element={<PrivateRoute redirectTo="/login"><SaveDevolutiva /></PrivateRoute>} />
                 <Route path="/atualizacao-devolutiva/:id" element={<PrivateRoute redirectTo="/login"><SaveDevolutiva /></PrivateRoute>} />
-
-
-                {/* <Route path="/" element={<Login />} />
-                <Route path="/login" element={<Login />} />
-                <Route path="/signup" element={<SignUp />} />
-                {/* <Route path="/home" element={<Home />} /> */}
-{/* 
-                <Route path="/home" element={<PrivateRoute redirectTo="/"><Home /></PrivateRoute>} />
-
-                <Route path="/cadastro-aluno" element={<PrivateRoute redirectTo="/"><SaveAluno /></PrivateRoute>} />
-                <Route path="/alunos" element={<PrivateRoute redirectTo="/"><SearchAluno /></PrivateRoute>} />
-                <Route path="/atualizacao-aluno/:id" element={<SaveAluno />} />
-                <Route path="/aluno/:id" element={<DisplayAluno />} />
-
-                <Route path="/cadastro-orientador" element={<SaveOrientador />} />
-                <Route path="/orientadores" element={<SearchOrientador />} />
-                <Route path="/atualizacao-orientador/:id" element={<SaveOrientador />} />
-                <Route path="/orientador/:id" element={<DisplayOrientador />} />
-
-                <Route path="/equipes" element={<SearchEquipe />} />
-                <Route path="/cadastro-equipe" element={<SaveEquipe />} />
-                <Route path="/atualizacao-equipe/:id" element={<SaveEquipe />} />
-                <Route path="/equipe/:id" element={<SearchEquipeFull />} />
-
-                <Route path="/bancas" element={<SearchBanca />} />
-                <Route path="/cadastro-banca" element={<SaveBanca />} />
-                <Route path="/atualizacao-banca/:id" element={<SaveBanca />} />
-                <Route path="/agendamento-defesa/:id" element={<ScheduleDefesa />} />
-
-                <Route path="/orientacao" element={<SearchOrientacao />} />
-                <Route path="/cadastro-orientacao" element={<SaveOrientacao />} />
-                <Route path="/atualizacao-orientacao/:id" element={<SaveOrientacao />} />
-                
-
-                <Route path="/devolutivas" element={<SearchDevolutiva />} />
-                <Route path="/cadastro-devolutiva" element={<SaveDevolutiva />} />
-                <Route path="/atualizacao-devolutiva/:id" element={<SaveDevolutiva />} />  */}
                 
             </Routes>      
         </BrowserRouter>
