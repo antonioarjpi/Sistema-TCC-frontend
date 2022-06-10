@@ -9,10 +9,9 @@ import Card from "../components/card/card";
 import Form from "../components/form/form";
 import UserService from "../services/resource/user";
 import * as messages from '../components/toastr/toastr';
-import LocalStorageService from "../services/resource/localstorageService";
 
 import { Panel } from 'primereact/panel';
-
+import { useAuth } from "../context/AuthContext";
 
 
 function Login(){
@@ -22,17 +21,17 @@ function Login(){
     const [loading1, setLoading1] = useState(false);
     const navigate = useNavigate();
     const service = new UserService();
+    const auth = useAuth();
     
 
     const login = () =>{      
-
         setLoading1(true);
         setTimeout(() => {
         service.authenticate({
             email: email,
             senha: senha
         }).then( response => {
-            LocalStorageService.addItem('_usuario_logado', response.data )
+            auth.login(response.data, response.data.token);
             navigate('/home')
         }).catch( error => {
             setTimeout(() => {

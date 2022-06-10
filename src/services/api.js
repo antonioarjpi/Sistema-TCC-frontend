@@ -4,7 +4,7 @@ import * as messages from '../components/toastr/toastr'
 export const baseURL = process.env.REACT_APP_APP_BACKEND_URL ?? "http://localhost:8080"
 
 const api = axios.create({
-        baseURL: baseURL
+        baseURL: baseURL,
     });
 
 class ApiService {
@@ -16,6 +16,7 @@ class ApiService {
     static registrarToken(token){
         if(token){
             api.defaults.headers.common['Authorization'] = `Bearer ${token}`
+            console.log(token)
         }        
     }
 
@@ -44,6 +45,17 @@ class ApiService {
         })
     }
 }
+
+api.interceptors.request.use(config => {
+   const token = localStorage.getItem('@TCC:Token') || '';
+   
+   if(!token) return config;
+   
+   if(config?.headers){
+        config.headers = { Authorization: `Bearer ${token}`}
+    }
+     return config;
+});
 
 
 export default ApiService;

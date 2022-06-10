@@ -8,11 +8,11 @@ class UserService extends ApiService {
     }
 
     authenticate(credenciais){
-        return this.post('/auth', credenciais)
+        return this.post('/autenticar', credenciais)
     }
 
     save(usuario){
-        return this.post('/', usuario);
+        return this.post('/cadastrar', usuario);
     }
 
     validate(usuario){

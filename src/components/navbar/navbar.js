@@ -1,8 +1,16 @@
 import { Link } from "react-router-dom";
+import { useAuth } from "../../context/AuthContext";
 import NavItem from "../nav-item/navbarItem";
 
 
 function Navbar(props){
+
+    const auth = useAuth();
+
+    const logout = () =>{
+      auth.logout();
+    }
+
     return (
         <div className="navbar navbar-expand-lg fixed-top navbar-light">
         <div className="container">
@@ -38,7 +46,7 @@ function Navbar(props){
                   <NavItem render={props.isUsuarioAutenticado} label="Devolutivas" />
                 </Link>
 
-                <NavItem render={props.isUsuarioAutenticado} onClick={props.deslogar} href="/login" label="Sair" />
+                <NavItem render={props.isUsuarioAutenticado} onClick={logout} href="/login" label="Sair" />
                 
             </ul>
             </div>
