@@ -9,12 +9,12 @@ export default props => {
             <tr key={bancas.id}>
                 <td>{bancas.id}</td>
                 <td>{bancas.descricao}</td>
-                
+                <td>{formatLocalDate(bancas.dataBanca, "dd/MM/yyyy")}</td>
                 <td>{bancas.ordemApresentacao}</td>
                 <td>{bancas.orientadorNome}</td>
                 <td>{bancas.equipeAlunos[0].nome}</td>
                 <td>{bancas.equipeId}</td>
-                
+                <td>{formatLocalDate(bancas.equipeDataCadastro, "dd/MM/yyyy")}</td>
                 <td>{bancas.membroMatricula}</td>
                 {bancas.defesaDataDefesa !== null && (
                     <td>{formatLocalDate(bancas.defesaDataDefesa, "dd/MM/yyyy")}</td>
@@ -58,14 +58,14 @@ export default props => {
                         <tr>
                             <th>Código</th>
                             <th>Descrição banca</th>
-                          
+                            <th>Data da Banca</th>
                             <th>Ordem</th>
                             <th>Orientador</th>
                             <th>Lider de equipe</th>
                             <th>Cod Equipe</th>
                             <th>Data Equipe</th>
                             <th>Membro Banca</th>
-                           
+                            <th>Data Defesa</th>
                             <th className="td-table" scope="col">Defesa</th>
                             <th className="td-table" scope="col">Editar</th>
                             <th className="td-table" scope="col">Excluir</th>

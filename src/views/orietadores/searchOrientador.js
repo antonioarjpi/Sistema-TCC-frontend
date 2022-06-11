@@ -51,7 +51,7 @@ function SearchOrientador(){
                 messages.mensagemAlert("Nenhum resultado encontrado.");
             }
         }).catch(error =>{
-            console.log(error.response.data.response)
+            
         })
     }
   
