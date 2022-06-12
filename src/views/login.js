@@ -33,19 +33,15 @@ function Login(){
         }).then( response => {
             auth.login(response.data, response.data.token);
             navigate('/home')
-        }).catch( error => {
+        }).catch( error => {            
+            if (error.response.data.message){
+                messages.mensagemErro("Usuário ou senha inválida") 
+            }
             setTimeout(() => {
-                setLoading1(false);              
-                if (error.response.data.message  === "Senha incorreta."){
-                    messages.mensagemErro("Senha incorreta!") 
-                }
-                if (error.response.data.message  === "Usuário não encontrado."){
-                    messages.mensagemErro("Usuário não encontrado!") 
-                }
-                
-            }, 1000);   
+                setLoading1(false);                  
+            }, 1000);          
         })
-    }, 700)
+    }, 900)
     }
         
     const signup = () => {

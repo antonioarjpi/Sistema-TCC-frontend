@@ -12,7 +12,6 @@ export default props => {
                 <td>{formatLocalDate(bancas.dataBanca, "dd/MM/yyyy")}</td>
                 <td>{bancas.ordemApresentacao}</td>
                 <td>{bancas.orientadorNome}</td>
-                <td>{bancas.equipeAlunos[0].nome}</td>
                 <td>{bancas.equipeId}</td>
                 <td>{formatLocalDate(bancas.equipeDataCadastro, "dd/MM/yyyy")}</td>
                 <td>{bancas.membroMatricula}</td>
@@ -61,7 +60,6 @@ export default props => {
                             <th>Data da Banca</th>
                             <th>Ordem</th>
                             <th>Orientador</th>
-                            <th>Lider de equipe</th>
                             <th>Cod Equipe</th>
                             <th>Data Equipe</th>
                             <th>Membro Banca</th>

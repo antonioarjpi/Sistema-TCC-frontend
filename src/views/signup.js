@@ -50,8 +50,7 @@ function SignUp(){
                 if(error.message  === "Network Error"   ){
                     messages.mensagemErro("Servidor não está disponível. tente novamente em alguns instantes") 
                 }else{
-                    messages.mensagemErro(error.response.data.message)   
-                    
+                    messages.mensagemErro(error.response.data.message)     
                 }         
                 setLoading(false);
             }, 1000)
