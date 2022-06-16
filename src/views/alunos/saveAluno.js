@@ -103,8 +103,8 @@ function SaveAluno(){
                 <div className="row">
                     <div className="col-md-2">
                         <Form id="matricula" label="Matricula: " >
-                            <input id="nome" type="text" 
-                                className="form-control" 
+                            <InputText id="nome" type="text" 
+                                className="p-inputtext-sm block mb-1"
                                 name="matricula"
                                 disabled
                                 value={matricula}

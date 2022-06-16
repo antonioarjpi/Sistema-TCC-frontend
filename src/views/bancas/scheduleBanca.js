@@ -2,7 +2,6 @@ import React, { useEffect, useState } from "react";
 import { Link, useNavigate, useParams } from "react-router-dom";
 import Card from "../../components/card/card";
 import Form from "../../components/form/form";
-import { formatLocalDate } from "../../utils/format";
 import * as messages from '../../components/toastr/toastr'
 import Navbar from "../../components/navbar/navbar";
 import BancaService from "../../services/resource/bancaService";
@@ -10,7 +9,7 @@ import BancaService from "../../services/resource/bancaService";
 
 function ScheduleDefesa(){
 
-    const [defesa, setDefesa] = useState();
+    const [, setDefesa] = useState();
     const [data, setData] = useState();
 
     const { id } = useParams();
@@ -26,6 +25,7 @@ function ScheduleDefesa(){
             messages.mensagemErro(erros.response.data)
         })
         
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     }},[])
     
 
@@ -33,7 +33,6 @@ function ScheduleDefesa(){
     const service = new BancaService();
 
     const submit = () => {
-        console.log(defesa)
         try{
             service.validateScheduling({
                 data: data,

@@ -36,6 +36,7 @@ function DisplayAluno(){
         .catch(erros => {
             messages.mensagemErro(erros.response.data)
         })
+      // eslint-disable-next-line react-hooks/exhaustive-deps
       }},[]);
 
   

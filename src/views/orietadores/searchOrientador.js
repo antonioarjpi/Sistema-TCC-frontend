@@ -98,103 +98,83 @@ function SearchOrientador(){
         <>
         <Navbar/>
         <div className="container">
-        <Card title="Consulta Orientadores">
-                
+            <Card title="Consulta Orientadores"> 
                 <div className="row">
                     <div className="col-md-3"> 
-                            <Form htmlFor="nome" label="Nome: ">
-                                <input type="text" 
-                                       className="form-control" 
-                                       id="nome" 
-                                       value={nome} 
-                                       onChange={e => setNome(e.target.value)}/>
-                            </Form>
-                            </div>
-                            <div className="col-md-3"> 
-                                <Form htmlFor="email" label="E-mail: ">
-                                    <input type="email" 
-                                        className="form-control" 
-                                        id="email" 
-                                        value={email} 
-                                        onChange={e => setEmail(e.target.value)}/>
-                                </Form>                   
-                            </div>
-                            <div className="col-md-2">
-                                <Form htmlFor="matricula" label="Matricula: ">
-                                    <input id="matricula" 
-                                        value={matricula} 
-                                        onChange={e => setMatricula(e.target.value)}                           
-                                        className="form-control" />
-                                </Form>
-                            </div>
-                            <div className="col-md-4">
-                                <Form htmlFor="descricaoTitulacao" label="Titulação: ">
-                                    <input id="descricaoTitulacao" 
-                                        value={descricaoTitulacao} 
-                                        onChange={e => setDescricaoTitulacao(e.target.value)}                           
-                                        className="form-control"/>
-                                </Form>
-                            </div>
-                        </div>   
-                        <div className="row">
-                            <div className="col-md-3">
-                                <Form htmlFor="linhaPesquisa" label="Linha de pesquisa: ">
-                                    <input id="linhaPesquisa" 
-                                        value={linhaPesquisaDescricao} 
-                                        onChange={e => setLinhaPesquisaDescricao(e.target.value)}                           
-                                        className="form-control"/>
-                                </Form>
-                            </div>
-                            <div className="col-md-3">
-                                <Form htmlFor="conhecimento" label="Area de conhecimento: ">
-                                    <input id="conhecimento" 
-                                        value={conhecimento} 
-                                        onChange={e => setConhecimento(e.target.value)}                           
-                                        className="form-control"/>
-                                </Form>
-                            </div>
-                            <div className="col-md-3">
-                                <Form htmlFor="grau" label="Grau: ">
-                                    <input id="grau" 
-                                        value={grau} 
-                                        onChange={e => setGrau(e.target.value)}                           
-                                        className="form-control"/>
-                                </Form>
-                            </div>
-                            <div className="col-md-3">
-                                <Form htmlFor="ies" label="Instituição de Ensino: ">
-                                    <input id="ies" 
-                                        value={ies} 
-                                        onChange={e => setIes(e.target.value)}                           
-                                        className="form-control"/>
-                                </Form>
-                            </div>
-                        </div> 
-                            
-                            <button 
-                                    type="button" 
-                                    className="btn btn-success mt-2"
-                                    onClick={search}>
-                                    <i className="pi pi-search"></i> Buscar
-                            </button>
-                            <Link to={'/cadastro-orientador'}>
-                                <button 
-                                        type="button" 
-                                        className="btn btn-danger mt-2">
-                                        <i className="pi pi-plus"></i> Cadastrar
-                                </button>
-                            </Link>
+                        <Form htmlFor="nome" label="Nome: ">
+                            <input type="text" className="form-control" id="nome" 
+                                value={nome} onChange={e => setNome(e.target.value)}
+                            />
+                        </Form>
+                    </div>
+                    <div className="col-md-3"> 
+                        <Form htmlFor="email" label="E-mail: ">
+                            <input type="email" className="form-control" id="email" 
+                                value={email} onChange={e => setEmail(e.target.value)}
+                            />
+                        </Form>                   
+                    </div>
+                    <div className="col-md-2">
+                        <Form htmlFor="matricula" label="Matricula: ">
+                            <input id="matricula"  className="form-control" 
+                                value={matricula} onChange={e => setMatricula(e.target.value)}                           
+                            />
+                        </Form>
+                    </div>
+                    <div className="col-md-4">
+                        <Form htmlFor="descricaoTitulacao" label="Titulação: ">
+                            <input id="descricaoTitulacao" className="form-control"
+                                value={descricaoTitulacao} onChange={e => setDescricaoTitulacao(e.target.value)}                           
+                            />
+                        </Form>
+                    </div>
+                </div>   
+                <div className="row">
+                    <div className="col-md-3">
+                        <Form htmlFor="linhaPesquisa" label="Linha de pesquisa: ">
+                            <input id="linhaPesquisa" className="form-control"
+                                value={linhaPesquisaDescricao} onChange={e => setLinhaPesquisaDescricao(e.target.value)}                           
+                            />
+                        </Form>
+                    </div>
+                    <div className="col-md-3">
+                        <Form htmlFor="conhecimento" label="Area de conhecimento: ">
+                            <input id="conhecimento" className="form-control"
+                                value={conhecimento} onChange={e => setConhecimento(e.target.value)}                           
+                            />
+                        </Form>
+                    </div>
+                    <div className="col-md-3">
+                        <Form htmlFor="grau" label="Grau: ">
+                            <input id="grau" className="form-control"
+                                value={grau} onChange={e => setGrau(e.target.value)}                           
+                            />
+                        </Form>
+                    </div>
+                    <div className="col-md-3">
+                        <Form htmlFor="ies" label="Instituição de Ensino: ">
+                            <input id="ies" className="form-control" 
+                                value={ies} onChange={e => setIes(e.target.value)}                           
+                            />
+                        </Form>
+                    </div>
+                </div> 
+                <button type="button" className="btn btn-success mt-2" onClick={search}>
+                    <i className="pi pi-search"></i> Buscar
+                </button>
+                <Link to={'/cadastro-orientador'}>
+                    <button type="button" className="btn btn-danger mt-2">
+                        <i className="pi pi-plus"></i> Cadastrar
+                    </button>
+                </Link>
 
-            </Card>
-        
-        <TableOrientador orientadores={orientador}
-                    deleteAction={openDialog}
-                    editAction={edit}
-                    visibleAction={display}
-        />
-
+                </Card>
+            
+            <TableOrientador orientadores={orientador}
+                        deleteAction={openDialog}
+                        editAction={edit}
+                        visibleAction={display}/>
         </div>
-
         <Dialog header="Confirmação" 
                 visible={showConfirmDialog} 
                 style={{width: '50vw'}}

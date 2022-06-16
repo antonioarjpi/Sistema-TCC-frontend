@@ -14,8 +14,8 @@ import DevolutivaService from "../../services/resource/devolutivaService";
 
 function SearchDevolutiva(){
 
-    const [orientacao, setOrientacao] = useState();
-    const [dataMudanca, setDataMudanca] = useState();
+    const [orientacao] = useState();
+    const [dataMudanca] = useState();
     const [statusOrientacao, setStatusOrientacao] = useState('');
     const [descricaoDaDevolutiva, setDescricaoDaDevolutiva] = useState();
     const [versaoDoc, setVersaoDoc] = useState();
@@ -81,7 +81,6 @@ function SearchDevolutiva(){
         setShowConfirmDialog(false, {devolutivaDelete: {}});
     }
 
-  
     const confirmDialogFooter = (
         <div>
             <Button label="Confirmar" icon="pi pi-check" onClick={erase} />
@@ -107,47 +106,39 @@ function SearchDevolutiva(){
                                 </select>
                             </Form>
                         </div>
+
                         <div className="col-md-4">
                             <Form htmlFor="versaoDoc" label="Versão DOC:">
-                                <input type="text" 
-                                       className="form-control" 
-                                       id="versaoDoc" 
-                                       value={versaoDoc} 
-                                       onChange={e => setVersaoDoc(e.target.value)} />
+                                <input type="text" className="form-control" id="versaoDoc" 
+                                    value={versaoDoc} onChange={e => setVersaoDoc(e.target.value)} />
                             </Form>
                         </div>
+                        
                         <div className="col-md-4">
                             <Form htmlFor="orientacaoId" label="Cód Orientação: ">
-                                <input type="text" 
-                                       className="form-control" 
-                                       id="orientacaoId" 
-                                       value={descricaoDaDevolutiva} 
-                                       onChange={e => setDescricaoDaDevolutiva(e.target.value)} />
+                                <input type="text" className="form-control" id="orientacaoId" 
+                                    value={descricaoDaDevolutiva} onChange={e => setDescricaoDaDevolutiva(e.target.value)}/>
                             </Form>
                         </div>
+
                         <div className="col-md-12">
                             <Form htmlFor="statusOrientacao" label="Local de Correção: ">
-                                <input type="text" 
-                                       className="form-control" 
-                                       id="statusOrientacao" 
-                                       value={localDeCorrecao} 
-                                       onChange={e => setLocalDeCorrecao(e.target.value)} />
+                                <input type="text" className="form-control" id="statusOrientacao" 
+                                    value={localDeCorrecao} onChange={e => setLocalDeCorrecao(e.target.value)} />
                             </Form>
                         </div>
+
                         <div className="col-md-12">
                             <Form htmlFor="statusOrientacao" label="Correção sugerida: ">
-                                <input type="text" 
-                                       className="form-control" 
-                                       id="statusOrientacao" 
-                                       value={correcaoSugerida} 
-                                       onChange={e => setCorrecaoSugerida(e.target.value)} />
+                                <input type="text" className="form-control" id="statusOrientacao" 
+                                    value={correcaoSugerida} onChange={e => setCorrecaoSugerida(e.target.value)} />
                             </Form>
                         </div>
 
                         <div className="row">
                             <div className="col-md-6">
                                 <button type="button" className="btn btn-success mt-2" onClick={search}>
-                                        <i className="pi pi-search"></i> Buscar
+                                    <i className="pi pi-search"></i> Buscar
                                 </button>
                                 <Link to={'/cadastro-devolutiva'}>
                                     <button type="button" className="btn btn-danger mt-2">
@@ -157,14 +148,12 @@ function SearchDevolutiva(){
                             </div> 
                         </div> 
                 </div>   
-                
-              
+          
             </Card>
         
         <TableDevolutiva devolutivas={devolutiva}
                         deleteAction={openDialog}
-                        editAction={edit}
-        />
+                        editAction={edit} />
         </div>
         <Dialog header="Confirmação" 
                 visible={showConfirmDialog} 
@@ -177,6 +166,5 @@ function SearchDevolutiva(){
         </>
     )
 }
-
 
 export default SearchDevolutiva;

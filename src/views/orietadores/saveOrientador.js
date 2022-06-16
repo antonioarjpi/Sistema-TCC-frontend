@@ -48,7 +48,7 @@ function SaveOrientador(){
         .catch(erros => {
             messages.mensagemErro(erros.response.data)
         })
-
+        // eslint-disable-next-line react-hooks/exhaustive-deps
       }},[]);
 
     const submit = () => {
@@ -127,19 +127,13 @@ function SaveOrientador(){
         <div className="container">
             <Card title={ atualizando ? 'Cadastro Orientador' : 'Atualização de Orientador' }>
             <div className="row">
-                    <div className="col-md-2">
-                        <Form id="matricula" label="Matricula: " >
-                            <input id="nome" type="text" 
-                                className="form-control" 
-                                name="matricula"
-                                disabled
-                                value={matricula}
-                                onChange={e => setMatricula(e.target.value)}
-                                    />
-                        </Form>
-                    </div>
-
+                <div className="col-md-2">
+                    <Form id="matricula" label="Matricula: " >
+                        <InputText id="nome" type="text" className="p-inputtext-sm block mb-1" name="matricula"
+                            disabled value={matricula} onChange={e => setMatricula(e.target.value)}/>
+                    </Form>
                 </div>
+            </div>
 
             <div className="row">
                 <div className="col-md-6">
@@ -201,7 +195,6 @@ function SaveOrientador(){
             ) : ( 
                 <></> 
             )}
-
 
             <div className="row mt-2">
                 <div className="col-md-6" >

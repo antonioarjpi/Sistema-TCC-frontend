@@ -26,12 +26,10 @@ function SearchOrientacao(){
     const navigate = useNavigate();
     const service = new OrientacaoService();
 
-
     const search = () =>{
         const filter = {
             descricaoTCC: descricaoTCC,
-            tipoTCC: tipoTCC,
-           
+            tipoTCC: tipoTCC
         }
         service.consult(filter)
         .then(response => {
@@ -85,75 +83,56 @@ function SearchOrientacao(){
         <>
         <Navbar/>
         <div className="container">
-        <Card title="Consulta Orientação">
-        <div className="row">
+            <Card title="Consulta Orientação">
+                <div className="row">
                     <div className="col-md-4"> 
-                            <Form htmlFor="descricaoTCC" label="Descrição de TCC: ">
-                                <input type="text" 
-                                       className="form-control" 
-                                       id="descricaoTCC" 
-                                       value={descricaoTCC} 
-                                       onChange={e => setDescricaoTCC(e.target.value)}/>
-                            </Form>
-                            </div>
-                            <div className="col-md-4"> 
-                                <Form htmlFor="tipoTCC" label="Tipo de TCC: ">
-                                    <input type="text" 
-                                        className="form-control" 
-                                        id="tipoTCC" 
-                                        value={tipoTCC} 
-                                        onChange={e => setTipoTCC(e.target.value)}/>
-                                </Form>                   
-                            </div>
-                            <div className="col-md-4">
-                                <Form htmlFor="dataOrientacao" label="Data da orientação: ">
-                                    <input id="dataOrientacao" 
-                                        value={dataOrientacao} 
-                                        onChange={e => setDataOrientacao(e.target.value)}                           
-                                        className="form-control"/>
-                                </Form>
-                            </div>
-                            </div>   
-                            <div className="row">
-                                <div className="col-md-4">
-                                    <Form htmlFor="nomeOrientador" label="Nome orientador: ">
-                                        <input id="descricaoTitulacao" 
-                                            value={nomeOrientador} 
-                                            onChange={e => setNomeOrientador(e.target.value)}                           
-                                            className="form-control"/>
-                                    </Form>
-                                </div>
-                                <div className="col-md-4">
-                                    <Form htmlFor="matriculaOrientador" label="Matrícula do orientador: ">
-                                        <input id="matriculaOrientador" 
-                                            value={matriculaOrientador} 
-                                            onChange={e => setMatriculaOrientador(e.target.value)}                           
-                                            className="form-control"/>
-                                    </Form>
-                                </div>
-                            </div> 
+                        <Form htmlFor="descricaoTCC" label="Descrição de TCC: ">
+                            <input type="text" className="form-control" id="descricaoTCC" 
+                                value={descricaoTCC} onChange={e => setDescricaoTCC(e.target.value)}/>
+                        </Form>
+                    </div>
+                    
+                    <div className="col-md-4"> 
+                        <Form htmlFor="tipoTCC" label="Tipo de TCC: ">
+                            <input type="text" className="form-control" id="tipoTCC" 
+                                value={tipoTCC} onChange={e => setTipoTCC(e.target.value)}/>
+                        </Form>                   
+                    </div>
+                    <div className="col-md-4">
+                        <Form htmlFor="dataOrientacao" label="Data da orientação: ">
+                            <input id="dataOrientacao" className="form-control"
+                                value={dataOrientacao} onChange={e => setDataOrientacao(e.target.value)}/>
+                        </Form>
+                    </div>
+                </div>   
+                <div className="row">
+                    <div className="col-md-4">
+                        <Form htmlFor="nomeOrientador" label="Nome orientador: ">
+                            <input id="descricaoTitulacao" className="form-control"
+                                value={nomeOrientador} onChange={e => setNomeOrientador(e.target.value)}/>
+                        </Form>
+                    </div>
+                    <div className="col-md-4">
+                        <Form htmlFor="matriculaOrientador" label="Matrícula do orientador: ">
+                            <input id="matriculaOrientador" className="form-control"
+                                value={matriculaOrientador} onChange={e => setMatriculaOrientador(e.target.value)}/>
+                        </Form>
+                    </div>
+                </div> 
                             
-                            <button 
-                                    type="button" 
-                                    className="btn btn-success mt-2"
-                                    onClick={search}>
-                                    <i className="pi pi-search"></i> Buscar
-                            </button>
-                            <Link to={'/cadastro-orientacao'}>
-                                <button 
-                                        type="button" 
-                                        className="btn btn-danger mt-2">
-                                        <i className="pi pi-plus"></i> Cadastrar
-                                </button>
-                            </Link>
-                
-              
+                <button type="button" className="btn btn-success mt-2"onClick={search}>
+                    <i className="pi pi-search"></i> Buscar
+                </button>
+                <Link to={'/cadastro-orientacao'}>
+                    <button type="button" className="btn btn-danger mt-2">
+                        <i className="pi pi-plus"></i> Cadastrar
+                    </button>
+                </Link>
             </Card>
         
         <TableOrientacao orientacoes={orientacao}
                         deleteAction={openDialog}
-                        editAction={edit}
-        />
+                        editAction={edit}/>
         </div>
         <Dialog header="Confirmação" 
                 visible={showConfirmDialog} 

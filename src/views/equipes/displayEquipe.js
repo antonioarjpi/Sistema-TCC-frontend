@@ -10,7 +10,6 @@ import EquipeService from "../../services/resource/equipeService";
 
 function SearchEquipeFull(){
 
-    const [equipe, setEquipe] = useState();
     const [nome, setNome] = useState('');
     const [dataCadastro, setDataCadastro] = useState();
     const [delimitacao, setDelimitacao] = useState();
@@ -22,8 +21,8 @@ function SearchEquipeFull(){
     const [orientacaoOrientadorEmail, setOrientacaoOrientadorEmail] = useState();
     const [estruturaTCC, setEstruturaTCC] = useState();
     const [tipoTCC, setTipoTCC] = useState();
-    const [statusOrientacao, setStatusOrientacao] = useState();
-    const [dataMudanca, setDataMudanca] = useState();
+    const [, setStatusOrientacao] = useState();
+    const [, setDataMudanca] = useState();
     const [devolutivaDescricao, setDevolutivaDescricao] = useState();
     const [devolutivaVersaoDoc, setDevolutivaVersaoDoc] = useState();
     const [devolutivaLocalCorrecao, setDevolutivaLocalCorrecao] = useState();
@@ -39,7 +38,6 @@ function SearchEquipeFull(){
         
         service.findDevolutivas(id)
         .then(response =>{
-            setEquipe(response.data.id)
             setNome(response.data.nome);
             setDataCadastro(formatLocalDate(response.data.dataCadastro, "dd/MM/yyyy"))
             for (let i=0; i < response.data.alunos.length; i++){
@@ -64,7 +62,7 @@ function SearchEquipeFull(){
         .catch(erros => {
             messages.mensagemErro(erros.response.data)
         })
-      
+      // eslint-disable-next-line react-hooks/exhaustive-deps
       }},[]);
 
 

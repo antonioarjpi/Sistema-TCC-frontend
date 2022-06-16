@@ -4,15 +4,12 @@ import { useNavigate } from "react-router-dom";
 import { Button } from "primereact/button";
 import { InputText } from 'primereact/inputtext';
 import { Password } from 'primereact/password';
+import { Panel } from 'primereact/panel';
+import { useAuth } from "../context/AuthContext";
 
 import Card from "../components/card/card";
 import Form from "../components/form/form";
 import UserService from "../services/resource/user";
-import * as messages from '../components/toastr/toastr';
-
-import { Panel } from 'primereact/panel';
-import { useAuth } from "../context/AuthContext";
-
 
 function Login(){
 
@@ -23,7 +20,6 @@ function Login(){
     const service = new UserService();
     const auth = useAuth();
     
-
     const login = () =>{      
         setLoading1(true);
         setTimeout(() => {
@@ -34,14 +30,11 @@ function Login(){
             auth.login(response.data, response.data.token);
             navigate('/home')
         }).catch( error => {            
-            if (error.response.data.message){
-                messages.mensagemErro("Usuário ou senha inválida") 
-            }
-            setTimeout(() => {
-                setLoading1(false);                  
-            }, 1000);          
+            setTimeout(()=>{
+            }, 1000)              
         })
-    }, 900)
+        setLoading1(false);  
+    }, 2000)
     }
         
     const signup = () => {
@@ -57,36 +50,33 @@ function Login(){
                         <Form>
                             <span className="p-float-label">
                                 <InputText type="text" className="block" id="email"
-                                value={email} onChange={e => setEmail(e.target.value)}/>
+                                    value={email} onChange={e => setEmail(e.target.value)}/>
                                 <label htmlFor="email">E-mail</label>
                             </span>
                         </Form>
                         
                         <Form>
                             <span className="p-float-label">
-                                <Password id="senha" value={senha} onChange={e => setSenha(e.target.value)} feedback={false} toggleMask/>
+                                <Password id="senha" style={{width: '100%'}} value={senha} onChange={e => setSenha(e.target.value)} feedback={false} toggleMask/>
                                 <label >Senha</label>
                             </span>
                         </Form>
-                    
-                        <Button className="mb-2" label="Entrar" loading={loading1} onClick={login} style={{display: 'flex', aling: 'center', marginTop: "10px"}}/>            
-                        <a onClick={signup} href='/signup' type="buttom">Não tem acesso? Cadastra-se</a>
+                        <Button className="mb-3 mt-3" label="Entrar" loading={loading1} onClick={login}/><br/>            
+                        <span onClick={signup} className="register" type="button">Não tem acesso? Cadastra-se</span>
                     </div>
                 </div>
-            </Card>
-
-            
-            
+            </Card>  
         </div>
+
         <Form>
         <div className="col col-md-12" >
-        <div className="container" style={{display: 'flex', justifyContent: 'center', verticalAlign: 'middle', width: '800px', alignItems: 'middle', }}>
-            <div className="row">
-                <Panel toggleable header="Aviso">
-                <p>O Site é hospedado de forma gratuita, então pode levar um tempo até carregar todas as informações.</p>
-                </Panel>
+            <div className="container" style={{display: 'flex', justifyContent: 'center', verticalAlign: 'middle', alignItems: 'middle', }}>
+                <div className="row">
+                    <Panel toggleable header="Aviso" >
+                    <p>O Site é hospedado de forma gratuita, então pode levar um tempo até carregar todas as informações.</p>
+                    </Panel>
+                </div>
             </div>
-        </div>
         </div>  
         </Form>
     </>

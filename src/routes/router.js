@@ -21,11 +21,17 @@ import SaveOrientador from "../views/orietadores/saveOrientador";
 import SearchOrientador from "../views/orietadores/searchOrientador";
 import SignUp from "../views/signup";
 import NotFound from "../views/notFound";
+import Forbidden from "../views/forbidden/forbidden";
 
  const PrivateRoute = () => {
      const isAuthenticated = localStorage.getItem("@TCC-Usuario") !== null;
      return isAuthenticated ? <Outlet /> : <Navigate to="/login" />;
-   };
+};
+
+const AccessDenied = () => {
+    const isAuthenticated = localStorage.getItem("@TCC-Usuario") === null;
+    return isAuthenticated ? <Outlet /> : <Navigate to="/" />;
+};
 
 function Router (){
     return (
@@ -38,6 +44,11 @@ function Router (){
 
                 {/*Página não encontrada */}
                 <Route path='*' element={<NotFound/>} />
+
+                {/*Página para erro de acesso negado(403) */}
+                <Route path='/acesso_negado' element={<AccessDenied />}>
+                    <Route path="/acesso_negado" element={<Forbidden />}/>
+                </Route>
                 
                 {/* Rotas protegidas */}
                 <Route path="/" element={<PrivateRoute/>}>

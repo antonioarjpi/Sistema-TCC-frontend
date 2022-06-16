@@ -43,13 +43,26 @@ i{
     text-align: center;
 }
 
+.col-lg-12{
+    justify-content: center;
+    align-items: middle;
+    text-align: center;
+    vertical-align: middle;
+}
+
+.align-middle{
+    justify-content: center;
+    align-items: middle;
+    text-align: center;
+    vertical-align: middle;
+}
+
 td{
     align-items: center;
     vertical-align: middle;
 }
 
-.form{
-    
+.form{ 
     display: flex;
     margin-right: 10px;
     margin-top: 10px;
@@ -111,7 +124,14 @@ a{
     box-shadow: #161616;
     box-sizing: border-box;
     box-shadow: rgba(0, 0, 0, 0.2) 0px 0px 0px 0px
-    
+}
+
+.register{
+    color: #157ebbd5;
+}
+
+.register:hover{
+    color: #157ebb;
 }
 
 .mr-3{

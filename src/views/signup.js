@@ -47,20 +47,14 @@ function SignUp(){
             navigate('/login')
         }).catch(error => {
             setTimeout(() => { 
-                if(error.message  === "Network Error"   ){
-                    messages.mensagemErro("Servidor não está disponível. tente novamente em alguns instantes") 
-                }else{
-                    messages.mensagemErro(error.response.data.message)     
-                }         
-                setLoading(false);
+                messages.mensagemErro(error.response.data.message)            
             }, 1000)
-            
+            setLoading(false);
         })
-        
     }
 
     const cancel = () => {
-       navigate("/")
+       navigate("/login")
     }
 
     return(
@@ -68,27 +62,40 @@ function SignUp(){
         <div style={{display: 'flex', justifyContent: 'center'}}>
             <Card title="Cadastro de Usuário">
                 <div className="row">
-                    <div className="col-md-12">
-                        
-                            <Form label="Nome: *" htmlFor="nome">
-                                <InputText className='block' id="nome" onChange={e => setNome(e.target.value)} />
+                    <div className="col-md-12 align-middle">
+                            <Form htmlFor="nome">
+                                <span className="p-float-label mb-1">
+                                    <InputText type="text" className="block" id="email"
+                                        value={nome} onChange={e => setNome(e.target.value)}/>
+                                    <label htmlFor="email">Nome*</label>
+                                </span>  
                             </Form>
 
-                            <Form label="Email: *" htmlFor="123">
-                                <InputText className='block' type="email" onChange={e => setEmail(e.target.value)} />
+                            <Form>
+                                <span className="p-float-label mb-1">
+                                    <InputText type="text" className="block" id="email"
+                                        value={email} onChange={e => setEmail(e.target.value)}/>
+                                    <label htmlFor="email">E-mail*</label>
+                                </span> 
                             </Form>
 
-                            <Form label="Senha: *" htmlFor="senha">
-                                <Password className='block' value={senha} onChange={(e) => setSenha(e.target.value)} toggleMask />
+                            <Form htmlFor="senha" className="mb-3">
+                                <span className="p-float-label mb-1">
+                                    <Password className='block' style={{width: '100%'}} value={senha} onChange={(e) => setSenha(e.target.value)} toggleMask />
+                                    <label htmlFor="email">Senha*</label>
+                                </span>
                             </Form>
 
-                            <Form label="Repita a Senha: *" htmlFor="senhaRepetida">
-                                <Password className='block mb-3' feedback={false} value={senhaRepetida} onChange={(e) => setSenhaRepetida(e.target.value)} toggleMask />
+                            <Form htmlFor="senhaRepetida">
+                                <span className="p-float-label mb-1 mb-3">
+                                    <Password className='block' style={{width: '100%'}} feedback={false} value={senhaRepetida} onChange={(e) => setSenhaRepetida(e.target.value)} toggleMask />
+                                    <label htmlFor="email">Senha Repetida*</label>
+                                </span>
                             </Form>
             
-
-                            <Button onClick={cancel} type="button" className="p-button-danger" style={{marginRight: '6px'}}>Cancelar</Button>
-                            <Button className="" label="Cadastrar" loading={loading} onClick={signup} style={{aling: 'center'}}/> 
+                            <Button label="Cadastrar" loading={loading} onClick={signup} style={{aling: 'center', marginRight: '6px'}}/> 
+                            <Button onClick={cancel} type="button" className="p-button-danger" style={{}}>Cancelar</Button>
+                            
                                     
                     </div>
                 </div>

@@ -66,14 +66,11 @@ function SaveEquipe(){
             alunos: alunos,
             temaLinhapesquisaDescricao: descricaoLinha,
             temaLinhaPesquisaAreaConhecimentoDescricao: descricaoConhecimento
-        }).then(response => {
+        }).then(res => {
             navigate('/equipes')
             messages.mensagemSucesso('Equipe cadastrado com sucesso!' )
         }).catch(error => {
-            if (error.message === 'Network Error'){
-                messages.mensagemAlert("Não foi possível conectar com servidor remoto")
-            }   
-            messages.mensagemErro(error.response.data.message)
+            messages.mensagemErro(error.res.data.message)
         })
     }
 

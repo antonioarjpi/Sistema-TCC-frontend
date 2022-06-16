@@ -7,7 +7,6 @@ import Navbar from "../../components/navbar/navbar";
 import BancaService from "../../services/resource/bancaService";
 import { formatLocalDate } from "../../utils/format";
 
-
 function SaveBanca(){
 
     const [banca, setBanca] = useState();
@@ -38,8 +37,7 @@ function SaveBanca(){
         .catch(erros => {
             messages.mensagemErro(erros.response.data)
         })
-      
-
+      // eslint-disable-next-line react-hooks/exhaustive-deps
       }},[]);
 
     const service = new BancaService();
@@ -69,16 +67,11 @@ function SaveBanca(){
         }).then(response => {
             messages.mensagemSucesso('Banca cadastrada com sucesso!')
             navigate('/bancas')
-        }).catch(error => {       
-            if (error.message === 'Network Error'){
-                messages.mensagemAlert("Não foi possível conectar com servidor remoto")
-                throw new ('');
-            }    
+        }).catch(error => {        
             messages.mensagemErro(error.response.data.message)
             return false
         })
     }
-
 
     const update = () => {
         try{
@@ -107,10 +100,6 @@ function SaveBanca(){
             messages.mensagemSucesso('Banca atualizada com sucesso!')
             navigate('/bancas')
         }).catch(error => {       
-            if (error.message === 'Network Error'){
-                messages.mensagemAlert("Não foi possível conectar com servidor remoto")
-                throw new ('');
-            }    
             messages.mensagemErro(error.response.data.message)
             return false
         })
@@ -138,22 +127,16 @@ function SaveBanca(){
             <div className="row">
                 <div className="col-md-3">
                     <Form id="dataBanca" label="Data da Banca: *" >
-                        <input id="dataBanca" type="date" 
-                            className="form-control" 
-                            name="dataBanca"
-                            value={dataBanca}
-                            onChange={e => setDataBanca(e.target.value)}
-                                />
+                        <input id="dataBanca" type="date" className="form-control" 
+                            name="dataBanca" value={dataBanca}
+                            onChange={e => setDataBanca(e.target.value)}/>
                     </Form>
                 </div>
                 <div className="col-md-4">
                     <Form id="ordemApresentacao" label="Ordem de apresentação:" >
-                        <input id="ordemApresentacao" type="number" 
-                            className="form-control" 
-                            name="ordemApresentacao"
-                            value={ordemApresentacao}
-                            onChange={e => setOrdemApresentacao(e.target.value)}
-                                />
+                        <input id="ordemApresentacao" type="number" className="form-control" 
+                            name="ordemApresentacao" value={ordemApresentacao}
+                            onChange={e => setOrdemApresentacao(e.target.value)}/>
                     </Form>
                 </div>
             </div>
@@ -163,32 +146,24 @@ function SaveBanca(){
    
                 <div className="col-md-4">
                     <Form id="matriculaOrientador" label="Matricula orientador: *" >
-                        <input id="matriculaOrientador" type="text" maxLength={8} max={5}
-                            className="form-control" 
-                            name="matriculaOrientador"
-                            value={matriculaOrientador}
-                            onChange={e => setMatriculaOrientador(e.target.value)}
+                        <input id="matriculaOrientador" type="text" className="form-control" 
+                            name="matriculaOrientador" maxLength={8} max={5}
+                            value={matriculaOrientador} onChange={e => setMatriculaOrientador(e.target.value)}
                                 />
                     </Form>
                 </div>
                 <div className="col-md-4">
                     <Form id="equipe" label="Código da equipe: *" >
-                        <input id="equipe" type="text" 
-                            className="form-control" 
-                            name="equipe"
-                            value={equipe}
-                            onChange={e => setEquipe(e.target.value)}
-                                />
+                        <input id="equipe" type="text" className="form-control" 
+                            name="equipe" value={equipe}
+                            onChange={e => setEquipe(e.target.value)}/>
                     </Form>
                 </div>
                 <div className="col-md-4">
                     <Form id="membroMatricula" label="Convidado banca: *" >
-                        <input id="membroMatricula" type="text" 
-                            className="form-control" 
-                            name="membroMatricula"
-                            value={membroMatricula}
-                            onChange={e => setMembroMatricula(e.target.value)}
-                                />
+                        <input id="membroMatricula" type="text" className="form-control" 
+                            name="membroMatricula" value={membroMatricula}
+                            onChange={e => setMembroMatricula(e.target.value)}/>
                     </Form>
                 </div>
             </div>

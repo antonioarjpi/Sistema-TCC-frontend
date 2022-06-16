@@ -1,6 +1,7 @@
 
 import { Button } from "primereact/button"
 import { formatLocalDate } from "../../utils/format"
+
 // eslint-disable-next-line import/no-anonymous-default-export
 export default props => {
 

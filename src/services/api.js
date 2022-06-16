@@ -1,4 +1,6 @@
 import axios from 'axios';
+import * as messages from '../components/toastr/toastr';
+import LocalStorageService from './resource/localstorageService';
 
 export const baseURL = process.env.REACT_APP_APP_BACKEND_URL ?? "http://localhost:8080"
 
@@ -10,13 +12,6 @@ class ApiService {
 
     constructor(apiurl){
         this.apiurl = apiurl;
-    }
-
-    static registrarToken(token){
-        if(token){
-            api.defaults.headers.common['Authorization'] = `Bearer ${token}`
-            console.log(token)
-        }        
     }
 
     async post(url, obj){
@@ -55,21 +50,32 @@ api.interceptors.request.use(config => {
      return config;
 });
 
-
-api.interceptors.response.use(
-    (value) => {
-      return Promise.resolve(value);
-    },
-    (error) => {
-      const { isAxiosError = false, response = null } = error;
+//Remove os tokens e redireciona para página de acesso negado
+api.interceptors.response.use(response => response, error => {
   
-      if (isAxiosError && response && response.status === 401) {
-        // Regra de redirecionamento de usuário para página de login
-        return Promise.reject(error);
-      }
-      return Promise.reject(error);
-    }
-);
+  if (error.response.status === 0 ){
+    messages.mensagemErro("Não é possível conectar o computador para o servidor, tente novamente!")
+    throw new ('error')()
+  }
+
+  if (error.response.status === 400 ){
+    messages.mensagemErro(error.response.data.message)
+    throw new ('error')()
+  }
+
+  if (error.response.status === 401 ){
+    messages.mensagemErro(error.response.data.message)
+    
+  }
+
+  if (error.response.status === 403 ){
+     LocalStorageService.removerItem("@TCC-Usuario")
+     LocalStorageService.removerItem("@TCC:Token")
+     window.location = '/acesso_negado'
+     throw new ('error')()
+  }
+});
+
 
 let counter = 1;
 
@@ -80,7 +86,7 @@ api.interceptors.response.use(
   (error) => {
     if (
       error.response.status >= 500 &&
-      counter < Number(process.env.REACT_APP_RETRY)
+      counter < Number(baseURL)
     ) {
       counter++;
       return api.request(error.config);
