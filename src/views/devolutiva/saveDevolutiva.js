@@ -6,18 +6,20 @@ import * as messages from '../../components/toastr/toastr'
 import Navbar from "../../components/navbar/navbar";
 import DevolutivaService from "../../services/resource/devolutivaService";
 import { formatLocalDate } from "../../utils/format";
+import DropDown from "../../components/dropdown/dropdown";
+import OrientacaoService from "../../services/resource/orientacaoService";
 
 
 function SaveDevolutiva(){
 
     const [devolutiva, setDevolutiva] = useState(true);
     const [orientacao, setOrientacao] = useState();
-    const [dataMudanca, setDataMudanca] = useState();
+    const [dataMudanca, setDataMudanca] = useState('');
     const [statusOrientacao, setStatusOrientacao] = useState();
-    const [descricaoDaDevolutiva, setDescricaoDaDevolutiva] = useState();
-    const [versaoDoc, setVersaoDoc] = useState();
-    const [localDeCorrecao, setLocalDeCorrecao] = useState();
-    const [correcaoSugerida, setCorrecaoSugerida] = useState();
+    const [descricaoDaDevolutiva, setDescricaoDaDevolutiva] = useState('');
+    const [versaoDoc, setVersaoDoc] = useState('');
+    const [localDeCorrecao, setLocalDeCorrecao] = useState('');
+    const [correcaoSugerida, setCorrecaoSugerida] = useState('');
     const [atualizando, setAtualizando] = useState(true);
 
     const {id} = useParams();
@@ -111,6 +113,17 @@ function SaveDevolutiva(){
         })
     }
 
+    //Coloca dados no options de orientadores
+            const [orientacaoOptions, setOrientacaoOptions] = useState();
+            const orientacaoService = new OrientacaoService();
+            useEffect(() => {
+                orientacaoService.findAll()
+                .then(response => {
+                    setOrientacaoOptions(response.data) 
+                })
+            // eslint-disable-next-line react-hooks/exhaustive-deps
+            }, [])
+
     return(
         <>
         <Navbar />
@@ -119,13 +132,19 @@ function SaveDevolutiva(){
             <div className="row">
                 <div className="col-md-3">
                     <Form id="orientacao" label="Cód orientação: *" >
-                        <input id="orientacao" type="text" 
-                            className="form-control" 
-                            name="orientacao"
+                        <DropDown
+                            options={orientacaoOptions}
+                            findBy="id"
+                            filterBy="id,descricaoTCC"
+                            placeholder="Orientação não inserido"
                             value={orientacao}
+                            label1='id'
+                            label2='descricaoTCC'
+                            optionValue="id"
                             onChange={e => setOrientacao(e.target.value)}
-                                />
+                        />
                     </Form>
+                    
                 </div>
                 <div className="col-md-3">
                     <Form id="dataMudanca" label="Data da mudança:" >
@@ -139,14 +158,10 @@ function SaveDevolutiva(){
                 </div>
                 <div className="col-md-3">
                     <Form id="statusOrientacao" label="Status: *" >
-                        <select id="statusOrientacao" required className="form-control" name="statusOrientacao" value={statusOrientacao}
+                        <select id="statusOrientacao" className="form-control" name="statusOrientacao" value={statusOrientacao}
                             onChange={e => setStatusOrientacao(e.target.value)}>
-                            <option disabled hidden selected></option>
-                            <option>Cancelado</option>
-                            <option>Pendente</option>
-                            <option>Finalizado</option>
-                            <option>Resolvido</option>
-
+                            <option>Positivo</option>
+                            <option>Negativa</option>
                         </select>
                     </Form>
                 </div>

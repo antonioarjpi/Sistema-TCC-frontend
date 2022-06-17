@@ -12,10 +12,10 @@ import * as messages from '../components/toastr/toastr';
 function SignUp(){
 
      const navigate = useNavigate();
-     const [nome, setNome] = useState();
-     const [email, setEmail] = useState();
-     const [senha, setSenha] = useState();
-     const [senhaRepetida, setSenhaRepetida] = useState(); 
+     const [nome, setNome] = useState('');
+     const [email, setEmail] = useState('');
+     const [senha, setSenha] = useState('');
+     const [senhaRepetida, setSenhaRepetida] = useState(''); 
      const [loading, setLoading] = useState(false);
       
 
@@ -65,7 +65,7 @@ function SignUp(){
                     <div className="col-md-12 align-middle">
                             <Form htmlFor="nome">
                                 <span className="p-float-label mb-1">
-                                    <InputText type="text" className="block" id="email"
+                                    <InputText type="text" className="block" id="nome"
                                         value={nome} onChange={e => setNome(e.target.value)}/>
                                     <label htmlFor="email">Nome*</label>
                                 </span>  

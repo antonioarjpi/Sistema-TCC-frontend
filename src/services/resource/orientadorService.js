@@ -23,6 +23,10 @@ export default class OrientadorService extends ApiService {
         return this.get(`/${id}`)
     }
 
+    findAll(){
+        return this.get(``)
+    }
+
     validate(orientador){
         const errors = []
 

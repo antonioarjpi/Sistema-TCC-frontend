@@ -3,7 +3,7 @@ import React from "react";
 function NavItem(props){
     return(
         <li className="nav-item">
-            <a className="nav-link" href={props.href} onClick={props.onClick}>{props.label} </a>
+            <span className="nav-link" type="button" onClick={props.onClick}>{props.label} </span>
         </li>
     )
 }

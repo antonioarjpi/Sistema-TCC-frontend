@@ -1,13 +1,14 @@
 import { Link } from "react-router-dom";
 import { useAuth } from "../../context/AuthContext";
 import NavItem from "../nav-item/navbarItem";
-
+import * as messages from '../../components/toastr/toastr'
 
 function Navbar(props){
 
     const auth = useAuth();
 
     const logout = () =>{
+      messages.mensagemSucesso("Logoff realizado com sucesso")
       auth.logout();
     }
 
@@ -45,8 +46,9 @@ function Navbar(props){
                 <Link to={"/devolutivas"}>
                   <NavItem render={props.isUsuarioAutenticado} label="Devolutivas" />
                 </Link>
-
-                <NavItem render={props.isUsuarioAutenticado} onClick={logout} href="/login" label="Sair" />
+                <Link to={"/login"}>
+                  <NavItem render={props.isUsuarioAutenticado} onClick={logout} label="Sair" />
+                </Link>
                 
             </ul>
             </div>

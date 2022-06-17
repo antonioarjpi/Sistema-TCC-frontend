@@ -6,14 +6,16 @@ import * as messages from '../../components/toastr/toastr'
 import Navbar from "../../components/navbar/navbar";
 import OrientacaoService from "../../services/resource/orientacaoService";
 import { formatLocalDate } from "../../utils/format";
-
+import DropDown from "../../components/dropdown/dropdown";
+import OrientadorService from "../../services/resource/orientadorService";
+import EquipeService from "../../services/resource/equipeService";
 
 function SaveOrientacao(){
 
     const [orientacao, setOrientacao] = useState();
-    const [descricaoTCC, setDescricaoTCC] = useState();
-    const [dataOrientacao, setDataOrientacao] = useState();
-    const [tipoTCC, setTipoTCC] = useState();
+    const [descricaoTCC, setDescricaoTCC] = useState('');
+    const [dataOrientacao, setDataOrientacao] = useState('');
+    const [tipoTCC, setTipoTCC] = useState('');
     const [matriculaOrientador, setMatriculaOrientador] = useState();
     const [equipe, setEquipe] = useState();
     const [atualizando, setAtualizando] = useState(true);
@@ -92,6 +94,7 @@ function SaveOrientacao(){
             dataOrientacao: dataOrientacao,
             tipoTCC: tipoTCC,
             matriculaOrientador: matriculaOrientador,
+            equipe: equipe
         }).then(response => {
             navigate('/orientacao')
             messages.mensagemSucesso('Orientação atualizado com sucesso!')
@@ -99,6 +102,28 @@ function SaveOrientacao(){
             messages.mensagemErro(error.response.data.message)
         })
     }
+
+        //Coloca dados no options de equipes
+        const [equipeOptions, setEquipeOptions] = useState();
+        const equipeService = new EquipeService();
+        useEffect(() => {
+            equipeService.findAll()
+            .then(response => {
+                setEquipeOptions(response.data) 
+            })
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+        }, [])
+    
+        //Coloca dados no options de orientadores
+        const [orientadorOptions, setOrientadorOptions] = useState();
+        const orientadorService = new OrientadorService();
+        useEffect(() => {
+            orientadorService.findAll()
+            .then(response => {
+                setOrientadorOptions(response.data) 
+            })
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+        }, [])
 
     return(
         <>
@@ -142,28 +167,34 @@ function SaveOrientacao(){
             </div>
 
             <div className="row">
-
-
+                <div className="col-md-3">
+                    <Form id="orientador" label="Matrícula orientador *" >
+                        <DropDown
+                            options={orientadorOptions}
+                            findBy="matricula"
+                            filterBy="matricula,nome"
+                            placeholder="Orientador não inserido"
+                            value={matriculaOrientador}
+                            label1='matricula'
+                            label2='nome'
+                            optionValue="matricula"
+                            onChange={e => setMatriculaOrientador(e.target.value)}
+                        />
+                    </Form>
+                </div>
                 <div className="col-md-4">
                     <Form id="equipe" label="Código da equipe: *" >
-                        <input id="equipe" type="text" 
-                            className="form-control" 
-                            name="equipe"
+                        <DropDown
+                            options={equipeOptions}
+                            findBy="id"
+                            filterBy="id,nome"
+                            placeholder="Equipe não adicionada"
                             value={equipe}
-                            disabled={ atualizando ? false : true }
+                            label1='id'
+                            label2='nome'
+                            optionValue="id"
                             onChange={e => setEquipe(e.target.value)}
-                                />
-                    </Form>
-                </div> 
-   
-                <div className="col-md-4">
-                    <Form id="matriculaOrientador" label="Matricula orientador: *" >
-                        <input id="matriculaOrientador" type="text" 
-                            className="form-control" 
-                            name="matriculaOrientador"
-                            value={matriculaOrientador}
-                            onChange={e => setMatriculaOrientador(e.target.value)}
-                                />
+                        />
                     </Form>
                 </div>
             </div>

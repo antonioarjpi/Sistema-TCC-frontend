@@ -12,12 +12,12 @@ import AlunoService from "../../services/resource/alunoService";
 
 function SaveAluno(){
 
-    const [aluno, setAluno] = useState();
-    const [nome, setNome] = useState();
-    const [email, setEmail] = useState();
-    const [senha, setSenha] = useState();
-    const [matricula, setMatricula] = useState();
-    const [senhaRepetida, setSenhaRepetida] = useState();
+    const [aluno, setAluno] = useState('');
+    const [nome, setNome] = useState('');
+    const [email, setEmail] = useState('');
+    const [senha, setSenha] = useState('');
+    const [matricula, setMatricula] = useState('');
+    const [senhaRepetida, setSenhaRepetida] = useState('');
     const [atualizando, setAtualizando] = useState(true);
 
     const navigate = useNavigate();
@@ -38,6 +38,7 @@ function SaveAluno(){
             messages.mensagemErro(erros.response.data)
         })
 
+      // eslint-disable-next-line react-hooks/exhaustive-deps
       }},[]);
 
     

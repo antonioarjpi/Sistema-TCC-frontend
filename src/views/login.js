@@ -13,8 +13,8 @@ import UserService from "../services/resource/user";
 
 function Login(){
 
-    const [email, setEmail] = useState();
-    const [senha, setSenha] = useState();
+    const [email, setEmail] = useState('');
+    const [senha, setSenha] = useState('');
     const [loading1, setLoading1] = useState(false);
     const navigate = useNavigate();
     const service = new UserService();

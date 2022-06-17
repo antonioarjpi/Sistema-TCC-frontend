@@ -19,6 +19,10 @@ export default class EquipeService extends ApiService {
         return this.delete(`/${id}`)
     }
 
+    findAll(){
+        return this.get(``)
+    }
+
     findId(id){
         return this.get(`/${id}`)
     }

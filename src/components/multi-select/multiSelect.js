@@ -14,9 +14,10 @@ function MultiSelectContainer(props){
         .then(response => {
             setDados(response.data) 
         })
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [])
 
-    //Options
+    //Função que obtém a opção e retorna o conteúdo para ela.
     const optionsItems = (option) => {
         return (
             <div>
@@ -25,7 +26,7 @@ function MultiSelectContainer(props){
         );
     }
 
-    //Itens Selecionados
+    //Modelo de um item do grupo de opções.
     const selectedItems = (option) => {
         const remove = () =>{
             setRemove(option)
@@ -35,16 +36,16 @@ function MultiSelectContainer(props){
         
         if (option) {
             return (
-                <div class="p-multiselect-token">
-                    <span class="p-multiselect-token-label">{option.matricula} - {option.nome}</span>
-                    <span class="p-multiselect-token-icon pi pi-times-circle" onClick={remove}></span>
+                <div className="p-multiselect-token">
+                    <span className="p-multiselect-token-label">{option.matricula} - {option.nome}</span>
+                    <span className="p-multiselect-token-icon pi pi-times-circle" onClick={remove}></span>
                 </div>
             );
         }
         return props.placeholder;
     }
 
-    //Footer do select
+    //Modelo do rodapé do painel.    
     const panelFooter = () => {
         const selectedItems = select;
         const length = selectedItems ? selectedItems.length : 0;
@@ -60,8 +61,8 @@ function MultiSelectContainer(props){
             value={props.value} options={dados}
             className={props.className} 
             onChange={props.onChange}
-            optionLabel={props.optionLabel}
             filter 
+            filterBy={props.filterBy}
             filterPlaceholder={props.filterPlaceholder}
             itemTemplate={optionsItems} 
             selectedItemTemplate={selectedItems}

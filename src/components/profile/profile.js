@@ -14,7 +14,7 @@ function Profile(props){
               <div className="card">
                 <div className="card-body">
                   <div className="d-flex flex-column align-items-center text-center">
-                    <Image p-image-toolbar preview={props.preview}  src={props.imagem} alt="Profile" className="img" width="170" height='180' />
+                    <Image preview={props.preview}  src={props.imagem} alt="Profile" className="img" width="170" height='180' />
                     <FileUpload mode="basic" name={props.name} url={props.url} onChange={props.onChange} accept="image/*" maxFileSize={1000000} onBeforeDrop
                      onUpload={props.onUpload} auto chooseLabel="Alterar foto de perfil"/>
                     <div className="mt-3">

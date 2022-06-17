@@ -15,10 +15,10 @@ function SaveEquipe(){
 
     const [equipe, setEquipe] = useState();
     const [nome, setNome] = useState('');
-    const [dataCadastro, setDataCadastro] = useState();
-    const [delimitacao, setDelimitacao] = useState();
-    const [descricaoLinha, setDescricaoLinha] = useState();
-    const [descricaoConhecimento, setDescricaoConhecimento] = useState();
+    const [dataCadastro, setDataCadastro] = useState('');
+    const [delimitacao, setDelimitacao] = useState('');
+    const [descricaoLinha, setDescricaoLinha] = useState('');
+    const [descricaoConhecimento, setDescricaoConhecimento] = useState('');
     const [alunos, setAlunos] = useState([]);
     const [atualizando, setAtualizando] = useState(true);
 
@@ -129,7 +129,8 @@ function SaveEquipe(){
                     <Form id="dataCadastro" label="Alunos: *">
                         <MultiSelectContainer value={alunos} className="p-inputtext-sm block mb-1"
                             onChange={(e) => setAlunos(e.value)}
-                            options={alunos} findBy="matricula"
+                            options={alunos}
+                            filterBy="matricula,nome"
                             filterPlaceholder="Digite a matrícula"
                             placeholder='Nenhum aluno adicionado'
                             service={AlunoService}/>          

@@ -12,17 +12,17 @@ import OrientadorService from "../../services/resource/orientadorService";
 
 function SaveOrientador(){
 
-    const [orientador, setOrientador] = useState();
-    const [nome, setNome] = useState();
-    const [matricula, setMatricula] = useState();
-    const [email, setEmail] = useState();
-    const [senha, setSenha] = useState();
-    const [titulacaoDescricao, setDescricaoTitulacao] = useState();
-    const [titulacaoGrau, setGrau] = useState();
-    const [titulacaoIes, setIes] = useState();
-    const [linhaPesquisaDescricao, setLinhaPesquisaDescricao] = useState();
-    const [linhaPesquisaAreaconhecimentoDescricao, setLinhaPesquisaAreaconhecimentoDescricao] = useState();
-    const [senhaRepetida, setSenhaRepetida] = useState();
+    const [orientador, setOrientador] = useState('');
+    const [nome, setNome] = useState('');
+    const [matricula, setMatricula] = useState('');
+    const [email, setEmail] = useState('');
+    const [senha, setSenha] = useState('');
+    const [titulacaoDescricao, setDescricaoTitulacao] = useState('');
+    const [titulacaoGrau, setGrau] = useState('');
+    const [titulacaoIes, setIes] = useState('');
+    const [linhaPesquisaDescricao, setLinhaPesquisaDescricao] = useState('');
+    const [linhaPesquisaAreaconhecimentoDescricao, setLinhaPesquisaAreaconhecimentoDescricao] = useState('');
+    const [senhaRepetida, setSenhaRepetida] = useState('');
     const [atualizando, setAtualizando] = useState(true);
     
     const navigate = useNavigate();

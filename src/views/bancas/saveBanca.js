@@ -5,17 +5,20 @@ import Form from "../../components/form/form";
 import * as messages from '../../components/toastr/toastr'
 import Navbar from "../../components/navbar/navbar";
 import BancaService from "../../services/resource/bancaService";
+import OrientadorService from "../../services/resource/orientadorService";
+import EquipeService from "../../services/resource/equipeService";
 import { formatLocalDate } from "../../utils/format";
+import DropDown from "../../components/dropdown/dropdown";
 
 function SaveBanca(){
 
     const [banca, setBanca] = useState();
-    const [descricao, setDescricao] = useState();
-    const [dataBanca, setDataBanca] = useState();
-    const [ordemApresentacao, setOrdemApresentacao] = useState();
+    const [descricao, setDescricao] = useState('');
+    const [dataBanca, setDataBanca] = useState('');
+    const [ordemApresentacao, setOrdemApresentacao] = useState('');
     const [matriculaOrientador, setMatriculaOrientador] = useState();
     const [equipe, setEquipe] = useState();
-    const [membroMatricula, setMembroMatricula] = useState();
+    const [membroMatricula, setMembroMatricula] = useState('');
     const [atualizando, setAtualizando] = useState(true);
 
     const { id } = useParams();
@@ -73,7 +76,7 @@ function SaveBanca(){
         })
     }
 
-    const update = () => {
+    const update = () => {  
         try{
             service.validate({
                 descricao: descricao,
@@ -105,6 +108,28 @@ function SaveBanca(){
         })
     }
 
+    //Coloca dados no options de equipes
+    const [equipeOptions, setEquipeOptions] = useState();
+    const equipeService = new EquipeService();
+    useEffect(() => {
+        equipeService.findAll()
+        .then(response => {
+            setEquipeOptions(response.data) 
+        })
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [])
+
+    //Coloca dados no options de orientadores
+    const [orientadorOptions, setOrientadorOptions] = useState();
+    const orientadorService = new OrientadorService();
+    useEffect(() => {
+        orientadorService.findAll()
+        .then(response => {
+            setOrientadorOptions(response.data) 
+        })
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [])
+
 
     return(
         <>
@@ -123,7 +148,13 @@ function SaveBanca(){
                     </Form>
                 </div>
             </div>
+            {/* Teste Aqui */}
+            <div className="row">
+                <div className="col-md-12">
 
+                </div>
+            </div>
+            {/* Teste Aqui */}
             <div className="row">
                 <div className="col-md-3">
                     <Form id="dataBanca" label="Data da Banca: *" >
@@ -142,21 +173,34 @@ function SaveBanca(){
             </div>
 
             <div className="row">
-
-   
-                <div className="col-md-4">
-                    <Form id="matriculaOrientador" label="Matricula orientador: *" >
-                        <input id="matriculaOrientador" type="text" className="form-control" 
-                            name="matriculaOrientador" maxLength={8} max={5}
-                            value={matriculaOrientador} onChange={e => setMatriculaOrientador(e.target.value)}
-                                />
+                <div className="col-md-3">
+                    <Form id="orientador" label="Matrícula orientador *" >
+                        <DropDown
+                            options={orientadorOptions}
+                            findBy="matricula"
+                            filterBy="matricula,nome"
+                            placeholder="Orientador não inserido"
+                            value={matriculaOrientador}
+                            label1='matricula'
+                            label2='nome'
+                            optionValue="matricula"
+                            onChange={e => setMatriculaOrientador(e.target.value)}
+                        />
                     </Form>
                 </div>
                 <div className="col-md-4">
                     <Form id="equipe" label="Código da equipe: *" >
-                        <input id="equipe" type="text" className="form-control" 
-                            name="equipe" value={equipe}
-                            onChange={e => setEquipe(e.target.value)}/>
+                        <DropDown id="equipe" name="equipe"
+                            options={equipeOptions}
+                            findBy="id"
+                            filterBy="id,nome"           
+                            placeholder="Equipe não adicionada"
+                            value={equipe}
+                            label1='id'
+                            label2='nome'
+                            optionValue="id"
+                            onChange={e => setEquipe(e.target.value)}
+                        />
                     </Form>
                 </div>
                 <div className="col-md-4">

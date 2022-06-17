@@ -65,7 +65,16 @@ api.interceptors.response.use(response => response, error => {
 
   if (error.response.status === 401 ){
     messages.mensagemErro(error.response.data.message)
-    
+    throw new ('error')()
+  }
+  if (error.response.status === 404 ){
+    messages.mensagemErro(error.response.data.message)
+    throw new ('error')()
+  }
+
+  if (error.response.status === 500 ){
+    messages.mensagemErro("Ocorreu um erro de sistema! Por favor, entrar em contato com administrador.")
+    throw new ('erro interno')()
   }
 
   if (error.response.status === 403 ){

@@ -22,6 +22,10 @@ export default class OrientacaoService extends ApiService {
     findId(id){
         return this.get(`/${id}`)
     }
+    
+    findAll(){
+        return this.get(``)
+    }
 
     validate(orientacao){
         const errors = []

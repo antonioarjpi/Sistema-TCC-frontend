@@ -9,8 +9,8 @@ import BancaService from "../../services/resource/bancaService";
 
 function ScheduleDefesa(){
 
-    const [, setDefesa] = useState();
-    const [data, setData] = useState();
+    const [, setDefesa] = useState('');
+    const [data, setData] = useState('');
 
     const { id } = useParams();
 
