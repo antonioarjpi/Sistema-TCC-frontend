@@ -1,35 +1,40 @@
 import React, { useState } from "react";
 import Card from "../../components/card/card";
 import Form from "../../components/form/form";
-
 import * as messages from '../../components/toastr/toastr'
 import { Link, useNavigate } from "react-router-dom";
-import Navbar from "../../components/navbar/navbar";
 
 import {Dialog} from 'primereact/dialog';
 import {Button} from 'primereact/button';
 import TableOrientacao from "./tableOrientacao";
 import OrientacaoService from "../../services/resource/orientacaoService";
+import InputForm from "../../components/input/input";
+import { formatLocalDate } from "../../utils/format";
 
 
 function SearchOrientacao(){
 
     const [descricaoTCC, setDescricaoTCC] = useState('');
-    const [dataOrientacao, setDataOrientacao] = useState();
-    const [tipoTCC, setTipoTCC] = useState();
-    const [matriculaOrientador, setMatriculaOrientador] = useState();
-    const [nomeOrientador, setNomeOrientador] = useState();
+    const [dataOrientacao, setDataOrientacao] = useState('');
+    const [tipoTCC, setTipoTCC] = useState('');
+    const [matriculaOrientador, setMatriculaOrientador] = useState('');
+    const [nomeOrientador, setNomeOrientador] = useState('');
     const [orientacao, setOrientacao] = useState([]);
     const [orientacaoDelete, setOrientacaoDelete] = useState({});
-    const [showConfirmDialog, setShowConfirmDialog] = useState();
+    const [showConfirmDialog, setShowConfirmDialog] = useState('');
 
+    const hoje = Date.now();
+    const data = formatLocalDate(hoje, 'yyyy-MM-dd')
     const navigate = useNavigate();
     const service = new OrientacaoService();
 
     const search = () =>{
         const filter = {
             descricaoTCC: descricaoTCC,
-            tipoTCC: tipoTCC
+            tipoTCC: tipoTCC,
+            dataOrientacao:dataOrientacao,
+            nomeOrientador: nomeOrientador,
+            matriculaOrientador: matriculaOrientador
         }
         service.consult(filter)
         .then(response => {
@@ -81,40 +86,40 @@ function SearchOrientacao(){
 
     return(
         <>
-        <Navbar/>
         <div className="container">
             <Card title="Consulta Orientação">
                 <div className="row">
                     <div className="col-md-4"> 
-                        <Form htmlFor="descricaoTCC" label="Descrição de TCC: ">
-                            <input type="text" className="form-control" id="descricaoTCC" 
+                        <Form htmlFor="descricaoTCC">
+                            <InputForm type="text" label="Descrição de TCC "
+                                 id="descricaoTCC" 
                                 value={descricaoTCC} onChange={e => setDescricaoTCC(e.target.value)}/>
                         </Form>
                     </div>
                     
                     <div className="col-md-4"> 
-                        <Form htmlFor="tipoTCC" label="Tipo de TCC: ">
-                            <input type="text" className="form-control" id="tipoTCC" 
+                        <Form htmlFor="tipoTCC">
+                            <InputForm type="text" label="Tipo de tcc" id="tipoTCC" 
                                 value={tipoTCC} onChange={e => setTipoTCC(e.target.value)}/>
-                        </Form>                   
+                        </Form>
                     </div>
                     <div className="col-md-4">
-                        <Form htmlFor="dataOrientacao" label="Data da orientação: ">
-                            <input id="dataOrientacao" className="form-control"
-                                value={dataOrientacao} onChange={e => setDataOrientacao(e.target.value)}/>
+                        <Form htmlFor="dataOrientacao" >
+                            <InputForm id="dataOrientacao" type='date'  label="Data da orientação"
+                                value={dataOrientacao ? dataOrientacao : data} onChange={e => setDataOrientacao(e.target.value)}/>
                         </Form>
                     </div>
                 </div>   
                 <div className="row">
                     <div className="col-md-4">
-                        <Form htmlFor="nomeOrientador" label="Nome orientador: ">
-                            <input id="descricaoTitulacao" className="form-control"
+                        <Form htmlFor="nomeOrientador" >
+                            <InputForm id="descricaoTitulacao"  label="Nome orientador "
                                 value={nomeOrientador} onChange={e => setNomeOrientador(e.target.value)}/>
                         </Form>
                     </div>
                     <div className="col-md-4">
-                        <Form htmlFor="matriculaOrientador" label="Matrícula do orientador: ">
-                            <input id="matriculaOrientador" className="form-control"
+                        <Form htmlFor="matriculaOrientador" >
+                            <InputForm id="matriculaOrientador"  label="Matrícula do orientador "
                                 value={matriculaOrientador} onChange={e => setMatriculaOrientador(e.target.value)}/>
                         </Form>
                     </div>

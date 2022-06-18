@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { Link, useParams } from "react-router-dom";
 import * as messages from '../../components/toastr/toastr'
-import Navbar from "../../components/navbar/navbar";
 import OrientadorService from "../../services/resource/orientadorService";
 import Profile from "../../components/profile/profile";
 import Label from "../../components/label/label";
@@ -60,8 +59,6 @@ function DisplayOrientador(){
 
 
     return(
-        <>
-        <Navbar />
         <Profile nome={nome} imagem={imagem} titulacao={titulacaoDescricao} grau={titulacaoGrau}
             onUpload={onBasicUploadAuto} preview={imagem === nullImage ? false : true}
             label={'nome'} name='file' url={`${baseURL}/orientadores/imagem/${orientador}`}>
@@ -77,8 +74,6 @@ function DisplayOrientador(){
             </Link>
 
         </Profile>
-    
-    </>
     )
 }
 

@@ -7,6 +7,13 @@ export default class DevolutivaService extends ApiService {
         super('/acompanhamentos')
     }
 
+    optionsStatus(){
+        return  [
+            { label: 'Positivo', value: 'Positivo' },
+            { label: 'Negativo', value: 'Negativo' }
+        ]
+    }
+
     save(devolutiva){
         return this.post('/', devolutiva);
     }

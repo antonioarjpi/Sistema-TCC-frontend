@@ -3,11 +3,12 @@ import { Link, useNavigate, useParams } from "react-router-dom";
 import Card from "../../components/card/card";
 import Form from "../../components/form/form";
 import * as messages from '../../components/toastr/toastr'
-import Navbar from "../../components/navbar/navbar";
 import DevolutivaService from "../../services/resource/devolutivaService";
 import { formatLocalDate } from "../../utils/format";
 import DropDown from "../../components/dropdown/dropdown";
 import OrientacaoService from "../../services/resource/orientacaoService";
+import InputForm from "../../components/input/input";
+import { Dropdown } from "primereact/dropdown";
 
 
 function SaveDevolutiva(){
@@ -21,6 +22,7 @@ function SaveDevolutiva(){
     const [localDeCorrecao, setLocalDeCorrecao] = useState('');
     const [correcaoSugerida, setCorrecaoSugerida] = useState('');
     const [atualizando, setAtualizando] = useState(true);
+    const hoje = Date.now();
 
     const {id} = useParams();
     const navigate = useNavigate();
@@ -124,51 +126,55 @@ function SaveDevolutiva(){
             // eslint-disable-next-line react-hooks/exhaustive-deps
             }, [])
 
-    return(
-        <>
-        <Navbar />
+    const options = [
+        { label: 'Positivo', value: 'Positivo' },
+        { label: 'Negativo', value: 'Negativo' },
+    ];
+
+    return( 
         <div className="container">
             <Card title={ atualizando ? 'Cadastro de Devolutiva' : 'Atualização de Devolutiva' }>
             <div className="row">
                 <div className="col-md-3">
-                    <Form id="orientacao" label="Cód orientação: *" >
+                    <Form id="orientacao" >
                         <DropDown
+                            span='Código da orientação'
                             options={orientacaoOptions}
                             findBy="id"
                             filterBy="id,descricaoTCC"
-                            placeholder="Orientação não inserido"
                             value={orientacao}
                             label1='id'
                             label2='descricaoTCC'
                             optionValue="id"
                             onChange={e => setOrientacao(e.target.value)}
                         />
-                    </Form>
-                    
+                    </Form>  
                 </div>
                 <div className="col-md-3">
-                    <Form id="dataMudanca" label="Data da mudança:" >
-                        <input id="dataMudanca" type="date" 
-                            className="form-control" 
+                    <Form id="dataMudanca" >
+                        <InputForm id="dataMudanca" type="date" 
+                            label='Data de mudança'
                             name="dataMudanca"
-                            value={dataMudanca}
+                            value={dataMudanca ? dataMudanca : setDataMudanca(formatLocalDate(hoje, "yyyy-MM-dd"))}
                             onChange={e => setDataMudanca(e.target.value)}
-                                />
+                        />
                     </Form>
                 </div>
                 <div className="col-md-3">
-                    <Form id="statusOrientacao" label="Status: *" >
-                        <select id="statusOrientacao" className="form-control" name="statusOrientacao" value={statusOrientacao}
-                            onChange={e => setStatusOrientacao(e.target.value)}>
-                            <option>Positivo</option>
-                            <option>Negativa</option>
-                        </select>
+                    <Form id="statusOrientacao" >
+                        <span className="p-float-label">
+                            <Dropdown style={{width: '100%'}} options={options} id="statusOrientacao" 
+                                name="statusOrientacao" value={statusOrientacao} span='asdasdasd'
+                                onChange={e => setStatusOrientacao(e.target.value)}
+                            />
+                             <label>Status da devolutiva</label>
+                        </span>
                     </Form>
                 </div>
                 <div className="col-md-3">
-                    <Form id="versaoDoc" label="Tipo documento: *" >
-                        <input id="versaoDoc" type="text" 
-                            className="form-control" 
+                    <Form id="versaoDoc" >
+                        <InputForm id="versaoDoc" type="text" 
+                            label="Tipo documento *" 
                             name="versaoDoc"
                             value={versaoDoc}
                             onChange={e => setVersaoDoc(e.target.value)}
@@ -180,9 +186,9 @@ function SaveDevolutiva(){
 
             <div className="row">
                 <div className="col-md-12">
-                    <Form id="descricaoDaDevolutiva" label="Descrição da devolutiva: *" >
-                        <input id="descricaoDaDevolutiva" type="text" 
-                            className="form-control" 
+                    <Form id="descricaoDaDevolutiva"  >
+                        <InputForm id="descricaoDaDevolutiva" type="text" 
+                            label="Descrição da devolutiva *"
                             name="descricaoDaDevolutiva"
                             value={descricaoDaDevolutiva}
                             onChange={e => setDescricaoDaDevolutiva(e.target.value)}
@@ -192,9 +198,9 @@ function SaveDevolutiva(){
 
 
                 <div className="col-md-12">
-                    <Form id="localDeCorrecao" label="Local de correção: *" >
-                        <input id="localDeCorrecao" type="text" 
-                            className="form-control" 
+                    <Form id="localDeCorrecao"  >
+                        <InputForm id="localDeCorrecao" type="text" 
+                            label="Local de correção *"
                             name="localDeCorrecao"
                             value={localDeCorrecao}
                             onChange={e => setLocalDeCorrecao(e.target.value)}
@@ -203,9 +209,9 @@ function SaveDevolutiva(){
                 </div>
 
                 <div className="col-md-12">
-                    <Form id="correcaoSugerida" label="Correção sugerida: *" >
-                        <input id="correcaoSugerida" type="text" 
-                            className="form-control" 
+                    <Form id="correcaoSugerida" >
+                        <InputForm id="correcaoSugerida" type="text" 
+                            label="Correção sugerida *" 
                             name="correcaoSugerida"
                             value={correcaoSugerida}
                             onChange={e => setCorrecaoSugerida(e.target.value)}
@@ -236,8 +242,6 @@ function SaveDevolutiva(){
             </div>
         </Card>
     </div>
-    
-    </>
     )
 }
 

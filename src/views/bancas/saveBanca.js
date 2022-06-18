@@ -3,12 +3,13 @@ import { Link, useNavigate, useParams } from "react-router-dom";
 import Card from "../../components/card/card";
 import Form from "../../components/form/form";
 import * as messages from '../../components/toastr/toastr'
-import Navbar from "../../components/navbar/navbar";
 import BancaService from "../../services/resource/bancaService";
 import OrientadorService from "../../services/resource/orientadorService";
 import EquipeService from "../../services/resource/equipeService";
 import { formatLocalDate } from "../../utils/format";
 import DropDown from "../../components/dropdown/dropdown";
+import InputForm from "../../components/input/input";
+import { InputText } from "primereact/inputtext";
 
 function SaveBanca(){
 
@@ -20,6 +21,7 @@ function SaveBanca(){
     const [equipe, setEquipe] = useState();
     const [membroMatricula, setMembroMatricula] = useState('');
     const [atualizando, setAtualizando] = useState(true);
+    const hoje = Date.now();
 
     const { id } = useParams();
     const navigate = useNavigate();
@@ -132,54 +134,42 @@ function SaveBanca(){
 
 
     return(
-        <>
-        <Navbar />
         <div className="container">
         <Card title={ atualizando ? 'Cadastro de banca' : 'Atualização de banca' }>
             <div className="row">
                 <div className="col-md-12">
-                    <Form id="descricao" label="Descrição: *" >
-                        <input id="descricao" type="text" 
-                            className="form-control" 
+                    <Form id="descricao"  >
+                        <InputForm id="descricao" type="text" 
+                            label="Descrição *"
                             name="descricao"
                             value={descricao}
-                            onChange={e => setDescricao(e.target.value)}
-                                />
+                            onChange={e => setDescricao(e.target.value)}/>
                     </Form>
                 </div>
             </div>
-            {/* Teste Aqui */}
-            <div className="row">
-                <div className="col-md-12">
-
-                </div>
-            </div>
-            {/* Teste Aqui */}
             <div className="row">
                 <div className="col-md-3">
-                    <Form id="dataBanca" label="Data da Banca: *" >
-                        <input id="dataBanca" type="date" className="form-control" 
-                            name="dataBanca" value={dataBanca}
+                    <Form id="dataBanca" >
+                        <InputForm id="dataBanca" type="date" label='Data da banca'  name="dataBanca" 
+                            value={dataBanca ? dataBanca :  setDataBanca(formatLocalDate(hoje, 'yyyy-MM-dd'))}
                             onChange={e => setDataBanca(e.target.value)}/>
                     </Form>
                 </div>
-                <div className="col-md-4">
-                    <Form id="ordemApresentacao" label="Ordem de apresentação:" >
-                        <input id="ordemApresentacao" type="number" className="form-control" 
+                <div className="col-md-3">
+                    <Form id="ordemApresentacao" >
+                        <InputForm id="ordemApresentacao" type="number"
+                            label="Ordem de apresentação"  
                             name="ordemApresentacao" value={ordemApresentacao}
                             onChange={e => setOrdemApresentacao(e.target.value)}/>
                     </Form>
                 </div>
-            </div>
-
-            <div className="row">
                 <div className="col-md-3">
-                    <Form id="orientador" label="Matrícula orientador *" >
+                    <Form id="orientador">
                         <DropDown
                             options={orientadorOptions}
                             findBy="matricula"
                             filterBy="matricula,nome"
-                            placeholder="Orientador não inserido"
+                            span="Orientador"
                             value={matriculaOrientador}
                             label1='matricula'
                             label2='nome'
@@ -188,13 +178,13 @@ function SaveBanca(){
                         />
                     </Form>
                 </div>
-                <div className="col-md-4">
-                    <Form id="equipe" label="Código da equipe: *" >
+                <div className="col-md-3">
+                    <Form id="equipe" >
                         <DropDown id="equipe" name="equipe"
                             options={equipeOptions}
                             findBy="id"
                             filterBy="id,nome"           
-                            placeholder="Equipe não adicionada"
+                            span="Equipe"
                             value={equipe}
                             label1='id'
                             label2='nome'
@@ -203,9 +193,13 @@ function SaveBanca(){
                         />
                     </Form>
                 </div>
-                <div className="col-md-4">
-                    <Form id="membroMatricula" label="Convidado banca: *" >
-                        <input id="membroMatricula" type="text" className="form-control" 
+            </div>
+
+            <div className="row">
+                <div className="col-md-6">
+                    <Form id="membroMatricula" >
+                        <InputForm id="membroMatricula" type="text" 
+                            label="Membro banca" 
                             name="membroMatricula" value={membroMatricula}
                             onChange={e => setMembroMatricula(e.target.value)}/>
                     </Form>
@@ -234,8 +228,6 @@ function SaveBanca(){
             </div>
         </Card>
     </div>
-    
-    </>
     )
 }
 

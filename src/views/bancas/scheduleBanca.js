@@ -2,15 +2,17 @@ import React, { useEffect, useState } from "react";
 import { Link, useNavigate, useParams } from "react-router-dom";
 import Card from "../../components/card/card";
 import Form from "../../components/form/form";
+import InputForm from "../../components/input/input";
 import * as messages from '../../components/toastr/toastr'
-import Navbar from "../../components/navbar/navbar";
 import BancaService from "../../services/resource/bancaService";
+import { formatLocalDate } from "../../utils/format";
 
 
 function ScheduleDefesa(){
 
     const [, setDefesa] = useState('');
     const [data, setData] = useState('');
+    const hoje = Date.now();
 
     const { id } = useParams();
 
@@ -55,17 +57,16 @@ function ScheduleDefesa(){
     }
 
     return(
-        <>
-        <Navbar />
         <div className="container">
             <Card title='Agendamento de Defesa'>
             <div className="row">
                 <div className="col-md-6">
-                    <Form id="data" label="Data de defesa: *" >
-                        <input id="data" type="date" 
+                    <Form id="data"  >
+                        <InputForm id="data" type="date" 
+                            label="Data de defesa *"
                             className="form-control" 
                             name="data"
-                            value={data}
+                            value={data ? data : setData(formatLocalDate(hoje, 'yyyy-MM-dd'))}
                             onChange={e => setData(e.target.value)}
                                 />
                     </Form>
@@ -86,8 +87,6 @@ function ScheduleDefesa(){
             </div>
         </Card>
     </div>
-    
-    </>
     )
 }
 

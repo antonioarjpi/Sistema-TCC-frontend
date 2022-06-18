@@ -76,6 +76,10 @@ export default class OrientacaoService extends ApiService {
             params = `${params}&tccDescricao=${filter.tccDescricao}`
         }
 
+        if(filter.tipoTCC){
+            params = `${params}&tipoTCC=${filter.tipoTCC}`
+        }
+
         return this.get(params);
     }
 

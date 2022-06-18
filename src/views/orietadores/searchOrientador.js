@@ -4,24 +4,24 @@ import Form from "../../components/form/form";
 
 import * as messages from '../../components/toastr/toastr'
 import { Link, useNavigate } from "react-router-dom";
-import Navbar from "../../components/navbar/navbar";
 
 import {Dialog} from 'primereact/dialog';
 import {Button} from 'primereact/button';
 import OrientadorService from "../../services/resource/orientadorService";
 import TableOrientador from "./tableOrientador";
+import InputForm from "../../components/input/input";
 
 
 function SearchOrientador(){
 
     const [nome, setNome] = useState('');
-    const [matricula, setMatricula] = useState();
-    const [email, setEmail] = useState();
-    const [descricaoTitulacao, setDescricaoTitulacao] = useState();
-    const [grau, setGrau] = useState();
-    const [ies, setIes] = useState();
-    const [linhaPesquisaDescricao, setLinhaPesquisaDescricao] = useState();
-    const [conhecimento, setConhecimento] = useState();
+    const [matricula, setMatricula] = useState('');
+    const [email, setEmail] = useState('');
+    const [descricaoTitulacao, setDescricaoTitulacao] = useState('');
+    const [grau, setGrau] = useState('');
+    const [ies, setIes] = useState('');
+    const [linhaPesquisaDescricao, setLinhaPesquisaDescricao] = useState('');
+    const [conhecimento, setConhecimento] = useState('');
 
     const [showConfirmDialog, setShowConfirmDialog] = useState();
     const [orientadorDelete, setOrientadorDelete] = useState({});
@@ -96,34 +96,34 @@ function SearchOrientador(){
 
     return(
         <>
-        <Navbar/>
+        
         <div className="container">
             <Card title="Consulta Orientadores"> 
                 <div className="row">
                     <div className="col-md-3"> 
-                        <Form htmlFor="nome" label="Nome: ">
-                            <input type="text" className="form-control" id="nome" 
+                        <Form htmlFor="nome" >
+                            <InputForm type="text"  id="nome" label="Nome"
                                 value={nome} onChange={e => setNome(e.target.value)}
                             />
                         </Form>
                     </div>
                     <div className="col-md-3"> 
-                        <Form htmlFor="email" label="E-mail: ">
-                            <input type="email" className="form-control" id="email" 
+                        <Form htmlFor="email">
+                            <InputForm type="email" id="email" label="E-mail "
                                 value={email} onChange={e => setEmail(e.target.value)}
                             />
                         </Form>                   
                     </div>
                     <div className="col-md-2">
-                        <Form htmlFor="matricula" label="Matricula: ">
-                            <input id="matricula"  className="form-control" 
+                        <Form htmlFor="matricula">
+                            <InputForm id="matricula" label="Matrícula "   
                                 value={matricula} onChange={e => setMatricula(e.target.value)}                           
                             />
                         </Form>
                     </div>
                     <div className="col-md-4">
-                        <Form htmlFor="descricaoTitulacao" label="Titulação: ">
-                            <input id="descricaoTitulacao" className="form-control"
+                        <Form htmlFor="descricaoTitulacao" >
+                            <InputForm id="descricaoTitulacao" label="Titulação"
                                 value={descricaoTitulacao} onChange={e => setDescricaoTitulacao(e.target.value)}                           
                             />
                         </Form>
@@ -131,29 +131,29 @@ function SearchOrientador(){
                 </div>   
                 <div className="row">
                     <div className="col-md-3">
-                        <Form htmlFor="linhaPesquisa" label="Linha de pesquisa: ">
-                            <input id="linhaPesquisa" className="form-control"
+                        <Form htmlFor="linhaPesquisa" >
+                            <InputForm id="linhaPesquisa" label="Linha de pesquisa"
                                 value={linhaPesquisaDescricao} onChange={e => setLinhaPesquisaDescricao(e.target.value)}                           
                             />
                         </Form>
                     </div>
                     <div className="col-md-3">
-                        <Form htmlFor="conhecimento" label="Area de conhecimento: ">
-                            <input id="conhecimento" className="form-control"
+                        <Form htmlFor="conhecimento">
+                            <InputForm id="conhecimento"  label="Área de conhecimento "
                                 value={conhecimento} onChange={e => setConhecimento(e.target.value)}                           
                             />
                         </Form>
                     </div>
                     <div className="col-md-3">
-                        <Form htmlFor="grau" label="Grau: ">
-                            <input id="grau" className="form-control"
+                        <Form htmlFor="grau" >
+                            <InputForm id="grau" label="Grau"
                                 value={grau} onChange={e => setGrau(e.target.value)}                           
                             />
                         </Form>
                     </div>
                     <div className="col-md-3">
-                        <Form htmlFor="ies" label="Instituição de Ensino: ">
-                            <input id="ies" className="form-control" 
+                        <Form htmlFor="ies" >
+                            <InputForm id="ies" label="Instituição de Ensino"
                                 value={ies} onChange={e => setIes(e.target.value)}                           
                             />
                         </Form>

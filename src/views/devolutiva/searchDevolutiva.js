@@ -4,25 +4,29 @@ import Form from "../../components/form/form";
 
 import * as messages from '../../components/toastr/toastr'
 import { Link, useNavigate } from "react-router-dom";
-import Navbar from "../../components/navbar/navbar";
-
 import {Dialog} from 'primereact/dialog';
 import {Button} from 'primereact/button';
 import TableDevolutiva from "./tableDevolutiva";
 import DevolutivaService from "../../services/resource/devolutivaService";
+import InputForm from "../../components/input/input";
+import { Dropdown } from "primereact/dropdown";
+import { formatLocalDate } from "../../utils/format";
 
 
 function SearchDevolutiva(){
 
-    const [orientacao] = useState();
-    const [dataMudanca] = useState();
+    const [orientacao, setOrientacao] = useState('');
+    const [dataMudanca, setDataMudanca] = useState('');
     const [statusOrientacao, setStatusOrientacao] = useState('');
-    const [descricaoDaDevolutiva, setDescricaoDaDevolutiva] = useState();
-    const [versaoDoc, setVersaoDoc] = useState();
-    const [localDeCorrecao, setLocalDeCorrecao] = useState();
-    const [correcaoSugerida, setCorrecaoSugerida] = useState();
+    const [descricaoDaDevolutiva, setDescricaoDaDevolutiva] = useState('');
+    const [versaoDoc, setVersaoDoc] = useState('');
+    const [localDeCorrecao, setLocalDeCorrecao] = useState('');
+    const [correcaoSugerida, setCorrecaoSugerida] = useState('');
     const [devolutivaDelete, setDevolutivaDelete] = useState({});
     const [devolutiva, setDevolutiva] = useState([]);
+
+    const hoje = Date.now();
+    const data = formatLocalDate(hoje, 'yyyy-MM-dd')
 
     const [showConfirmDialog, setShowConfirmDialog] = useState();
 
@@ -88,55 +92,73 @@ function SearchDevolutiva(){
         </div>
     );
 
+    const options = [
+        { label: 'Nenhum', value: ' ' },
+        { label: 'Positivo', value: 'Positivo' },
+        { label: 'Negativo', value: 'Negativo' },
+    ];
+        
     return(
         <>
-        <Navbar/>
         <div className="container">
         <Card title="Consulta Devolutivas">
                 <div className="row">
-                    <div className="col-md-4">
-                            <Form htmlFor="statusOrientacao" label="Status: ">
-                                <select id="statusOrientacao" required className="form-control" name="statusOrientacao" value={statusOrientacao}
-                                onChange={e => setStatusOrientacao(e.target.value)}>
-                                    <option ></option>
-                                    <option>Cancelado</option>
-                                    <option>Pendente</option>
-                                    <option>Finalizado</option>
-                                    <option>Resolvido</option>
-                                </select>
+                    <div className="col-md-3">
+                            <Form htmlFor="statusOrientacao">
+                                <span className="p-float-label">
+                                    <Dropdown style={{width: '100%'}} options={options} id="statusOrientacao" 
+                                        name="statusOrientacao" value={statusOrientacao}
+                                        onChange={e => setStatusOrientacao(e.target.value)}/>
+                                        <label>Status da devolutiva</label>
+                                </span>
                             </Form>
                         </div>
 
-                        <div className="col-md-4">
-                            <Form htmlFor="versaoDoc" label="Versão DOC:">
-                                <input type="text" className="form-control" id="versaoDoc" 
+                        <div className="col-md-2">
+                            <Form htmlFor="versaoDoc">
+                                <InputForm type="text" id="versaoDoc" label="Tipo doc"
                                     value={versaoDoc} onChange={e => setVersaoDoc(e.target.value)} />
                             </Form>
                         </div>
                         
-                        <div className="col-md-4">
-                            <Form htmlFor="orientacaoId" label="Cód Orientação: ">
-                                <input type="text" className="form-control" id="orientacaoId" 
-                                    value={descricaoDaDevolutiva} onChange={e => setDescricaoDaDevolutiva(e.target.value)}/>
+                        <div className="col-md-2">
+                            <Form htmlFor="orientacaoId" >
+                                <InputForm type="text" id="orientacaoId" label="Cód Orientação"
+                                    value={orientacao} onChange={e => setOrientacao(e.target.value)}/>
                             </Form>
                         </div>
 
-                        <div className="col-md-12">
-                            <Form htmlFor="statusOrientacao" label="Local de Correção: ">
-                                <input type="text" className="form-control" id="statusOrientacao" 
+                        <div className="col-md-2">
+                            <Form htmlFor="dataMudanca" >
+                                <InputForm type="date" id="dataMudanca" label="Data devolutiva"
+                                    value={dataMudanca ? dataMudanca : data} onChange={e => setDataMudanca(e.target.value)} />
+                            </Form>
+                        </div>
+
+                        <div className="col-md-3">
+                            <Form htmlFor="localCorrecao" >
+                                <InputForm type="text" id="localCorrecao" label="Local de Correção"
                                     value={localDeCorrecao} onChange={e => setLocalDeCorrecao(e.target.value)} />
                             </Form>
                         </div>
 
-                        <div className="col-md-12">
-                            <Form htmlFor="statusOrientacao" label="Correção sugerida: ">
-                                <input type="text" className="form-control" id="statusOrientacao" 
+                        <div className="col-md-3">
+                            <Form htmlFor="descricaoDaDevolutiva" >
+                                <InputForm type="text" id="descricaoDaDevolutiva" label="Descrição da devolutiva"
+                                    value={descricaoDaDevolutiva} onChange={e => setDescricaoDaDevolutiva(e.target.value)} />
+                            </Form>
+                        </div>
+
+                    
+                        <div className="col-md-9">
+                            <Form htmlFor="correcaoSugerida" >
+                                <InputForm type="text" id="correcaoSugerida" label="Correção sugerida"
                                     value={correcaoSugerida} onChange={e => setCorrecaoSugerida(e.target.value)} />
                             </Form>
                         </div>
 
                         <div className="row">
-                            <div className="col-md-6">
+                            <div className="col-md-4">
                                 <button type="button" className="btn btn-success mt-2" onClick={search}>
                                     <i className="pi pi-search"></i> Buscar
                                 </button>

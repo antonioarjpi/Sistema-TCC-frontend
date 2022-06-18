@@ -3,13 +3,11 @@ import { Link, useNavigate, useParams } from "react-router-dom";
 import Card from "../../components/card/card";
 import Form from "../../components/form/form";
 import * as messages from '../../components/toastr/toastr'
-import Navbar from "../../components/navbar/navbar";
 import EquipeService from "../../services/resource/equipeService";
 import { formatLocalDate } from "../../utils/format";
 import AlunoService from "../../services/resource/alunoService";
 import MultiSelectContainer from "../../components/multi-select/multiSelect";
-import { InputText } from "primereact/inputtext";
-import { InputTextarea } from 'primereact/inputtextarea';
+import InputForm from "../../components/input/input";
 
 function SaveEquipe(){
 
@@ -21,6 +19,7 @@ function SaveEquipe(){
     const [descricaoConhecimento, setDescricaoConhecimento] = useState('');
     const [alunos, setAlunos] = useState([]);
     const [atualizando, setAtualizando] = useState(true);
+    const hoje = Date.now();
 
     const { id } = useParams();
     const navigate = useNavigate();
@@ -103,51 +102,51 @@ function SaveEquipe(){
     }
     
     return(
-        <>
-        <Navbar />
         <div className="container">
             <Card title={ atualizando ? 'Cadastro Equipe' : 'Atualização de equipe'}>
             
             <div className="row">          
                 <div className="col-md-6">
-                    <Form id="nome" label="Nome da equipe: *" >
-                        <InputText id="nome" type="text" className="p-inputtext-sm block mb-1" name="nome" 
+                    <Form id="nome">
+                        <InputForm id="nome" type="text" label="Nome da equipe *"  name="nome" 
                                value={nome} onChange={e => setNome(e.target.value)}/>
                     </Form>
                 </div>
 
-                <div className="col-md-3">
-                    <Form id="dataCadastro" label="Data de cadastro: *" >
-                        <InputText id="dataCadastro" type="date" className="form-control" 
-                               name="dataCadastro" disabled value={dataCadastro}/>
+                <div className="col-md-4">
+                    <Form id="dataCadastro">
+                        <InputForm id="dataCadastro" type="date"
+                               label='Data de cadastro'  
+                               name="dataCadastro" disabled value={dataCadastro ? dataCadastro : formatLocalDate(hoje, 'yyyy-MM-dd')}/>
                     </Form>                            
                 </div>
             </div>
 
             <div className="row">
-                <div className="col-md-12">
-                    <Form id="dataCadastro" label="Alunos: *">
-                        <MultiSelectContainer value={alunos} className="p-inputtext-sm block mb-1"
+                <div className="col-md-6">
+                    <Form id="dataCadastro" className='form-group'>
+                        <MultiSelectContainer value={alunos} 
                             onChange={(e) => setAlunos(e.value)}
                             options={alunos}
                             filterBy="matricula,nome"
                             filterPlaceholder="Digite a matrícula"
-                            placeholder='Nenhum aluno adicionado'
-                            service={AlunoService}/>          
+                            placeholder='Matrícula dos alunos'
+                            service={AlunoService}/>      
+                                
                     </Form>
                 </div>
             </div>  
 
             <div className="row">
                 <div className="col-md-12">
-                    <Form id="delimitacao" label="Tema: *" >
-                        <InputText id="delimitacao" type="text" className="p-inputtext-sm block mb-1" name="delimitacao"
+                    <Form id="delimitacao">
+                        <InputForm id="delimitacao" type="text"  name="delimitacao" label="Tema *" 
                                 value={delimitacao} onChange={e => setDelimitacao(e.target.value)}/>
                     </Form>
                 </div>
                     <div className="col-md-12">
-                        <Form id="descricaoLinha" label="Linha de pesquisa: *" >
-                            <InputTextarea id="descricaoLinha" type="text" className="form-control" name="descricaoLinha"
+                        <Form id="descricaoLinha" >
+                            <InputForm id="descricaoLinha" type="text" label="Linha de pesquisa *" name="descricaoLinha"
                                     value={descricaoLinha} onChange={e => setDescricaoLinha(e.target.value)}
                                     rows={3}  autoResize/>
                         </Form>
@@ -156,8 +155,8 @@ function SaveEquipe(){
 
             <div className="row">
                 <div className="col-md-12">
-                    <Form id="descricaoConhecimento" label="Área de conhecimento: *" >
-                        <InputText id="descricaoConhecimento" className="mb-1" name="descricaoConhecimento" 
+                    <Form id="descricaoConhecimento"  >
+                        <InputForm id="descricaoConhecimento" label="Área de conhecimento *" name="descricaoConhecimento" 
                                 value={descricaoConhecimento} onChange={e => setDescricaoConhecimento(e.target.value)}  />
                     </Form>
                 </div>
@@ -185,7 +184,6 @@ function SaveEquipe(){
             </div>
         </Card>
     </div>    
-    </>
     )
 }
 

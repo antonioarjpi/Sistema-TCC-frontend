@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { Link, useParams } from "react-router-dom";
 import * as messages from '../../components/toastr/toastr'
-import Navbar from "../../components/navbar/navbar";
 import Profile from "../../components/profile/profile";
 import Label from "../../components/label/label";
 import { baseURL } from "../../services/api";
@@ -49,8 +48,6 @@ function DisplayAluno(){
 
 
     return(
-        <>
-        <Navbar />
         <Profile imagem={imagem}
             onUpload={onBasicUploadAuto} preview={imagem === nullImage ? false : true}
             label={'nome'} name='file' url={`${baseURL}/alunos/imagem/${aluno}`}>
@@ -64,8 +61,6 @@ function DisplayAluno(){
             </Link>
 
         </Profile>
-    
-    </>
     )
 }
 

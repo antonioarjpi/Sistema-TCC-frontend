@@ -4,12 +4,12 @@ import Form from "../../components/form/form";
 
 import * as messages from '../../components/toastr/toastr'
 import { Link, useNavigate } from "react-router-dom";
-import Navbar from "../../components/navbar/navbar";
 
 import {Dialog} from 'primereact/dialog';
 import {Button} from 'primereact/button';
 import TableAluno from "./tableAluno";
 import AlunoService from "../../services/resource/alunoService";
+import InputForm from "../../components/input/input";
 
 function SearchAluno(){
 
@@ -85,34 +85,33 @@ function SearchAluno(){
 
     return(
         <>
-        <Navbar/>
         <div className="container">
         <Card title="Consulta Alunos">
                 <div className="row">
                     <div className="col-md-4">
-                        <Form htmlFor="nome" label="Nome: ">
-                            <input type="text" 
-                                    className="form-control" 
+                        <Form htmlFor="nome">
+                            <InputForm type="text" 
+                                    label="Nome "
                                     id="nome" 
                                     value={nome} 
                                     onChange={e => setNome(e.target.value)} />
                         </Form>          
                     </div>
                     <div className="col-md-4">
-                        <Form htmlFor="email" label="E-mail: ">
-                            <input type="email" 
-                                    className="form-control" 
+                        <Form htmlFor="email" >
+                            <InputForm type="email"
+                                    label="E-mail "
                                     id="email" 
                                     value={email} 
                                     onChange={e => setEmail(e.target.value)}/>
                         </Form>
                     </div>
                     <div className="col-md-4">
-                        <Form htmlFor="matricula" label="Matricula: ">
-                            <input id="matricula" 
+                        <Form htmlFor="matricula" >
+                            <InputForm id="matricula" 
+                                label="Matricula"
                                 value={matricula} 
-                                onChange={e => setMatricula(e.target.value)}                           
-                                className="form-control"/>
+                                onChange={e => setMatricula(e.target.value)}/>
                         </Form>
                     </div>
                     <div className="col-md-4">
@@ -136,7 +135,6 @@ function SearchAluno(){
                     deleteAction={openDialog}
                     editAction={edit}
         />
-
         </div>
 
         <Dialog header="Confirmação" 

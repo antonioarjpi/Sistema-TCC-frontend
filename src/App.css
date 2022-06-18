@@ -42,6 +42,7 @@ i{
     align-items: middle;
     text-align: center;
 }
+f
 
 .col-lg-12{
     justify-content: center;
@@ -49,7 +50,9 @@ i{
     text-align: center;
     vertical-align: middle;
 }
-
+.p-float-label{
+    width: 100%;
+}
 .align-middle{
     justify-content: center;
     align-items: middle;

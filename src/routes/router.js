@@ -22,10 +22,11 @@ import SearchOrientador from "../views/orietadores/searchOrientador";
 import SignUp from "../views/signup";
 import NotFound from "../views/notFound";
 import Forbidden from "../views/forbidden/forbidden";
+import Navbar from "../components/navbar/navbar";
 
  const PrivateRoute = () => {
-     const isAuthenticated = localStorage.getItem("@TCC-Usuario") !== null;
-     return isAuthenticated ? <Outlet /> : <Navigate to="/login" />;
+     const isAuthenticated = localStorage.getItem("@TCC-Usuario") !== null;   
+     return isAuthenticated ? <><Navbar/><Outlet /></> : <Navigate to="/login" />;
 };
 
 const AccessDenied = () => {
@@ -37,6 +38,7 @@ function Router (){
     return (
     
         <BrowserRouter>
+            
             <Routes>
                 {/* Rotas públicas */}
                 <Route path="/login" element={<Login />} />

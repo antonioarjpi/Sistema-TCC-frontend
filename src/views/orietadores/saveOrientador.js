@@ -6,9 +6,8 @@ import Card from "../../components/card/card";
 import Form from "../../components/form/form";
 
 import * as messages from '../../components/toastr/toastr'
-import Navbar from "../../components/navbar/navbar";
 import OrientadorService from "../../services/resource/orientadorService";
-
+import InputForm from "../../components/input/input";
 
 function SaveOrientador(){
 
@@ -122,14 +121,13 @@ function SaveOrientador(){
     }
 
     return(
-        <>
-        <Navbar />
         <div className="container">
             <Card title={ atualizando ? 'Cadastro Orientador' : 'Atualização de Orientador' }>
             <div className="row">
                 <div className="col-md-2">
-                    <Form id="matricula" label="Matricula: " >
-                        <InputText id="nome" type="text" className="p-inputtext-sm block mb-1" name="matricula"
+                    <Form id="matricula"  >
+                        <InputForm id="nome" type="text" label="Matricula"
+                            className="p-inputtext-sm block mb-1" name="matricula"
                             disabled value={matricula} onChange={e => setMatricula(e.target.value)}/>
                     </Form>
                 </div>
@@ -137,63 +135,80 @@ function SaveOrientador(){
 
             <div className="row">
                 <div className="col-md-6">
-                    <Form id="nome" label="Nome: *" >
-                        <InputText className="p-inputtext-sm block mb-1"  keyfilter={/^[^</0!@#'+|$%´`¨&*"()1:;2=34,5_67}{[8\\9./>*!]+$/} value={nome} onChange={e => setNome(e.target.value)}/>
+                    <Form id="nome" >
+                        <InputForm className="p-inputtext-sm block mb-1" label="Nome *" 
+                        keyfilter={/^[^</0!@#'+|$%´`¨&*"()1:;2=34,5_67}{[8\\9./>*!]+$/} value={nome} onChange={e => setNome(e.target.value)}/>
                     </Form>
                 </div>
                 <div className="col-md-6">
-                    <Form id="email" label="Email: *" >
-                        <InputText className="p-inputtext-sm block mb-1" id="email" value={email} onChange={e => setEmail(e.target.value)}/>
+                    <Form id="email"  >
+                        <InputForm className="p-inputtext-sm block mb-1" label="Email *"
+                        id="email" value={email} onChange={e => setEmail(e.target.value)}/>
                     </Form>
                 </div>
             </div>
 
             <div className="row">
                 <div className="col-md-4">
-                    <Form id="titulacaoDescricao" label="Descricao da titulação: *" >
-                        <InputText className="p-inputtext-sm block mb-1" id="titulacaoDescricao" value={titulacaoDescricao} onChange={e => setDescricaoTitulacao(e.target.value)}/>
+                    <Form id="titulacaoDescricao" >
+                        <InputForm className="p-inputtext-sm block mb-1" label="Descricao da titulação *"
+                        id="titulacaoDescricao" value={titulacaoDescricao} 
+                        onChange={e => setDescricaoTitulacao(e.target.value)}/>
                     </Form>
                 </div>
                 <div className="col-md-4">
-                    <Form id="titulacaoGrau" label="Grau: *" >
-                        <InputText className="p-inputtext-sm block mb-1" id="titulacaoGrau" value={titulacaoGrau} onChange={e => setGrau(e.target.value)}/>
+                    <Form id="titulacaoGrau"  >
+                        <InputForm className="p-inputtext-sm block mb-1" label="Grau: *"
+                        id="titulacaoGrau" value={titulacaoGrau} 
+                        onChange={e => setGrau(e.target.value)}/>
                     </Form>
                 </div>
                 <div className="col-md-4">
-                    <Form id="titulacaoIes" label="Instituição de Ensino: *" >
-                        <InputText className="p-inputtext-sm block mb-1" id="titulacaoIes" value={titulacaoIes} onChange={e => setIes(e.target.value)}/>
+                    <Form id="titulacaoIes"  >
+                        <InputForm className="p-inputtext-sm block mb-1" label="Instituição de Ensino *"
+                        id="titulacaoIes" value={titulacaoIes} onChange={e => setIes(e.target.value)}/>
                     </Form>
                 </div>
             </div>
 
             <div className="row">
                 <div className="col-md-4">
-                    <Form id="areaconhecimento" label="Área de conhecimento: *" >
-                        <InputText className="p-inputtext-sm block mb-1" id="areaconhecimento" value={linhaPesquisaAreaconhecimentoDescricao} onChange={e => setLinhaPesquisaAreaconhecimentoDescricao(e.target.value)}/>
+                    <Form id="areaconhecimento">
+                        <InputForm className="p-inputtext-sm block mb-1" label="Área de conhecimento *" 
+                        id="areaconhecimento" value={linhaPesquisaAreaconhecimentoDescricao} 
+                        onChange={e => setLinhaPesquisaAreaconhecimentoDescricao(e.target.value)}/>
                     </Form>
                 </div>
                 <div className="col-md-8">
-                    <Form id="linhaPesquisa" label="Linha de Pesquisa: *" >
-                        <InputText className="p-inputtext-sm block mb-1" id="linhaPesquisa" value={linhaPesquisaDescricao} onChange={e => setLinhaPesquisaDescricao(e.target.value)}/>
+                    <Form id="linhaPesquisa">
+                        <InputForm className="p-inputtext-sm block mb-1" label="Linha de Pesquisa *" 
+                        id="linhaPesquisa" value={linhaPesquisaDescricao} 
+                        onChange={e => setLinhaPesquisaDescricao(e.target.value)}/>
                     </Form>
                 </div>
             </div>
 
             { atualizando ? (
-            <div className="row">
-                <div className="col-md-2">
-                    <Form id="senha" label="Senha: *" >
-                        <Password className="p-inputtext-sm block mb-1" toggleMask value={senha} onChange={(e) => setSenha(e.target.value)} feedback={false} />        
-                    </Form>
-                </div>
-                <div className="col-md-2">
-                    <Form id="senhaRepetida" label="Repita a senha: *" >
-                        <Password className="p-inputtext-sm block mb-1" toggleMask value={senhaRepetida} onChange={(e) => setSenhaRepetida(e.target.value)} feedback={false} />  
-                    </Form>
-                </div>
+                <div className="row">
+                    <div className="col-md-3">
+                        <Form id="senha" >
+                            <span className="p-float-label">
+                                <Password style={{width: '100%'}} value={senha} onChange={(e) => setSenha(e.target.value)} toggleMask />
+                                <label htmlFor="senha">Senha*</label>
+                            </span>
+                        </Form>
+                    </div>
+                    <div className="col-md-3">
+                        <Form id="senhaRepetida" >
+                            <span className="p-float-label">
+                                <Password style={{width: '100%'}} value={senhaRepetida} onChange={(e) => setSenhaRepetida(e.target.value)} toggleMask feedback={false} />
+                                <label htmlFor="senhaRepetida">Repita a senha*</label>
+                            </span>
+                        </Form>
+                    </div>
             </div>
-            ) : ( 
-                <></> 
+            ) : (
+                <></>
             )}
 
             <div className="row mt-2">
@@ -218,8 +233,6 @@ function SaveOrientador(){
             </div>
         </Card>
     </div>
-    
-    </>
     )
 }
 

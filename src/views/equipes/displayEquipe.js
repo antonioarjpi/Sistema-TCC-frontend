@@ -3,7 +3,6 @@ import { Link, useParams } from "react-router-dom";
 import Card from "../../components/card/card";
 
 import * as messages from '../../components/toastr/toastr'
-import Navbar from "../../components/navbar/navbar";
 import { formatLocalDate } from "../../utils/format";
 import TableAlunoEquipe from "./tableAlunoEquipe";
 import EquipeService from "../../services/resource/equipeService";
@@ -67,8 +66,6 @@ function SearchEquipeFull(){
 
 
     return(
-        <>
-        <Navbar />
         <div className="container">
             <Card >
             
@@ -170,7 +167,6 @@ function SearchEquipeFull(){
             </div>
         </Card>
     </div>    
-    </>
     )
 }
 

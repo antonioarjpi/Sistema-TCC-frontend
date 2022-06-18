@@ -4,29 +4,31 @@ import Form from "../../components/form/form";
 
 import * as messages from '../../components/toastr/toastr'
 import { Link, useNavigate } from "react-router-dom";
-import Navbar from "../../components/navbar/navbar";
 
 import {Dialog} from 'primereact/dialog';
 import {Button} from 'primereact/button';
 import TableBanca from "./tableBanca";
 import BancaService from "../../services/resource/bancaService";
+import InputForm from "../../components/input/input";
+import { formatLocalDate } from "../../utils/format";
 
 
 function SearchBanca(){
 
     const [descricao, setDescricao] = useState('');
-    const [dataBanca, setDataBanca] = useState();
-    const [equipeId, setEquipeId] = useState();
-    const [orientadorNome, setorientadorNome] = useState();
-    const [id, setId] = useState();
-    const [membroMatricula, setMembroMatricula] = useState();
+    const [dataBanca, setDataBanca] = useState('');
+    const [equipeId, setEquipeId] = useState('');
+    const [orientadorNome, setorientadorNome] = useState('');
+    const [id, setId] = useState('');
+    const [membroMatricula, setMembroMatricula] = useState('');
 
     const navigate = useNavigate();
     const [bancaDelete, setBancaDelete] = useState({});
     const [banca, setBanca] = useState([]);
     const [showConfirmDialog, setShowConfirmDialog] = useState();
 
-
+    const hoje = Date.now();
+    const data = formatLocalDate(hoje, 'yyyy-MM-dd')
     const service = new BancaService();
 
     const search = () =>{
@@ -35,6 +37,7 @@ function SearchBanca(){
             membroMatricula: membroMatricula,
             orientadorNome: orientadorNome,
             equipeId: equipeId,
+            dataBanca: dataBanca,
             id: id
         }
 
@@ -92,59 +95,58 @@ function SearchBanca(){
 
     return(
         <>
-        <Navbar/>
         <div className="container">
             <Card title="Consulta Bancas">
                 <div className="row">
                     <div className="col-md-4">
-                        <Form htmlFor="descricao" label="Descrição banca: ">
-                            <input type="text" 
-                                    className="form-control" 
+                        <Form htmlFor="descricao" >
+                            <InputForm type="text" 
+                                    label="Descrição banca "
                                     id="descricao" 
                                     value={descricao} 
                                     onChange={e => setDescricao(e.target.value)}/>
                         </Form>          
                     </div>
                     <div className="col-md-4">
-                        <Form htmlFor="dataBanca" label="Data Banca: ">
-                            <input type="" 
-                                    className="form-control" 
+                        <Form htmlFor="dataBanca" >
+                            <InputForm type="date" 
+                                    label="Data Banca"
                                     id="dataBanca" 
-                                    disabled
-                                    value={dataBanca} 
+                                    value={dataBanca ? dataBanca : data} 
                                     onChange={e => setDataBanca(e.target.value)}/>
                         </Form>
                     </div>
                     <div className="col-md-4">
-                        <Form htmlFor="codigo da Banca" label="Código da banca: ">
-                            <input type="text" 
-                                    className="form-control" 
+                        <Form htmlFor="codigo da Banca" >
+                            <InputForm type="text" 
+                                    label="Código da banca "
                                     id="dataBanca" 
                                     value={id} 
                                     onChange={e => setId(e.target.value)}/>
                         </Form>
                     </div>
                     <div className="col-md-4">
-                        <Form htmlFor="codigo" label="Código da equipe: ">
-                            <input type="text" 
-                                    className="form-control" 
+                        <Form htmlFor="codigo" >
+                            <InputForm type="text" 
+                                    label="Código da equipe "
                                     id="codigo" 
                                     value={equipeId} 
                                     onChange={e => setEquipeId(e.target.value)}/>
                         </Form>          
                     </div>
                     <div className="col-md-4">
-                        <Form htmlFor="matricula" label="Nome orientador: ">
-                            <input id="matricula" 
+                        <Form htmlFor="matricula" >
+                            <InputForm id="matricula" 
+                                label="Nome orientador "
                                 value={orientadorNome} 
-                                onChange={e => setorientadorNome(e.target.value)}                           
-                                className="form-control"/>
+                                onChange={e => setorientadorNome(e.target.value)}/>
                         </Form>
                     </div>
 
                     <div className="col-md-4">
-                        <Form htmlFor="membro" label="Membro: ">
-                            <input className="form-control"id="membro" value={membroMatricula} onChange={e => setMembroMatricula(e.target.value)}/>
+                        <Form htmlFor="membro" >
+                            <InputForm label="Membro banca " 
+                                id="membro" value={membroMatricula} onChange={e => setMembroMatricula(e.target.value)}/>
                         </Form>
                     </div>
                     <div className="col-md-4">

@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import Button from "../components/button/button";
-import Navbar from "../components/navbar/navbar";
 import LocalStorage from "../services/resource/localstorageService";
 
 function Home(){
@@ -14,8 +13,6 @@ function Home(){
     }, [])
     
     return(
-        <>
-        <Navbar />
         <div className="container">
             <h1 className="display-3">Bem vindo, {usuario}!</h1>
             <p className="lead">Esse é seu sistema de gerenciamento de TCC.</p>
@@ -34,7 +31,6 @@ function Home(){
                 </Link>
             </p>
         </div>
-        </>
     )
 }
 

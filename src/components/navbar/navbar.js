@@ -26,30 +26,29 @@ function Navbar(props){
             <ul className="navbar-nav">
 
                 <Link to={"/home"}>
-                  <NavItem render={props.isUsuarioAutenticado} label="Home" />
+                  <NavItem label="Home" />
                 </Link>
                 <Link to={"/alunos"}>
-                  <NavItem render={props.isUsuarioAutenticado} label="Alunos" />
+                  <NavItem label="Alunos" />
                 </Link>
                 <Link to={"/orientadores"}>
-                  <NavItem render={props.isUsuarioAutenticado}label="Orientadores" />
+                  <NavItem label="Orientadores" />
                 </Link>
                 <Link to={"/equipes"}>
-                  <NavItem render={props.isUsuarioAutenticado}label="Equipes" />
+                  <NavItem label="Equipes" />
                 </Link>
                 <Link to={"/bancas"}>
-                  <NavItem render={props.isUsuarioAutenticado} label="Bancas" />
+                  <NavItem label="Bancas" />
                 </Link>
                 <Link to={"/orientacao"}>
-                  <NavItem render={props.isUsuarioAutenticado} label="Orientação" />
+                  <NavItem label="Orientação" />
                 </Link>
                 <Link to={"/devolutivas"}>
-                  <NavItem render={props.isUsuarioAutenticado} label="Devolutivas" />
+                  <NavItem label="Devolutivas" />
                 </Link>
                 <Link to={"/login"}>
-                  <NavItem render={props.isUsuarioAutenticado} onClick={logout} label="Sair" />
-                </Link>
-                
+                  <NavItem onClick={logout} label="Sair" />
+                </Link>              
             </ul>
             </div>
         </div>

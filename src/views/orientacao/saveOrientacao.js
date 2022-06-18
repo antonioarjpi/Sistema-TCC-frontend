@@ -3,12 +3,12 @@ import { Link, useNavigate, useParams } from "react-router-dom";
 import Card from "../../components/card/card";
 import Form from "../../components/form/form";
 import * as messages from '../../components/toastr/toastr'
-import Navbar from "../../components/navbar/navbar";
 import OrientacaoService from "../../services/resource/orientacaoService";
 import { formatLocalDate } from "../../utils/format";
 import DropDown from "../../components/dropdown/dropdown";
 import OrientadorService from "../../services/resource/orientadorService";
 import EquipeService from "../../services/resource/equipeService";
+import InputForm from "../../components/input/input";
 
 function SaveOrientacao(){
 
@@ -19,7 +19,7 @@ function SaveOrientacao(){
     const [matriculaOrientador, setMatriculaOrientador] = useState();
     const [equipe, setEquipe] = useState();
     const [atualizando, setAtualizando] = useState(true);
-
+    const hoje = Date.now();
 
     const {id} = useParams();
     const navigate = useNavigate();
@@ -126,37 +126,37 @@ function SaveOrientacao(){
         }, [])
 
     return(
-        <>
-        <Navbar />
         <div className="container">
             <Card title={ atualizando ? 'Cadastro de Orientação' : 'Atualização de orientação' }>
             <div className="row">
                 <div className="col-md-12">
-                    <Form id="descricaoTCC" label="Descrição: *" >
-                        <input id="descricaoTCC" type="text" 
+                    <Form id="descricaoTCC"  >
+                        <InputForm id="descricaoTCC" type="text" 
+                            label="Descrição *"
                             className="form-control" 
                             name="descricaoTCC"
                             value={descricaoTCC}
-                            onChange={e => setDescricaoTCC(e.target.value)}
-                                />
+                            onChange={e => setDescricaoTCC(e.target.value)}/>
                     </Form>
                 </div>
             </div>
 
             <div className="row">
-                <div className="col-md-4">
-                    <Form id="dataOrientacao" label="Data da Orientacao: *" >
-                        <input id="dataOrientacao" type="date" 
+                <div className="col-md-3">
+                    <Form id="dataOrientacao" >
+                        <InputForm id="dataOrientacao" type="date"
+                            label="Data da Orientacao: *" 
                             className="form-control" 
                             name="dataOrientacao"
-                            value={dataOrientacao}
+                            value={dataOrientacao ? dataOrientacao : setDataOrientacao(formatLocalDate(hoje, 'yyyy-MM-dd'))}
                             onChange={e => setDataOrientacao(e.target.value)}
-                                />
+                        />
                     </Form>
                 </div>
-                <div className="col-md-4">
-                    <Form id="tipoTCC" label="Tipo do tcc: *" >
-                        <input id="tipoTCC" type="text" 
+                <div className="col-md-3">
+                    <Form id="tipoTCC"  >
+                        <InputForm id="tipoTCC" type="text" 
+                            label="Tipo do tcc *"
                             className="form-control" 
                             name="tipoTCC"
                             value={tipoTCC}
@@ -164,16 +164,14 @@ function SaveOrientacao(){
                                 />
                     </Form>
                 </div>
-            </div>
-
-            <div className="row">
                 <div className="col-md-3">
-                    <Form id="orientador" label="Matrícula orientador *" >
+                    <Form id="orientador"  >
                         <DropDown
                             options={orientadorOptions}
                             findBy="matricula"
                             filterBy="matricula,nome"
-                            placeholder="Orientador não inserido"
+                            span="Orientador"
+                            placeholderFilter='Matrícula orientador'
                             value={matriculaOrientador}
                             label1='matricula'
                             label2='nome'
@@ -182,13 +180,14 @@ function SaveOrientacao(){
                         />
                     </Form>
                 </div>
-                <div className="col-md-4">
-                    <Form id="equipe" label="Código da equipe: *" >
+                <div className="col-md-3">
+                    <Form id="equipe" >
                         <DropDown
                             options={equipeOptions}
                             findBy="id"
                             filterBy="id,nome"
-                            placeholder="Equipe não adicionada"
+                            span="Equipe"
+                            placeholderFilter='Código da equipe'
                             value={equipe}
                             label1='id'
                             label2='nome'
@@ -219,8 +218,6 @@ function SaveOrientacao(){
             </div>
         </Card>
     </div>
-    
-    </>
     )
 }
 
