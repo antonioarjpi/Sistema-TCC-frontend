@@ -1,6 +1,7 @@
 import { Link } from "react-router-dom";
 import { useAuth } from "../../context/AuthContext";
 import NavItem from "../nav-item/navbarItem";
+import './styles.css'
 import * as messages from '../../components/toastr/toastr'
 
 function Navbar(props){

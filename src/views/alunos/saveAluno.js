@@ -113,16 +113,13 @@ function SaveAluno(){
                 </div> 
 
             <div className="row">
-                <div className="col-md-12">
+                <div className="col-md-6">
                     <Form id="nome" >
                         <InputForm label="Nome *" keyfilter={/^[^</0!@#'+|$%´`¨&*"()1:;2=34,5_67}{[8\\9./>*!]+$/} value={nome} onChange={e => setNome(e.target.value)}/>        
                     </Form>
                     
                 </div>
-            </div>
-
-            <div className="row">
-                <div className="col-md-12">
+                <div className="col-md-6">
                     <Form id="email" >
                         <InputForm id="email" label="E-mail *" value={email} onChange={e => setEmail(e.target.value)}/>
                     </Form>
@@ -133,18 +130,14 @@ function SaveAluno(){
                 <div className="row">
                     <div className="col-md-3">
                         <Form id="senha" >
-                            <span className="p-float-label">
-                                <Password style={{width: '100%'}} value={senha} onChange={(e) => setSenha(e.target.value)} toggleMask />
-                                <label htmlFor="senha">Senha*</label>
-                            </span>
+                            <label className="input-label" htmlFor="passwordRepeat">Senha *</label>
+                            <Password className='password' style={{width: '100%'}} value={senha} onChange={(e) => setSenha(e.target.value)} toggleMask />                           
                         </Form>
                     </div>
-                    <div className="col-md-3">
+                    <div className="col-md-3 mb-4">
                         <Form id="senhaRepetida" >
-                            <span className="p-float-label">
-                                <Password style={{width: '100%'}} value={senhaRepetida} onChange={(e) => setSenhaRepetida(e.target.value)} toggleMask feedback={false} />
-                                <label htmlFor="senhaRepetida">Repita a senha*</label>
-                            </span>
+                            <label className="input-label" htmlFor="passwordRepeat">Confirmação de senha *</label>
+                            <Password className='password' style={{width: '100%'}} value={senhaRepetida} onChange={(e) => setSenhaRepetida(e.target.value)} toggleMask feedback={false} />         
                         </Form>
                     </div>
             </div>

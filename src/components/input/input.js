@@ -1,22 +1,20 @@
 import { InputText } from "primereact/inputtext";
+import './styles.css'
 import React from "react";
 
 function InputForm(props){
     return(
-        <span className="p-float-label">
+        <>
+        <label className="input-label" htmlFor={props.htmlFor}>{props.label}</label>
             <InputText 
                 type={props.type} 
-                className={props.className} 
+                className="input-text-sm"
                 id={props.id} 
                 disabled={props.disabled} 
                 value={props.value} 
                 onChange={props.onChange} />
-
-            <label htmlFor={props.htmlFor}>
-                {props.label}
-            </label>
-            
-        </span>
+            </>    
+    
     )
 }
 

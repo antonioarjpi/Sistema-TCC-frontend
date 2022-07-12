@@ -192,18 +192,14 @@ function SaveOrientador(){
                 <div className="row">
                     <div className="col-md-3">
                         <Form id="senha" >
-                            <span className="p-float-label">
-                                <Password style={{width: '100%'}} value={senha} onChange={(e) => setSenha(e.target.value)} toggleMask />
-                                <label htmlFor="senha">Senha*</label>
-                            </span>
+                            <label className="input-label" htmlFor="passwordRepeat">Senha *</label>
+                            <Password className='password' style={{width: '100%'}} value={senha} onChange={(e) => setSenha(e.target.value)} toggleMask /> 
                         </Form>
                     </div>
                     <div className="col-md-3">
                         <Form id="senhaRepetida" >
-                            <span className="p-float-label">
-                                <Password style={{width: '100%'}} value={senhaRepetida} onChange={(e) => setSenhaRepetida(e.target.value)} toggleMask feedback={false} />
-                                <label htmlFor="senhaRepetida">Repita a senha*</label>
-                            </span>
+                            <label className="input-label" htmlFor="passwordRepeat">Confirmação de senha *</label>
+                            <Password className='password'  style={{width: '100%'}} value={senhaRepetida} onChange={(e) => setSenhaRepetida(e.target.value)} toggleMask feedback={false} />
                         </Form>
                     </div>
             </div>

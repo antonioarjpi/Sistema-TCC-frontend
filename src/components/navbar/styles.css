@@ -1,0 +1,9 @@
+.navbar{
+    background-color: rgb(247, 247, 247);
+    background-position: 0% 0%;
+    color:  #111111;
+    transform: none;
+    transition: opacity 0.3s ease 0s;
+    box-sizing: border-box;
+    box-shadow: rgba(0, 0, 0, 0.1) 0px 4px 9px 0px;
+}

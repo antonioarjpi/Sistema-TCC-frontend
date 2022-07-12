@@ -1,5 +1,6 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import { Dropdown } from 'primereact/dropdown';
+import './styles.css'
 
 function DropDown(props){
 
@@ -13,13 +14,14 @@ function DropDown(props){
 
     return(
         <>
+        <label className="input-label" htmlFor={props.htmlFor}>{props.span}</label>
         <span className="p-float-label">
             <Dropdown style={{width: '100%'}}
                 id={props.id}
                 name={props.name}
                 value={props.value}
                 options={props.options} 
-                className={props.className}   
+                className="dropdown-custom"  
                 onChange={props.onChange} 
                 optionLabel={props.findBy}
                 optionValue={props.optionValue}  
@@ -30,9 +32,6 @@ function DropDown(props){
                 filterPlaceholder={props.placeholderFilter}          
                 itemTemplate={optionItem}
             />
-            <label>
-                {props.span}
-            </label>
          </span>
         </>
     )

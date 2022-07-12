@@ -13,13 +13,13 @@ import SearchEquipe from "../views/equipes/searchEquipe";
 import SearchEquipeFull from "../views/equipes/displayEquipe";
 
 import Home from "../views/home";
-import Login from "../views/login";
+import Login from "../views/login/login";
 import SaveOrientacao from "../views/orientacao/saveOrientacao";
 import SearchOrientacao from "../views/orientacao/searchOrientacao";
 import DisplayOrientador from "../views/orietadores/displayOrientador";
 import SaveOrientador from "../views/orietadores/saveOrientador";
 import SearchOrientador from "../views/orietadores/searchOrientador";
-import SignUp from "../views/signup";
+import SignUp from "../views/signup/signup";
 import NotFound from "../views/notFound";
 import Forbidden from "../views/forbidden/forbidden";
 import Navbar from "../components/navbar/navbar";

@@ -1,0 +1,20 @@
+.p-float-label{
+    font-size: smaller;
+}
+
+.input-label{
+    margin-left: 4px;
+    font-family: Ubuntu, sans-serif;
+    font-size: 12px;
+    font-weight: 700;
+    line-height: 18.5714px;
+    text-decoration: none solid rgb(78, 94, 106);
+    text-align: left;
+    vertical-align: bottom;
+    word-spacing: 0px;
+    color: #40474d;
+}
+
+.input-text-sm{
+    height: 2.3rem;
+}

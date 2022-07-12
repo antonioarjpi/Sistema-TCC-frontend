@@ -1,0 +1,19 @@
+.card{
+    background-color: #FFFFFF;
+    color:  #000000;
+    border-radius: 2px;
+    padding: 5px;
+    display: flex;
+    align-items: right;
+    flex-direction: column;
+}
+
+.card-header{
+    font-size: 20px;
+    background-color: #FFFFFF;
+}
+
+.card-body{
+    padding: 5px;
+    margin-bottom: 2px;
+}

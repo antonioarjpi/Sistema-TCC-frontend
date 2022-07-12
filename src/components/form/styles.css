@@ -1,7 +1,4 @@
 .form-group{
-    min-height: 5em;
-    vertical-align: middle;
-    position: relative;
-    display: flex;
-    align-items: center; 
+    display: grid;
+    align-items: center;
 }

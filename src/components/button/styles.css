@@ -1,0 +1,18 @@
+.spinner-border{
+    margin-right: 6px;
+}
+
+i{
+    margin-right: 6px;
+}
+
+.btn{
+    border-radius: 0px;
+    text-decoration: none;
+    margin-right: 5px;
+}
+
+.btn:hover{
+    opacity: 0.8;
+    transition-delay: 20s;
+}

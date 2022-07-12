@@ -162,13 +162,12 @@ function SaveDevolutiva(){
                 </div>
                 <div className="col-md-3">
                     <Form id="statusOrientacao" >
-                        <span className="p-float-label">
-                            <Dropdown style={{width: '100%'}} options={options} id="statusOrientacao" 
+                    <label className="input-label" htmlFor='status'>Status da devolutiva</label>
+                            <Dropdown className="dropdown" style={{width: '100%'}} options={options} id="statusOrientacao" 
                                 name="statusOrientacao" value={statusOrientacao} span='asdasdasd'
                                 onChange={e => setStatusOrientacao(e.target.value)}
                             />
-                             <label>Status da devolutiva</label>
-                        </span>
+                            
                     </Form>
                 </div>
                 <div className="col-md-3">

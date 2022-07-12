@@ -1,5 +1,6 @@
 import { MultiSelect } from "primereact/multiselect";
 import React, { useEffect, useState } from "react";
+import './styles.css'
 
 function MultiSelectContainer(props){
     const select = props.value;
@@ -59,7 +60,7 @@ function MultiSelectContainer(props){
     return(
         <MultiSelect 
             value={props.value} options={dados}
-            className={props.className} 
+            className="multi-select"
             onChange={props.onChange}
             filter 
             filterBy={props.filterBy}
