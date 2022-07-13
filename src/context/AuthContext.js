@@ -1,5 +1,6 @@
 import LocalStorageService from '../services/resource/localstorageService'
-import { createContext, useContext, useState } from "react";
+import { createContext, useContext, useEffect, useState } from "react";
+import AuthService from '../services/resource/AuthService';
 
 export const USUARIO_LOGADO = '@TCC-Usuario'
 export const TOKEN = '@TCC:Token'
@@ -7,26 +8,32 @@ export const TOKEN = '@TCC:Token'
 const AuthContext = createContext(null)
 
 export const AuthProvider = ( {children} ) => {
+    const [autenticado, setAutenticado] = useState(false)
  
     const [usuario, setUsuario] = useState(() => {
-        const usuario = localStorage.getItem(USUARIO_LOGADO);
-        if(usuario){
-            return JSON.parse(usuario)
-        }
-        return {}
+        setAutenticado(AuthService.isAutenticado)
+        return AuthService.getUser();
     });
 
+    useEffect(() => {
+        if (autenticado === false){
+            LocalStorageService.removerItem(USUARIO_LOGADO)
+            LocalStorageService.removerItem(TOKEN)
+        }
+       
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [])
+
     const login = (usuario, token) => {
-        setUsuario(usuario);
         LocalStorageService.addItem(USUARIO_LOGADO, usuario)
         localStorage.setItem(TOKEN, token)
-  
+        setUsuario(AuthService.getUser);
+        setAutenticado(true)
     }
 
     const logout = () => {
+        AuthService.logout();
         setUsuario(null);
-        LocalStorageService.removerItem(USUARIO_LOGADO)
-        LocalStorageService.removerItem(TOKEN)
     }
 
     return(

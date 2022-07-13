@@ -6,11 +6,10 @@ import * as messages from '../../components/toastr/toastr'
 import { Link, useNavigate } from "react-router-dom";
 import {Dialog} from 'primereact/dialog';
 import {Button} from 'primereact/button';
+import ButtonForm from './../../components/button/button';
 import TableEquipe from "./tableEquipe";
 import EquipeService from "../../services/resource/equipeService";
 import InputForm from "../../components/input/input";
-import { Calendar } from 'primereact/calendar';
-import { addLocale } from 'primereact/api';
 import { formatLocalDate } from "../../utils/format";
 
 
@@ -24,7 +23,7 @@ function SearchEquipe(){
     const [descricaoLinha, setDescricaoLinha] = useState('');
     const [descricaoConhecimento, setDescricaoConhecimento] = useState('');
     const [showConfirmDialog, setShowConfirmDialog] = useState();
-
+    const [loading, setLoading] = useState(false);
     const hoje = Date.now();
     const data = formatLocalDate(hoje, 'yyyy-MM-dd')
 
@@ -32,6 +31,7 @@ function SearchEquipe(){
     const service = new EquipeService();
 
     const search = () =>{
+        setLoading(true)
         const filter = {
             nome: nome,
             dataCadastro: dataCadastro,
@@ -47,8 +47,9 @@ function SearchEquipe(){
             if(list.length < 1){
                 messages.mensagemAlert("Nenhum resultado encontrado.");
             }
+            setLoading(false)
         }).catch(error =>{
-            console.log(error)
+            setLoading(false)
         })
     }
   
@@ -143,14 +144,14 @@ function SearchEquipe(){
                         </Form>
                     </div>
                 </div>           
-                    <button type="button" className="btn btn-success mt-2"onClick={search}>
-                        <i className="pi pi-search"></i> Buscar
-                    </button>
-                    <Link to={'/cadastro-equipe'}>
-                        <button type="button"  className="btn btn-danger mt-2">
-                            <i className="pi pi-plus"></i> Cadastrar
-                        </button>
-                    </Link>
+                <ButtonForm loading={loading} icon="pi pi-search" type="button" className="btn btn-success mt-2" onClick={search}>
+                    Buscar
+                </ButtonForm>
+                <Link to={'/cadastro-equipe'}>
+                    <ButtonForm icon="pi pi-plus" type="button" className="btn btn-danger mt-2">
+                        Cadastrar
+                    </ButtonForm>
+                </Link>
             </Card>
             <TableEquipe equipes={equipe}
                             visibleAction={find}

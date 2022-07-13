@@ -78,8 +78,7 @@ api.interceptors.response.use(response => response, error => {
   }
 
   if (error.response.status === 403 ){
-     LocalStorageService.removerItem("@TCC-Usuario")
-     LocalStorageService.removerItem("@TCC:Token")
+     messages.mensagemErro("Não é possível conectar o computador para o servidor, tente novamente!")
      window.location = '/acesso_negado'
      throw new ('error')()
   }

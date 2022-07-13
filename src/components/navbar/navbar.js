@@ -4,19 +4,19 @@ import NavItem from "../nav-item/navbarItem";
 import './styles.css'
 import * as messages from '../../components/toastr/toastr'
 
-function Navbar(props){
+function Navbar(){
 
-    const auth = useAuth();
+    const {logout} = useAuth();
 
-    const logout = () =>{
+    const sair = () =>{
+      logout();
       messages.mensagemSucesso("Logoff realizado com sucesso")
-      auth.logout();
     }
 
     return (
         <div className="navbar navbar-expand-lg fixed-top navbar-light">
         <div className="container">
-          <a className="m-1" href="/home"><img src="https://i.ibb.co/QPd6SkD/logo-fundo.png" className="mr-3" width={55}/></a>
+          <a className="m-1" href="/home"><img src="https://i.ibb.co/QPd6SkD/logo-fundo.png" className="mr-3" width={55} alt="Logo SGTCC"/></a>
           <button className="navbar-toggler" type="button" 
                   data-toggle="collapse" data-target="#navbarResponsive" 
                   aria-controls="navbarResponsive" aria-expanded="false" 
@@ -48,7 +48,7 @@ function Navbar(props){
                   <NavItem label="Devolutivas" />
                 </Link>
                 <Link to={"/login"}>
-                  <NavItem onClick={logout} label="Sair" />
+                  <NavItem onClick={sair} label="Sair" />
                 </Link>              
             </ul>
             </div>

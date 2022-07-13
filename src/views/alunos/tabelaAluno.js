@@ -1,7 +1,7 @@
 // eslint-disable-next-line import/no-anonymous-default-export
 export default props => {
 
-    const rows = props.alunos.map( alunos => {
+    const rows = props.alunos.content?.map( alunos => {
         return(
             <tr key={alunos.id}>
                 <td>{alunos.matricula}</td>
@@ -53,6 +53,7 @@ export default props => {
                         {rows}
                     </tbody>
                 </table>
+                {props.children}
             </div>
         </div>     
         </>

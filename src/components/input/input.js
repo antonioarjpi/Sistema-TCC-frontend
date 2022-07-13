@@ -10,6 +10,7 @@ function InputForm(props){
                 type={props.type} 
                 className="input-text-sm"
                 id={props.id} 
+                name={props.name}
                 disabled={props.disabled} 
                 value={props.value} 
                 onChange={props.onChange} />

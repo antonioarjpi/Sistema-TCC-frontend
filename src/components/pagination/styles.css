@@ -1,0 +1,25 @@
+.pagination{
+    display: flex;
+    justify-content: flex-end;
+    align-items: baseline;
+    text-align: right;
+}
+
+.page-info{
+    text-align: center;
+    width: 6.0rem;
+}
+
+.info-size{
+    margin-top: 25.4px;
+    margin-right: 7px;
+    font-size: 12px;
+}
+
+.button-pagination{
+    display: flex;
+    vertical-align: top;
+    align-items: flex-start;
+    justify-content: center;
+    padding-top: 5px;
+}

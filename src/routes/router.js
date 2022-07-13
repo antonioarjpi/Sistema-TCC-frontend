@@ -1,8 +1,8 @@
 import React from "react";
 import { BrowserRouter, Navigate, Outlet, Route, Routes  } from 'react-router-dom';
-import DisplayAluno from "../views/alunos/displayAluno";
-import SaveAluno from "../views/alunos/saveAluno";
-import SearchAluno from "../views/alunos/searchAluno";
+import DisplayAluno from "../views/alunos/visualizarAluno";
+
+import ConsultaAluno from "../views/alunos/consultaAluno";
 import SaveBanca from "../views/bancas/saveBanca";
 import ScheduleDefesa from "../views/bancas/scheduleBanca";
 import SearchBanca from "../views/bancas/searchBanca";
@@ -23,6 +23,7 @@ import SignUp from "../views/signup/signup";
 import NotFound from "../views/notFound";
 import Forbidden from "../views/forbidden/forbidden";
 import Navbar from "../components/navbar/navbar";
+import CadastroAluno from './../views/alunos/cadastroAluno';
 
  const PrivateRoute = () => {
      const isAuthenticated = localStorage.getItem("@TCC-Usuario") !== null;   
@@ -57,9 +58,9 @@ function Router (){
 
                     <Route path="/" element={<Home />} />
                     <Route path="/home" element={<Home />} />
-                    <Route path="/cadastro-aluno" element={<SaveAluno />} />
-                    <Route path="/alunos" element={<SearchAluno />} />
-                    <Route path="/atualizacao-aluno/:id" element={<SaveAluno />} />
+                    <Route path="/cadastro-aluno" element={<CadastroAluno />} />
+                    <Route path="/alunos" element={<ConsultaAluno />} />
+                    <Route path="/atualizacao-aluno/:id" element={<CadastroAluno />} />
                     <Route path="/aluno/:id" element={<DisplayAluno />} />
 
                     <Route path="/cadastro-orientador" element={<SaveOrientador />} />

@@ -6,6 +6,7 @@ import { Link, useNavigate } from "react-router-dom";
 
 import {Dialog} from 'primereact/dialog';
 import {Button} from 'primereact/button';
+import ButtonForm from './../../components/button/button';
 import TableOrientacao from "./tableOrientacao";
 import OrientacaoService from "../../services/resource/orientacaoService";
 import InputForm from "../../components/input/input";
@@ -22,6 +23,7 @@ function SearchOrientacao(){
     const [orientacao, setOrientacao] = useState([]);
     const [orientacaoDelete, setOrientacaoDelete] = useState({});
     const [showConfirmDialog, setShowConfirmDialog] = useState('');
+    const [loading, setLoading] = useState(false);
 
     const hoje = Date.now();
     const data = formatLocalDate(hoje, 'yyyy-MM-dd')
@@ -29,6 +31,7 @@ function SearchOrientacao(){
     const service = new OrientacaoService();
 
     const search = () =>{
+        setLoading(true)
         const filter = {
             descricaoTCC: descricaoTCC,
             tipoTCC: tipoTCC,
@@ -43,8 +46,9 @@ function SearchOrientacao(){
             if(list.length < 1){
                 messages.mensagemAlert("Nenhum resultado encontrado.");
             }
-        }).catch(error =>{
-            console.log(error)
+            setLoading(false)
+        }).catch(() =>{
+            setLoading(false)
         })
     }
   
@@ -125,13 +129,13 @@ function SearchOrientacao(){
                     </div>
                 </div> 
                             
-                <button type="button" className="btn btn-success mt-2"onClick={search}>
-                    <i className="pi pi-search"></i> Buscar
-                </button>
+                <ButtonForm loading={loading} icon="pi pi-search" type="button" className="btn btn-success mt-2" onClick={search}>
+                    Buscar
+                </ButtonForm>
                 <Link to={'/cadastro-orientacao'}>
-                    <button type="button" className="btn btn-danger mt-2">
-                        <i className="pi pi-plus"></i> Cadastrar
-                    </button>
+                    <ButtonForm icon="pi pi-plus" type="button" className="btn btn-danger mt-2">
+                        Cadastrar
+                    </ButtonForm>
                 </Link>
             </Card>
         

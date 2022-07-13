@@ -6,6 +6,7 @@ import * as messages from '../../components/toastr/toastr'
 import { Link, useNavigate } from "react-router-dom";
 import {Dialog} from 'primereact/dialog';
 import {Button} from 'primereact/button';
+import ButtonForm from './../../components/button/button';
 import TableDevolutiva from "./tableDevolutiva";
 import DevolutivaService from "../../services/resource/devolutivaService";
 import InputForm from "../../components/input/input";
@@ -24,6 +25,7 @@ function SearchDevolutiva(){
     const [correcaoSugerida, setCorrecaoSugerida] = useState('');
     const [devolutivaDelete, setDevolutivaDelete] = useState({});
     const [devolutiva, setDevolutiva] = useState([]);
+    const [loading, setLoading] = useState(false);
 
     const hoje = Date.now();
     const data = formatLocalDate(hoje, 'yyyy-MM-dd')
@@ -34,6 +36,7 @@ function SearchDevolutiva(){
     const service = new DevolutivaService();
 
     const search = () =>{
+        setLoading(true)
         const filter = {
             statusOrientacao: statusOrientacao,
             descricaoDaDevolutiva: descricaoDaDevolutiva,
@@ -52,8 +55,9 @@ function SearchDevolutiva(){
             if(list.length < 1){
                 messages.mensagemAlert("Nenhum resultado encontrado.");
             }
-        }).catch(error =>{
-            console.log(error)
+            setLoading(false)
+        }).catch(() =>{
+            setLoading(false)
         })
     }
   
@@ -157,13 +161,13 @@ function SearchDevolutiva(){
 
                         <div className="row">
                             <div className="col-md-4">
-                                <button type="button" className="btn btn-success mt-2" onClick={search}>
-                                    <i className="pi pi-search"></i> Buscar
-                                </button>
+                                <ButtonForm loading={loading} icon="pi pi-search" type="button" className="btn btn-success mt-2" onClick={search}>
+                                    Buscar
+                                </ButtonForm>
                                 <Link to={'/cadastro-devolutiva'}>
-                                    <button type="button" className="btn btn-danger mt-2">
-                                        <i className="pi pi-plus"></i> Cadastrar
-                                    </button>
+                                    <ButtonForm icon="pi pi-plus" type="button" className="btn btn-danger mt-2">
+                                        Cadastrar
+                                    </ButtonForm>
                                 </Link>
                             </div> 
                         </div> 

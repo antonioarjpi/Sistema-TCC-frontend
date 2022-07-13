@@ -70,7 +70,7 @@ export default class AlunoService extends ApiService {
     }
 
     consulta(filter){
-        let params = `?nome=${filter.nome}`
+        let params = `?size=10&page=${filter.pageNumber}&sort=nome,asc&nome=${filter.nome}`
 
         if(filter.matricula){
             params = `${params}&matricula=${filter.matricula}`

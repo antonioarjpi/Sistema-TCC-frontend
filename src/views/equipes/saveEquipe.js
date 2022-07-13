@@ -17,6 +17,7 @@ function SaveEquipe(){
     const [delimitacao, setDelimitacao] = useState('');
     const [descricaoLinha, setDescricaoLinha] = useState('');
     const [descricaoConhecimento, setDescricaoConhecimento] = useState('');
+    const [loading, setLoading] = useState(false);
     const [alunos, setAlunos] = useState([]);
     const [atualizando, setAtualizando] = useState(true);
     const hoje = Date.now();

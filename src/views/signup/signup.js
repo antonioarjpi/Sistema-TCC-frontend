@@ -46,7 +46,7 @@ function SignUp(){
             navigate('/login')
             setLoading(false);
         }).catch(error => {
-
+            setLoading(false);
         })
     }
 

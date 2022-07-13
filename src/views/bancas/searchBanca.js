@@ -7,6 +7,7 @@ import { Link, useNavigate } from "react-router-dom";
 
 import {Dialog} from 'primereact/dialog';
 import {Button} from 'primereact/button';
+import ButtonForm from './../../components/button/button';
 import TableBanca from "./tableBanca";
 import BancaService from "../../services/resource/bancaService";
 import InputForm from "../../components/input/input";
@@ -21,6 +22,7 @@ function SearchBanca(){
     const [orientadorNome, setorientadorNome] = useState('');
     const [id, setId] = useState('');
     const [membroMatricula, setMembroMatricula] = useState('');
+    const [loading, setLoading] = useState(false);
 
     const navigate = useNavigate();
     const [bancaDelete, setBancaDelete] = useState({});
@@ -32,6 +34,7 @@ function SearchBanca(){
     const service = new BancaService();
 
     const search = () =>{
+        setLoading(true)
         const filter = {
             descricao:descricao,
             membroMatricula: membroMatricula,
@@ -48,8 +51,9 @@ function SearchBanca(){
             if(list.length < 1){
                 messages.mensagemAlert("Nenhum resultado encontrado.");
             }
-        }).catch(error =>{
-            console.log(error)
+            setLoading(false)
+        }).catch(() =>{
+            setLoading(false)
         })
     }
   
@@ -149,14 +153,14 @@ function SearchBanca(){
                                 id="membro" value={membroMatricula} onChange={e => setMembroMatricula(e.target.value)}/>
                         </Form>
                     </div>
-                    <div className="col-md-4">
-                        <button type="button" className="btn btn-success mt-2" onClick={search}>
-                            <i className="pi pi-search"></i> Buscar
-                        </button>
+                    <div className="col-md-12">
+                        <ButtonForm loading={loading} icon="pi pi-search" type="button" className="btn btn-success mt-2" onClick={search}>
+                            Buscar
+                        </ButtonForm>
                         <Link to={'/cadastro-banca'}>
-                            <button type="button" className="btn btn-danger mt-2">
-                                <i className="pi pi-plus"></i> Cadastrar
-                            </button>
+                            <ButtonForm icon="pi pi-plus" type="button" className="btn btn-danger mt-2">
+                                Cadastrar
+                            </ButtonForm>
                         </Link>
                     </div>
                 </div>      
