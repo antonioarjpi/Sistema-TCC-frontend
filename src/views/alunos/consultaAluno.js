@@ -152,7 +152,7 @@ function ConsultaAluno(){
                             </Form>
                         </div>
                         <div className="col-md-4">
-                            <ButtonForm carregando={carregando} icon="pi pi-search" type="submit" className="btn btn-success mt-2">
+                            <ButtonForm loading={carregando} icon="pi pi-search" type="submit" className="btn btn-success mt-2">
                                 Buscar
                             </ButtonForm>
                             <Link to={'/cadastro-aluno'}>
