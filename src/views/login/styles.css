@@ -1,4 +1,6 @@
 .login{
+    align-items: center;
+    text-align: center;
     display: flex;
     justify-content: center;
     width: 22.0rem;

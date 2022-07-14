@@ -1,7 +1,9 @@
+import Button from "../../components/button/button"
+
 // eslint-disable-next-line import/no-anonymous-default-export
 export default props => {
 
-    const rows = props.orientadores.map( orientadores => {
+    const rows = props.orientadores.content?.map( orientadores => {
         return(
             <tr key={orientadores.id}>
                 <td>{orientadores.matricula}</td>
@@ -12,26 +14,20 @@ export default props => {
                 <td>{orientadores.linhaPesquisaDescricao}</td>
                 <td>{orientadores.areaConhecimento}</td>
                 <td>{orientadores.titulacaoIes}</td>
-                <td>
-                    <button type="button"  title="Visualização completa"
-                            className="btn btn-warning"
+                <td className="acao-tabela">
+                    <Button type="button"  title="Visualização completa"
+                            className="btn btn-warning" icon="pi pi-eye"
                             onClick={e => props.visibleAction(orientadores.id)}>
-                            <i className="pi pi-eye"></i>
-                    </button>
-                </td>
-                <td>
-                    <button type="button"  title="edit"
-                            className="btn btn-primary"
+                    </Button>
+                    <Button type="button"  title="edit"
+                            className="btn btn-primary" icon="pi pi-pencil"
                             onClick={e => props.editAction(orientadores.id)}>
-                            <i className="pi pi-pencil"></i>
-                    </button>
-                </td>
-                <td>
-                    <button type="button"  title="Excluir"
-                            className="btn btn-danger" 
+                    </Button>
+                    <Button type="button"  title="Excluir"
+                            className="btn btn-danger" icon="pi pi-trash"
                             onClick={ e => props.deleteAction(orientadores)}>
-                            <i className="pi pi-trash"></i>
-                    </button>
+                    
+                    </Button>
                 </td>
                 
             </tr>
@@ -54,9 +50,7 @@ export default props => {
                             <th>Linha</th>
                             <th>Conhecimento</th>
                             <th>IES</th>
-                            <th className="td-table" scope="col">Exibir</th>
-                            <th className="td-table" scope="col">Editar</th>
-                            <th className="td-table" scope="col">Excluir</th>
+                            <th className="td-table" scope="col">Ações</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -64,6 +58,7 @@ export default props => {
                     </tbody>
                 </table>
             </div>
+            {props.children}
         </div>     
         </>
 

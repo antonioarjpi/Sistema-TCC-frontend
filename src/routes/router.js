@@ -16,14 +16,14 @@ import Home from "../views/home";
 import Login from "../views/login/login";
 import SaveOrientacao from "../views/orientacao/saveOrientacao";
 import SearchOrientacao from "../views/orientacao/searchOrientacao";
-import DisplayOrientador from "../views/orietadores/displayOrientador";
-import SaveOrientador from "../views/orietadores/saveOrientador";
-import SearchOrientador from "../views/orietadores/searchOrientador";
 import SignUp from "../views/signup/signup";
 import NotFound from "../views/notFound";
 import Forbidden from "../views/forbidden/forbidden";
 import Navbar from "../components/navbar/navbar";
 import CadastroAluno from './../views/alunos/cadastroAluno';
+import CadastroOrientador from './../views/orietadores/cadastroOrientador';
+import ConsultaOrientador from './../views/orietadores/consultaOrientador';
+import VisualizaOrientador from "../views/orietadores/visualizaOrientador";
 
  const PrivateRoute = () => {
      const isAuthenticated = localStorage.getItem("@TCC-Usuario") !== null;   
@@ -63,10 +63,10 @@ function Router (){
                     <Route path="/atualizacao-aluno/:id" element={<CadastroAluno />} />
                     <Route path="/aluno/:id" element={<DisplayAluno />} />
 
-                    <Route path="/cadastro-orientador" element={<SaveOrientador />} />
-                    <Route path="/orientadores" element={<SearchOrientador />} />
-                    <Route path="/atualizacao-orientador/:id" element={<SaveOrientador />} />
-                    <Route path="/orientador/:id" element={<DisplayOrientador />} />
+                    <Route path="/cadastro-orientador" element={<CadastroOrientador />} />
+                    <Route path="/orientadores" element={<ConsultaOrientador />} />
+                    <Route path="/atualizacao-orientador/:id" element={<CadastroOrientador />} />
+                    <Route path="/orientador/:id" element={<VisualizaOrientador />} />
 
                     <Route path="/equipes" element={<SearchEquipe />} />
                     <Route path="/cadastro-equipe" element={<SaveEquipe />} />

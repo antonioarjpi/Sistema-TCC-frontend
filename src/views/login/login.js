@@ -60,9 +60,10 @@ function Login(){
                             <label className="input-label" htmlFor="password">Senha</label>
                             <Password name="senha" className="password" style={{width: '100%'}} value={values.senha} onChange={onChange} feedback={false} toggleMask/>                            
                         </Form>
-                        <Button type="submit" className="btn btn-primary mb-2 mt-3" style={{width: '100%'}} icon="pi pi-sign-in"
+                        <Button type="submit" className="btn btn-primary mb-2 mt-3" icon="pi pi-sign-in"
                             loading={loading1} onClick={login}>Entrar
-                        </Button>            
+                        </Button>  
+                        <div></div>          
                         <span onClick={registrar} className="info-login" type="button">Não tem acesso? Cadastra-se</span>
                     </form>
                 </div>

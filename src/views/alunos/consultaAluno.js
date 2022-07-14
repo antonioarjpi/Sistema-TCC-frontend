@@ -1,6 +1,5 @@
 import React, { useState } from "react";
 import {Dialog} from 'primereact/dialog';
-import { Button } from 'primereact/button';
 import { Link, useNavigate } from "react-router-dom";
 import Card from "../../components/card/card";
 import Form from "../../components/form/form";
@@ -8,7 +7,7 @@ import Form from "../../components/form/form";
 import * as messages from '../../components/toastr/toastr'
 import AlunoService from "../../services/resource/alunoService";
 import InputForm from "../../components/input/input";
-import ButtonForm from '../../components/button/button';
+import Button from '../../components/button/button';
 
 import TabelaAluno from "./tabelaAluno";
 import Pagination from "../../components/pagination/pagination";
@@ -111,9 +110,9 @@ function ConsultaAluno(){
      }
 
     const confirmDialogFooter = (
-        <div>
-            <Button label="Confirmar" icon="pi pi-check" onClick={apagar} />
-            <Button label="Cancelar" icon="pi pi-times" onClick={cancelarDialog} className="p-button-secondary" />
+        <div className="dialog">
+            <Button label="Confirmar" icon="pi pi-check" onClick={apagar} className="btn btn-danger mt-2" />
+            <Button label="Cancelar" icon="pi pi-times" onClick={cancelarDialog} className="btn btn-secondary mt-2" />
         </div>
     );
 
@@ -151,14 +150,14 @@ function ConsultaAluno(){
                                     onChange={onChange}/>
                             </Form>
                         </div>
-                        <div className="col-md-4">
-                            <ButtonForm loading={carregando} icon="pi pi-search" type="submit" className="btn btn-success mt-2">
+                        <div className="col-md-12">
+                            <Button loading={carregando} icon="pi pi-search" type="submit" className="btn btn-success mt-2">
                                 Buscar
-                            </ButtonForm>
+                            </Button>
                             <Link to={'/cadastro-aluno'}>
-                                <ButtonForm icon="pi pi-plus" type="button" className="btn btn-danger mt-2">
+                                <Button icon="pi pi-plus" type="button" className="btn btn-primary mt-2">
                                     Cadastrar
-                                </ButtonForm>
+                                </Button>
                             </Link>
                         </div>  
                     </div>

@@ -9,6 +9,9 @@ function Button(props){
             ) : ( 
                 <i className={props.icon}/> 
             )}
+            <label>
+                {props.label}
+            </label>
             {props.children}          
             </button>
     )
