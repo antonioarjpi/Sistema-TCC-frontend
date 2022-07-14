@@ -58,11 +58,6 @@ f
     vertical-align: middle;
 }
 
-td{
-    align-items: center;
-    vertical-align: middle;
-}
-
 .form{ 
     display: flex;
     margin-right: 10px;
@@ -139,8 +134,9 @@ a{
     align-items: center;
 }
 
-.acao-tabela{
-    display: flex;
+tr{
+    align-items: center;
+    vertical-align: middle;
 }
 
 

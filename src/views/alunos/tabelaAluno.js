@@ -10,17 +10,23 @@ export default props => {
                 <td>{alunos.nome}</td>
                 <td>{alunos.email}</td>
                 <td className="acao-tabela">
-                    <Button type="button" title="Visualização completa"
-                            className="btn btn-warning" icon="pi pi-eye"
-                            onClick={e => props.visibleAction(alunos.id)}>
-                    </Button>
-                    <Button type="button" title="edit" icon="pi pi-pencil"
-                        className="btn btn-primary" onClick={e => props.editAction(alunos.id)}>
-                    </Button>
-                    <Button type="button" title="Excluir"
-                            className="btn btn-danger" icon="pi pi-trash"
-                            onClick={ e => props.deleteAction(alunos)}>
-                    </Button>
+                    <td>
+                        <Button type="button" title="Visualização completa"
+                                className="btn btn-warning" icon="pi pi-eye"
+                                onClick={e => props.visibleAction(alunos.id)}>
+                        </Button>
+                    </td>
+                    <td>
+                        <Button type="button" title="edit" icon="pi pi-pencil"
+                            className="btn btn-primary" onClick={e => props.editAction(alunos.id)}>
+                        </Button>
+                    </td>
+                    <td>
+                        <Button type="button" title="Excluir"
+                                className="btn btn-danger" icon="pi pi-trash"
+                                onClick={ e => props.deleteAction(alunos)}>
+                        </Button>
+                    </td>
                 </td>
             </tr>
         )
