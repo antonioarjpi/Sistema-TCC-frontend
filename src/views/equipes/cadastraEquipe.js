@@ -8,8 +8,9 @@ import { formatLocalDate } from "../../utils/format";
 import AlunoService from "../../services/resource/alunoService";
 import MultiSelectContainer from "../../components/multi-select/multiSelect";
 import InputForm from "../../components/input/input";
+import Button from "../../components/button/button";
 
-function SaveEquipe(){
+function CadastraEquipe(){
 
     const [equipe, setEquipe] = useState();
     const [nome, setNome] = useState('');
@@ -17,9 +18,8 @@ function SaveEquipe(){
     const [delimitacao, setDelimitacao] = useState('');
     const [descricaoLinha, setDescricaoLinha] = useState('');
     const [descricaoConhecimento, setDescricaoConhecimento] = useState('');
-    const [loading, setLoading] = useState(false);
     const [alunos, setAlunos] = useState([]);
-    const [atualizando, setAtualizando] = useState(true);
+    const [atualizando, setAtualizando] = useState(false);
     const hoje = Date.now();
 
     const { id } = useParams();
@@ -39,7 +39,7 @@ function SaveEquipe(){
             setDelimitacao(response.data.tema)
             setDescricaoConhecimento(response.data.conhecimento)
             setDescricaoLinha(response.data.linhaPesquisa)
-            setAtualizando(false);
+            setAtualizando(true);
         })  
         .catch(erros => {
             messages.mensagemErro(erros.response.data)
@@ -47,7 +47,8 @@ function SaveEquipe(){
       // eslint-disable-next-line react-hooks/exhaustive-deps
       }},[]);
         
-    const submit = () => {      
+    const cadastra = (event) => {
+        event.preventDefault();  
         try{
             service.validate({
                 nome: nome,
@@ -74,7 +75,8 @@ function SaveEquipe(){
         })
     }
 
-    const update = () => {      
+    const atualiza = (event) => {   
+        event.preventDefault();
         try{
             service.validate({
                 nome: nome,
@@ -85,7 +87,6 @@ function SaveEquipe(){
         }catch(error){
             const msgs = error.message;
             msgs.forEach(msg=> messages.mensagemErro(msg));
-            return false;
         }
         service.update({
             id: equipe,
@@ -104,8 +105,8 @@ function SaveEquipe(){
     
     return(
         <div className="container">
-            <Card title={ atualizando ? 'Cadastro Equipe' : 'Atualização de equipe'}>
-            
+            <Card title={ atualizando ? 'Atualização de equipe' : 'Cadastro Equipe' }>
+            <form onSubmit={atualizando ?  atualiza : cadastra} >
             <div className="row">          
                 <div className="col-md-6">
                     <Form id="nome">
@@ -165,17 +166,15 @@ function SaveEquipe(){
 
             <div className="row mt-2">
                 <div className="col-md-6" >
-                { atualizando ? (
-                        <button  onClick={submit} className="btn btn-primary">
-                            <i className="pi pi-save"></i>Salvar
-                        </button>
+                {atualizando ? (
+                        <Button type="submit" icon="pi pi-save" className="btn btn-primary">
+                            Atualizar
+                        </Button> 
                     ) : (
-                        <button  onClick={update} className="btn btn-primary">
-                            <i className="pi pi-save"></i>Atualizar
-                        </button>                      
-                    )
-
-                    }         
+                        <Button type="submit" icon="pi pi-save" className="btn btn-primary">
+                            Salvar
+                        </Button>                    
+                    )}         
                     <Link to={'/equipes'}>
                     <button className="btn btn-danger">
                         <i className="pi pi-times"></i>Cancelar
@@ -183,9 +182,10 @@ function SaveEquipe(){
                     </Link>
                 </div>
             </div>
+            </form>
         </Card>
     </div>    
     )
 }
 
-export default SaveEquipe;
+export default CadastraEquipe;

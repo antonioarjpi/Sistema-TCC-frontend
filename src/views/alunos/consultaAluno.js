@@ -116,8 +116,6 @@ function ConsultaAluno(){
         </div>
     );
 
-    console.log(aluno)
-
     return(
         <>
         <div className="container">

@@ -9,7 +9,6 @@ import EquipeService from "../../services/resource/equipeService";
 import { formatLocalDate } from "../../utils/format";
 import DropDown from "../../components/dropdown/dropdown";
 import InputForm from "../../components/input/input";
-import { InputText } from "primereact/inputtext";
 
 function SaveBanca(){
 
@@ -116,7 +115,7 @@ function SaveBanca(){
     useEffect(() => {
         equipeService.findAll()
         .then(response => {
-            setEquipeOptions(response.data) 
+            setEquipeOptions(response.data.content) 
         })
     // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [])
@@ -127,7 +126,7 @@ function SaveBanca(){
     useEffect(() => {
         orientadorService.findAll()
         .then(response => {
-            setOrientadorOptions(response.data) 
+            setOrientadorOptions(response.data.content) 
         })
     // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [])

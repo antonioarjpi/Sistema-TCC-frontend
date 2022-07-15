@@ -55,9 +55,8 @@ export default class EquipeService extends ApiService {
         }
     }
 
-
     consult(filter){
-        let params = `?nome=${filter.nome}`
+        let params = `?size=10&page=${filter.pageNumber}&sort=id,asc&nome=${filter.nome}`
 
         if(filter.tema){
             params = `${params}&tema=${filter.tema}`
@@ -78,8 +77,7 @@ export default class EquipeService extends ApiService {
         if(filter.descricaoConhecimento){
             params = `${params}&descricaoConhecimento=${filter.descricaoConhecimento}`
         }
-
-        
+ 
         return this.get(params);
     }
 

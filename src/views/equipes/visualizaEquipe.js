@@ -4,10 +4,10 @@ import Card from "../../components/card/card";
 
 import * as messages from '../../components/toastr/toastr'
 import { formatLocalDate } from "../../utils/format";
-import TableAlunoEquipe from "./tableAlunoEquipe";
+import TabelaAlunoEquipe from "./tabelaAlunoEquipe";
 import EquipeService from "../../services/resource/equipeService";
 
-function SearchEquipeFull(){
+function VisualizaEquipe(){
 
     const [nome, setNome] = useState('');
     const [dataCadastro, setDataCadastro] = useState();
@@ -80,7 +80,7 @@ function SearchEquipeFull(){
                             <label>{dataCadastro}</label>                        
                     </div>
 
-                    <TableAlunoEquipe alunos={aluno} />
+                    <TabelaAlunoEquipe alunos={aluno} />
                 </div>
             </Card>
 
@@ -170,4 +170,4 @@ function SearchEquipeFull(){
     )
 }
 
-export default SearchEquipeFull;
+export default VisualizaEquipe;

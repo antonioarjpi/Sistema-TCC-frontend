@@ -13,7 +13,7 @@ function MultiSelectContainer(props){
     useEffect(() => {
         service.findAll()
         .then(response => {
-            setDados(response.data) 
+            setDados(response.data.content) 
         })
     // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [])

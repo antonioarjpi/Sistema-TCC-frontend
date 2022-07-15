@@ -43,8 +43,6 @@ function VisualizaOrientador(){
         .catch(erros => {
             messages.mensagemErro(erros.response.data)
         })
-
-        console.log(values)
         
       // eslint-disable-next-line react-hooks/exhaustive-deps
       }},[]);

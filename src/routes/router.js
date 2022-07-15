@@ -8,9 +8,6 @@ import ScheduleDefesa from "../views/bancas/scheduleBanca";
 import SearchBanca from "../views/bancas/searchBanca";
 import SaveDevolutiva from "../views/devolutiva/saveDevolutiva";
 import SearchDevolutiva from "../views/devolutiva/searchDevolutiva";
-import SaveEquipe from "../views/equipes/saveEquipe";
-import SearchEquipe from "../views/equipes/searchEquipe";
-import SearchEquipeFull from "../views/equipes/displayEquipe";
 
 import Home from "../views/home";
 import Login from "../views/login/login";
@@ -24,6 +21,9 @@ import CadastroAluno from './../views/alunos/cadastroAluno';
 import CadastroOrientador from './../views/orietadores/cadastroOrientador';
 import ConsultaOrientador from './../views/orietadores/consultaOrientador';
 import VisualizaOrientador from "../views/orietadores/visualizaOrientador";
+import ConsultaEquipe from "../views/equipes/consultaEquipe";
+import CadastraEquipe from "../views/equipes/cadastraEquipe";
+import VisualizaEquipe from "../views/equipes/visualizaEquipe";
 
  const PrivateRoute = () => {
      const isAuthenticated = localStorage.getItem("@TCC-Usuario") !== null;   
@@ -55,7 +55,6 @@ function Router (){
                 
                 {/* Rotas protegidas */}
                 <Route path="/" element={<PrivateRoute/>}>
-
                     <Route path="/" element={<Home />} />
                     <Route path="/home" element={<Home />} />
                     <Route path="/cadastro-aluno" element={<CadastroAluno />} />
@@ -68,10 +67,10 @@ function Router (){
                     <Route path="/atualizacao-orientador/:id" element={<CadastroOrientador />} />
                     <Route path="/orientador/:id" element={<VisualizaOrientador />} />
 
-                    <Route path="/equipes" element={<SearchEquipe />} />
-                    <Route path="/cadastro-equipe" element={<SaveEquipe />} />
-                    <Route path="/atualizacao-equipe/:id" element={<SaveEquipe />} />
-                    <Route path="/equipe/:id" element={<SearchEquipeFull />} />
+                    <Route path="/equipes" element={<ConsultaEquipe />} />
+                    <Route path="/cadastro-equipe" element={<CadastraEquipe />} />
+                    <Route path="/atualizacao-equipe/:id" element={<CadastraEquipe />} />
+                    <Route path="/equipe/:id" element={<VisualizaEquipe />} />
 
                     <Route path="/bancas" element={<SearchBanca />} />
                     <Route path="/cadastro-banca" element={<SaveBanca />} />
