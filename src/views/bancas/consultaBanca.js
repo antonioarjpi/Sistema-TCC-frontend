@@ -185,7 +185,7 @@ function ConsultaBancas(){
                                 Buscar
                             </ButtonForm>
                             <Link to={'/cadastro-banca'}>
-                                <ButtonForm icon="pi pi-plus" type="button" className="btn btn-danger mt-2">
+                                <ButtonForm icon="pi pi-plus" type="button" className="btn btn-primary mt-2">
                                     Cadastrar
                                 </ButtonForm>
                             </Link>
