@@ -3,9 +3,9 @@ import { BrowserRouter, Navigate, Outlet, Route, Routes  } from 'react-router-do
 import DisplayAluno from "../views/alunos/visualizarAluno";
 
 import ConsultaAluno from "../views/alunos/consultaAluno";
-import SaveBanca from "../views/bancas/saveBanca";
-import ScheduleDefesa from "../views/bancas/scheduleBanca";
-import SearchBanca from "../views/bancas/searchBanca";
+import CadastraBanca from "../views/bancas/cadastraBanca";
+import AgendamentoBanca from "../views/bancas/agendamentoDeBanca";
+import ConsultaBanca from "../views/bancas/consultaBanca";
 import SaveDevolutiva from "../views/devolutiva/saveDevolutiva";
 import SearchDevolutiva from "../views/devolutiva/searchDevolutiva";
 
@@ -72,10 +72,10 @@ function Router (){
                     <Route path="/atualizacao-equipe/:id" element={<CadastraEquipe />} />
                     <Route path="/equipe/:id" element={<VisualizaEquipe />} />
 
-                    <Route path="/bancas" element={<SearchBanca />} />
-                    <Route path="/cadastro-banca" element={<SaveBanca />} />
-                    <Route path="/atualizacao-banca/:id" element={<SaveBanca />} />
-                    <Route path="/agendamento-defesa/:id" element={<ScheduleDefesa />} />
+                    <Route path="/bancas" element={<ConsultaBanca />} />
+                    <Route path="/cadastro-banca" element={<CadastraBanca />} />
+                    <Route path="/atualizacao-banca/:id" element={<CadastraBanca />} />
+                    <Route path="/agendamento-defesa/:id" element={<AgendamentoBanca />} />
 
                     <Route path="/orientacao" element={<SearchOrientacao />} />
                     <Route path="/cadastro-orientacao" element={<SaveOrientacao />} />

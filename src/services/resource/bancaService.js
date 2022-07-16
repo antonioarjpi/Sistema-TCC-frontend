@@ -64,7 +64,7 @@ export default class BancaService extends ApiService {
     }
 
     consult(filter){
-        let params = `?descricao=${filter.descricao}`
+        let params = `?size=10&page=${filter.pageNumber}&sort=id,asc&descricao=${filter.descricao}`
 
         if(filter.dataBanca){
             params = `${params}&dataBanca=${filter.dataBanca}`

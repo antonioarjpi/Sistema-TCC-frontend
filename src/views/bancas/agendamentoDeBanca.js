@@ -5,15 +5,11 @@ import Form from "../../components/form/form";
 import InputForm from "../../components/input/input";
 import * as messages from '../../components/toastr/toastr'
 import BancaService from "../../services/resource/bancaService";
-import { formatLocalDate } from "../../utils/format";
 
-
-function ScheduleDefesa(){
+function AgendamentoBanca(){
 
     const [, setDefesa] = useState('');
     const [data, setData] = useState('');
-    const hoje = Date.now();
-
     const { id } = useParams();
 
     useEffect(() => {
@@ -30,11 +26,11 @@ function ScheduleDefesa(){
     // eslint-disable-next-line react-hooks/exhaustive-deps
     }},[])
     
-
     const navigate = useNavigate();
     const service = new BancaService();
 
-    const submit = () => {
+    const submit = (event) => {
+        event.preventDefault()
         try{
             service.validateScheduling({
                 data: data,
@@ -48,7 +44,7 @@ function ScheduleDefesa(){
         service.scheduling({
             id: id,
             data: data,
-        }).then(response => {
+        }).then(() => {
             navigate('/bancas')
             messages.mensagemSucesso('Defesa agendada!')
         }).catch(error => {
@@ -59,35 +55,37 @@ function ScheduleDefesa(){
     return(
         <div className="container">
             <Card title='Agendamento de Defesa'>
-            <div className="row">
-                <div className="col-md-6">
-                    <Form id="data"  >
-                        <InputForm id="data" type="date" 
-                            label="Data de defesa *"
-                            className="form-control" 
-                            name="data"
-                            value={data ? data : setData(formatLocalDate(hoje, 'yyyy-MM-dd'))}
-                            onChange={e => setData(e.target.value)}
-                                />
-                    </Form>
-                </div>
-            </div>
+                <form onSubmit={submit} >
+                    <div className="row">
+                        <div className="col-md-6">
+                            <Form id="data"  >
+                                <InputForm id="data" type="date" 
+                                    label="Data de defesa *"
+                                    className="form-control" 
+                                    name="data"
+                                    value={data}
+                                    onChange={e => setData(e.target.value)}
+                                        />
+                            </Form>
+                        </div>
+                    </div>
 
-            <div className="row mt-2">
-                <div className="col-md-6" >
-                <button  onClick={submit} className="btn btn-primary">
-                    <i className="pi pi-save"></i>Alterar
-                </button>
-                    <Link to={'/bancas'}>
-                    <button className="btn btn-danger">
-                        <i className="pi pi-times"></i>Cancelar
-                    </button>
-                    </Link>
-                </div>
-            </div>
-        </Card>
+                    <div className="row mt-2">
+                        <div className="col-md-6" >
+                        <button type="submit" className="btn btn-primary">
+                            <i className="pi pi-save"></i>Alterar
+                        </button>
+                            <Link to={'/bancas'}>
+                            <button className="btn btn-danger">
+                                <i className="pi pi-times"></i>Cancelar
+                            </button>
+                            </Link>
+                        </div>
+                    </div>
+                </form>
+            </Card>
     </div>
     )
 }
 
-export default ScheduleDefesa;
+export default AgendamentoBanca;
