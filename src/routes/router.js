@@ -11,8 +11,6 @@ import SearchDevolutiva from "../views/devolutiva/searchDevolutiva";
 
 import Home from "../views/home";
 import Login from "../views/login/login";
-import SaveOrientacao from "../views/orientacao/saveOrientacao";
-import SearchOrientacao from "../views/orientacao/searchOrientacao";
 import SignUp from "../views/signup/signup";
 import NotFound from "../views/notFound";
 import Forbidden from "../views/forbidden/forbidden";
@@ -24,6 +22,8 @@ import VisualizaOrientador from "../views/orietadores/visualizaOrientador";
 import ConsultaEquipe from "../views/equipes/consultaEquipe";
 import CadastraEquipe from "../views/equipes/cadastraEquipe";
 import VisualizaEquipe from "../views/equipes/visualizaEquipe";
+import ConsultaOrientacao from "../views/orientacao/consultaOrientacao";
+import CadastraOrientacao from "../views/orientacao/cadastraOrientacao";
 
  const PrivateRoute = () => {
      const isAuthenticated = localStorage.getItem("@TCC-Usuario") !== null;   
@@ -77,9 +77,9 @@ function Router (){
                     <Route path="/atualizacao-banca/:id" element={<CadastraBanca />} />
                     <Route path="/agendamento-defesa/:id" element={<AgendamentoBanca />} />
 
-                    <Route path="/orientacao" element={<SearchOrientacao />} />
-                    <Route path="/cadastro-orientacao" element={<SaveOrientacao />} />
-                    <Route path="/atualizacao-orientacao/:id" element={<SaveOrientacao />} />
+                    <Route path="/orientacao" element={<ConsultaOrientacao />} />
+                    <Route path="/cadastro-orientacao" element={<CadastraOrientacao />} />
+                    <Route path="/atualizacao-orientacao/:id" element={<CadastraOrientacao />} />
 
                     <Route path="/devolutivas" element={<SearchDevolutiva />} />
                     <Route path="/cadastro-devolutiva" element={<SaveDevolutiva />} />

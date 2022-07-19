@@ -4,22 +4,23 @@ import Card from "../../components/card/card";
 import Form from "../../components/form/form";
 import * as messages from '../../components/toastr/toastr'
 import OrientacaoService from "../../services/resource/orientacaoService";
-import { formatLocalDate } from "../../utils/format";
 import DropDown from "../../components/dropdown/dropdown";
 import OrientadorService from "../../services/resource/orientadorService";
 import EquipeService from "../../services/resource/equipeService";
 import InputForm from "../../components/input/input";
 
-function SaveOrientacao(){
+const valoresInicial = {
+    descricaoTCC: "",
+    tipoTCC: "",
+    dataOrientacao: "",
+    equipe: "",
+    matriculaOrientador: ""    
+}
 
-    const [orientacao, setOrientacao] = useState();
-    const [descricaoTCC, setDescricaoTCC] = useState('');
-    const [dataOrientacao, setDataOrientacao] = useState('');
-    const [tipoTCC, setTipoTCC] = useState('');
-    const [matriculaOrientador, setMatriculaOrientador] = useState();
-    const [equipe, setEquipe] = useState();
+function CadastraOrientacao(){
+
+    const [values, setValues] = useState(valoresInicial)
     const [atualizando, setAtualizando] = useState(true);
-    const hoje = Date.now();
 
     const {id} = useParams();
     const navigate = useNavigate();
@@ -29,43 +30,33 @@ function SaveOrientacao(){
         if(id){
             service.findId(id)
             .then(response =>{
-                setOrientacao(response.data.id);
-                setDescricaoTCC(response.data.descricaoTCC);
-                setDataOrientacao(formatLocalDate(response.data.dataOrientacao,"yyyy-MM-dd"));
-                setTipoTCC(response.data.tipoTccDescricao);
-                setMatriculaOrientador(response.data.matriculaOrientador);
-                setEquipe(response.data.equipe)
+                console.log(response.data)
+                setValues(response.data)
                 setAtualizando(false);
             })
             .catch(erros => {
                 messages.mensagemErro(erros.response.data)
             })
-        // eslint-disable-next-line react-hooks/exhaustive-deps
-        }}, [])
+        
+        }}, 
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    []);
+
+    const onChange = (e) => {
+        const { name, value } = e.target;
+        setValues({ ...values, [name]: value});        
+    };
 
     const submit = () => {
         try{
-            service.validate({
-                descricaoTCC: descricaoTCC,
-                dataOrientacao: dataOrientacao,
-                tipoTCC: tipoTCC,
-                matriculaOrientador: matriculaOrientador,
-                equipe: equipe
-                
-            })
+            service.validate(values)
         }catch(error){
             const msgs = error.message;
             msgs.forEach(msg=> messages.mensagemErro(msg));
             return false;
         }
      
-        service.save({
-            equipe: equipe,
-            descricaoTCC: descricaoTCC,
-            dataOrientacao: dataOrientacao,
-            tipoTCC: tipoTCC,
-            matriculaOrientador: matriculaOrientador,
-        }).then(response => {
+        service.save(values).then(() => {
             navigate('/orientacao')
             messages.mensagemSucesso('Orientação cadastrado com sucesso!')
         }).catch(error => {
@@ -75,27 +66,15 @@ function SaveOrientacao(){
 
     const update = () => {
         try{
-            service.validate({
-                descricaoTCC: descricaoTCC,
-                dataOrientacao: dataOrientacao,
-                tipoTCC: tipoTCC,
-                matriculaOrientador: matriculaOrientador,
-                equipe: equipe
-            })
+            service.validate(values)
         }catch(error){
             const msgs = error.message;
             msgs.forEach(msg=> messages.mensagemErro(msg));
             return false;
         }
      
-        service.update({
-            id: orientacao,
-            descricaoTCC: descricaoTCC,
-            dataOrientacao: dataOrientacao,
-            tipoTCC: tipoTCC,
-            matriculaOrientador: matriculaOrientador,
-            equipe: equipe
-        }).then(response => {
+        service.update(values)
+        .then(() => {
             navigate('/orientacao')
             messages.mensagemSucesso('Orientação atualizado com sucesso!')
         }).catch(error => {
@@ -109,7 +88,7 @@ function SaveOrientacao(){
         useEffect(() => {
             equipeService.findAll()
             .then(response => {
-                setEquipeOptions(response.data) 
+                setEquipeOptions(response.data.content) 
             })
         // eslint-disable-next-line react-hooks/exhaustive-deps
         }, [])
@@ -120,7 +99,7 @@ function SaveOrientacao(){
         useEffect(() => {
             orientadorService.findAll()
             .then(response => {
-                setOrientadorOptions(response.data) 
+                setOrientadorOptions(response.data.content) 
             })
         // eslint-disable-next-line react-hooks/exhaustive-deps
         }, [])
@@ -135,8 +114,8 @@ function SaveOrientacao(){
                             label="Descrição *"
                             className="form-control" 
                             name="descricaoTCC"
-                            value={descricaoTCC}
-                            onChange={e => setDescricaoTCC(e.target.value)}/>
+                            value={values.descricaoTCC}
+                            onChange={onChange}/>
                     </Form>
                 </div>
             </div>
@@ -148,8 +127,8 @@ function SaveOrientacao(){
                             label="Data da Orientacao: *" 
                             className="form-control" 
                             name="dataOrientacao"
-                            value={dataOrientacao ? dataOrientacao : setDataOrientacao(formatLocalDate(hoje, 'yyyy-MM-dd'))}
-                            onChange={e => setDataOrientacao(e.target.value)}
+                            value={values.dataOrientacao}
+                            onChange={onChange}
                         />
                     </Form>
                 </div>
@@ -159,8 +138,8 @@ function SaveOrientacao(){
                             label="Tipo do tcc *"
                             className="form-control" 
                             name="tipoTCC"
-                            value={tipoTCC}
-                            onChange={e => setTipoTCC(e.target.value)}
+                            value={values.tipoTCC}
+                            onChange={onChange}
                                 />
                     </Form>
                 </div>
@@ -171,12 +150,13 @@ function SaveOrientacao(){
                             findBy="matricula"
                             filterBy="matricula,nome"
                             span="Orientador"
+                            name="matriculaOrientador"
                             placeholderFilter='Matrícula orientador'
-                            value={matriculaOrientador}
+                            value={values.matriculaOrientador}
                             label1='matricula'
                             label2='nome'
                             optionValue="matricula"
-                            onChange={e => setMatriculaOrientador(e.target.value)}
+                            onChange={onChange}
                         />
                     </Form>
                 </div>
@@ -187,12 +167,13 @@ function SaveOrientacao(){
                             findBy="id"
                             filterBy="id,nome"
                             span="Equipe"
+                            name="equipe"
                             placeholderFilter='Código da equipe'
-                            value={equipe}
+                            value={values.equipe}
                             label1='id'
                             label2='nome'
                             optionValue="id"
-                            onChange={e => setEquipe(e.target.value)}
+                            onChange={onChange}
                         />
                     </Form>
                 </div>
@@ -221,4 +202,4 @@ function SaveOrientacao(){
     )
 }
 
-export default SaveOrientacao;
+export default CadastraOrientacao;
