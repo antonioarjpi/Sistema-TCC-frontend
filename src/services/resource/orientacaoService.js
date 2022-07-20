@@ -57,7 +57,7 @@ export default class OrientacaoService extends ApiService {
     }
 
     consult(filter){
-        let params = `?size=5&page=${filter.pageNumber}&sort=id,asc&descricaoTCC=${filter.descricaoTCC}`
+        let params = `?size=10&page=${filter.pageNumber}&sort=id,asc&descricaoTCC=${filter.descricaoTCC}`
 
         if(filter.dataOrientacao){
             params = `${params}&dataOrientacao=${filter.dataOrientacao}`

@@ -6,8 +6,7 @@ import ConsultaAluno from "../views/alunos/consultaAluno";
 import CadastraBanca from "../views/bancas/cadastraBanca";
 import AgendamentoBanca from "../views/bancas/agendamentoDeBanca";
 import ConsultaBanca from "../views/bancas/consultaBanca";
-import SaveDevolutiva from "../views/devolutiva/saveDevolutiva";
-import SearchDevolutiva from "../views/devolutiva/searchDevolutiva";
+
 
 import Home from "../views/home";
 import Login from "../views/login/login";
@@ -24,6 +23,8 @@ import CadastraEquipe from "../views/equipes/cadastraEquipe";
 import VisualizaEquipe from "../views/equipes/visualizaEquipe";
 import ConsultaOrientacao from "../views/orientacao/consultaOrientacao";
 import CadastraOrientacao from "../views/orientacao/cadastraOrientacao";
+import ConsultaDevolutiva from "../views/devolutiva/consultaDevolutiva";
+import CadastroDevolutiva from "../views/devolutiva/cadastroDevolutiva";
 
  const PrivateRoute = () => {
      const isAuthenticated = localStorage.getItem("@TCC-Usuario") !== null;   
@@ -81,9 +82,9 @@ function Router (){
                     <Route path="/cadastro-orientacao" element={<CadastraOrientacao />} />
                     <Route path="/atualizacao-orientacao/:id" element={<CadastraOrientacao />} />
 
-                    <Route path="/devolutivas" element={<SearchDevolutiva />} />
-                    <Route path="/cadastro-devolutiva" element={<SaveDevolutiva />} />
-                    <Route path="/atualizacao-devolutiva/:id" element={<SaveDevolutiva />} />
+                    <Route path="/devolutivas" element={<ConsultaDevolutiva />} />
+                    <Route path="/cadastro-devolutiva" element={<CadastroDevolutiva />} />
+                    <Route path="/atualizacao-devolutiva/:id" element={<CadastroDevolutiva />} />
                 </Route>  
 
             </Routes>      

@@ -18,3 +18,9 @@ i{
     opacity: 0.8;
     transition-delay: 20s;
 }
+
+.btn-defesa{
+    width: 9.0rem;
+    background-color: rgb(172, 205, 224);
+    margin-right: -3px;
+}

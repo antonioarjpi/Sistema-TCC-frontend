@@ -18,10 +18,10 @@ export default props => {
                 <td>{formatLocalDate(bancas.equipeDataCadastro, "dd/MM/yyyy")}</td>
                 <td>{bancas.membroMatricula}</td>
                 {bancas.defesaDataDefesa !== null && (
-                    <td><Button label={formatLocalDate(bancas.defesaDataDefesa, "dd/MM/yyyy")} className="btn btn-info"  onClick={e => props.schedule(bancas.id)} /></td>
+                    <td align="center"><Button label={formatLocalDate(bancas.defesaDataDefesa, "dd/MM/yyyy")} className="btn btn-defesa"  onClick={e => props.schedule(bancas.id)} /></td>
                 )} 
                  {bancas.defesaDataDefesa === null && (
-                    <td><Button label="Não Agend." className="btn btn-info"  onClick={e => props.schedule(bancas.id)} /></td>
+                    <td align="center"><Button label="Não Agendado" className="btn btn-defesa"  onClick={e => props.schedule(bancas.id)} /></td>
                 )} 
                 <td>
                     <td>   
@@ -52,14 +52,14 @@ export default props => {
                     <thead>
                         <tr>
                             <th>Código</th>
-                            <th>Descrição banca</th>
-                            <th>Data da Banca</th>
+                            <th>Desc banca</th>
+                            <th>DT Banca</th>
                             <th>Ordem</th>
                             <th>Orientador</th>
                             <th>Cod Equipe</th>
-                            <th>Data Equipe</th>
-                            <th>Membro Banca</th>
-                            <th>Data Defesa</th>
+                            <th>DT Equipe</th>
+                            <th>Membro</th>
+                            <th style={{justifyContent:'center', display: 'flex'}} align="center">Data Defesa</th>
                             <th className="td-table" scope="col">Ações</th>
                         </tr>
                     </thead>

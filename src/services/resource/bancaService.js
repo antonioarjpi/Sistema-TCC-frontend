@@ -55,7 +55,7 @@ export default class BancaService extends ApiService {
         const errors = []
 
         if(!banca.data){
-            errors.push('É obrigatório a data.')
+            errors.push('É obrigatório informar a data.')
         }
     
         if(errors && errors.length > 0){

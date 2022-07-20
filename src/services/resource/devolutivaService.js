@@ -66,9 +66,8 @@ export default class DevolutivaService extends ApiService {
         }
     }
 
-
     consult(filter){
-        let params = `?statusOrientacao=${filter.statusOrientacao}`
+        let params = `?size=10&page=${filter.pageNumber}&sort=id,asc&statusOrientacao=${filter.statusOrientacao}`
 
         if(filter.dataMudanca){
             params = `${params}&dataMudanca=${filter.dataMudanca}`
@@ -78,20 +77,20 @@ export default class DevolutivaService extends ApiService {
             params = `${params}&orientacaoId=${filter.orientacaoId}`
         }
 
-        if(filter.devolutivaDescricao){
-            params = `${params}&devolutivaDescricao=${filter.devolutivaDescricao}`
+        if(filter.descricaoDaDevolutiva){
+            params = `${params}&devolutivaDescricao=${filter.descricaoDaDevolutiva}`
         }
 
-        if(filter.devolutivaVersaoDoc){
-            params = `${params}&devolutivaVersaoDoc=${filter.devolutivaVersaoDoc}`
+        if(filter.versaoDoc){
+            params = `${params}&devolutivaVersaoDoc=${filter.versaoDoc}`
         }
 
-        if(filter.devolutivaLocalCorrecaoCorrecaoSugerida){
-            params = `${params}&devolutivaLocalCorrecaoCorrecaoSugerida=${filter.devolutivaLocalCorrecaoCorrecaoSugerida}`
+        if(filter.correcaoSugerida){
+            params = `${params}&devolutivaLocalCorrecaoCorrecaoSugerida=${filter.correcaoSugerida}`
         }
 
-        if(filter.devolutivaLocalCorrecaoLocal){
-            params = `${params}&devolutivaLocalCorrecaoLocal=${filter.devolutivaLocalCorrecaoLocal}`
+        if(filter.localDeCorrecao){
+            params = `${params}&devolutivaLocalCorrecaoLocal=${filter.localDeCorrecao}`
         }
 
         return this.get(params);
