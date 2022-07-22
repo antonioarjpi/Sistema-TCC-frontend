@@ -8,7 +8,7 @@ import { baseURL } from "../../services/api";
 import Button from "../../components/button/button";
 
 const valoresInicial = {
-    nome: '', 
+    nome: '',
     matricula: '',
     email: '',
     titulacaoDescricao: '',
@@ -18,7 +18,7 @@ const valoresInicial = {
     linhaPesquisaAreaconhecimentoDescricao: ''
 }
 
-function VisualizaOrientador(){
+function VisualizaOrientador() {
 
     const [orientador, setOrientador] = useState();
     const [values, setValues] = useState(valoresInicial)
@@ -29,34 +29,34 @@ function VisualizaOrientador(){
     const service = new OrientadorService();
 
     useEffect(() => {
-        if(id){
-        service.findId(id)
-        .then(response =>{
-            setOrientador(response.data.id)
-            setValues(response.data) 
-            if(response.data.imagem){
-                setImagem(response.data.imagem);
-            }else{
-                setImagem(nullImage)
-            }
-        })  
-        .catch(erros => {
-            messages.mensagemErro(erros.response.data)
-        })
-        
-      // eslint-disable-next-line react-hooks/exhaustive-deps
-      }},[]);
+        if (id) {
+            service.findId(id)
+                .then(response => {
+                    setOrientador(response.data.id)
+                    setValues(response.data)
+                    if (response.data.imagem) {
+                        setImagem(response.data.imagem);
+                    } else {
+                        setImagem(nullImage)
+                    }
+                })
+                .catch(erros => {
+                    messages.mensagemErro(erros.response.data)
+                })     
+        }
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, []);
 
-  
+
     const onBasicUploadAuto = () => {
         messages.mensagemSucesso("Foto carregada com sucesso")
         setTimeout(() => {
-            window.location.reload(); 
-          }, 1000);          
+            window.location.reload();
+        }, 1000);
     }
 
 
-    return(
+    return (
         <Profile nome={values.nome} imagem={imagem} titulacao={values.titulacaoDescricao} grau={values.titulacaoGrau}
             onUpload={onBasicUploadAuto} preview={imagem === nullImage ? false : true}
             label={'nome'} name='file' url={`${baseURL}/orientadores/imagem/${orientador}`}>
@@ -66,7 +66,7 @@ function VisualizaOrientador(){
             <Label label='Linha de pesquisa:'>{values.linhaPesquisaDescricao}</Label>
             <Label label='Área de conhecimento: '>{values.areaConhecimento}</Label>
             <Label label='Instituição de ensino: '>{values.titulacaoIes}</Label>
-            
+
             <Link to={'/orientadores'}>
                 <Button className="btn btn-primary" icon="pi pi-replay">Voltar</Button>
             </Link>

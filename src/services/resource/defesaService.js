@@ -3,47 +3,47 @@ import ValidationError from '../exception/ValidationError';
 
 export default class DefesaService extends ApiService {
 
-    constructor(){
+    constructor() {
         super('/defesas')
     }
 
-    save(defesa){
+    save(defesa) {
         return this.post('/', defesa);
     }
 
-    update(defesa){
+    update(defesa) {
         return this.put(`/${defesa.id}`, defesa);
     }
 
-    del(id){
+    del(id) {
         return this.delete(`/${id}`)
     }
 
-    findId(id){
+    findId(id) {
         return this.get(`/${id}`)
     }
 
-    validate(defesa){
+    validate(defesa) {
         const errors = []
 
-        if(!defesa.data){
+        if (!defesa.data) {
             errors.push('É obrigatório informar a data.')
         }
 
-        if(!defesa.banca){
+        if (!defesa.banca) {
             errors.push('É obrigatório informar o código da banca.')
         }
 
-        if(errors && errors.length > 0){
+        if (errors && errors.length > 0) {
             throw new ValidationError(errors);
         }
     }
 
 
-    consult(filter){
+    consult(filter) {
         let params = `?name=${filter.name}`
 
-        if(filter.type){
+        if (filter.type) {
             params = `${params}&type=${filter.type}`
         }
 

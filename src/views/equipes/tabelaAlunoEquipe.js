@@ -1,8 +1,8 @@
 // eslint-disable-next-line import/no-anonymous-default-export
 export default props => {
 
-    const rows = props.alunos.map( alunos => {
-        return(
+    const rows = props.alunos.map(alunos => {
+        return (
             <tr key={alunos.id}>
                 <td>{alunos.matricula}</td>
                 <td>{alunos.nome}</td>
@@ -11,10 +11,8 @@ export default props => {
         )
     })
 
-
     return (
-        <>
-        <div className="container mt-3 mb-5">   
+        <div className="container mt-3 mb-5">
             <div className="table-responsive">
                 <table className="table table-striped table-sm">
                     <thead>
@@ -29,8 +27,6 @@ export default props => {
                     </tbody>
                 </table>
             </div>
-        </div>     
-        </>
-
+        </div>
     )
 }

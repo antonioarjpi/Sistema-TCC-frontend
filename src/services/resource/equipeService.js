@@ -3,84 +3,84 @@ import ValidationError from '../exception/ValidationError';
 
 export default class EquipeService extends ApiService {
 
-    constructor(){
+    constructor() {
         super('/equipes')
     }
 
-    save(equipe){
+    save(equipe) {
         return this.post('/', equipe);
     }
 
-    update(equipe){
+    update(equipe) {
         return this.put(`/${equipe.id}`, equipe);
     }
 
-    del(id){
+    del(id) {
         return this.delete(`/${id}`)
     }
 
-    findAll(){
+    findAll() {
         return this.get(``)
     }
 
-    findId(id){
+    findId(id) {
         return this.get(`/${id}`)
     }
 
-    findDevolutivas(id){
+    findDevolutivas(id) {
         return this.get(`/devolutivas/${id}`)
     }
 
-    validate(equipe){
+    validate(equipe) {
         const errors = []
 
-        if(!equipe.nome){
+        if (!equipe.nome) {
             errors.push('O campo Nome é obrigatório.')
         }
 
-        if(!equipe.alunos){
+        if (!equipe.alunos) {
             errors.push('Nenhum aluno foi adicionada.')
         }
 
-        if(!equipe.delimitacao){
+        if (!equipe.delimitacao) {
             errors.push('O campo tema é obrigatório.')
         }
 
-        if(!equipe.descricaoConhecimento){
+        if (!equipe.descricaoConhecimento) {
             errors.push('Nenhuma conhecimento foi adicionada.')
         }
 
-        if(errors && errors.length > 0){
+        if (errors && errors.length > 0) {
             throw new ValidationError(errors);
         }
     }
 
-    consult(filter){
+    consult(filter) {
         let params = `?size=10&page=${filter.pageNumber}&sort=id,asc&nome=${filter.nome}`
 
-        if(filter.tema){
+        if (filter.tema) {
             params = `${params}&tema=${filter.tema}`
         }
 
-        if(filter.dataCadastro){
+        if (filter.dataCadastro) {
             params = `${params}&dataCadastro=${filter.dataCadastro}`
         }
 
-        if(filter.delimitacao){
+        if (filter.delimitacao) {
             params = `${params}&delimitacao=${filter.delimitacao}`
         }
 
-        if(filter.descricaoLinha){
+        if (filter.descricaoLinha) {
             params = `${params}&descricaoLinha=${filter.descricaoLinha}`
         }
 
-        if(filter.descricaoConhecimento){
+        if (filter.descricaoConhecimento) {
             params = `${params}&descricaoConhecimento=${filter.descricaoConhecimento}`
         }
- 
+
         return this.get(params);
     }
 
-    
+
 
 }

@@ -3,8 +3,8 @@ import { formatLocalDate } from "../../utils/format"
 // eslint-disable-next-line import/no-anonymous-default-export
 export default props => {
 
-    const rows = props.orientacoes.content?.map( orientacoes => {
-        return(
+    const rows = props.orientacoes.content?.map(orientacoes => {
+        return (
             <tr key={orientacoes.id}>
                 <td>{orientacoes.id}</td>
                 <td>{formatLocalDate(orientacoes.dataOrientacao, "dd/MM/yyyy")}</td>
@@ -15,17 +15,17 @@ export default props => {
                 <td>{orientacoes.equipe}</td>
                 <td>
                     <td>
-                        <button type="button"  title="edit"
-                                className="btn btn-primary"
-                                onClick={e => props.editAction(orientacoes.id)}>
-                                <i className="pi pi-pencil"></i>
+                        <button type="button" title="edit"
+                            className="btn btn-primary"
+                            onClick={e => props.editAction(orientacoes.id)}>
+                            <i className="pi pi-pencil"></i>
                         </button>
-                    </td>   
+                    </td>
                     <td>
-                        <button type="button"  title="Excluir"
-                                className="btn btn-danger" 
-                                onClick={ e => props.deleteAction(orientacoes)}>
-                                <i className="pi pi-trash"></i>
+                        <button type="button" title="Excluir"
+                            className="btn btn-danger"
+                            onClick={e => props.deleteAction(orientacoes)}>
+                            <i className="pi pi-trash"></i>
                         </button>
                     </td>
                 </td>
@@ -34,8 +34,7 @@ export default props => {
     })
 
     return (
-        <>
-        <div className="container mt-3 mb-5">   
+        <div className="container mt-3 mb-5">
             <div className="table-responsive">
                 <table className="table table-striped table-sm">
                     <thead>
@@ -56,8 +55,6 @@ export default props => {
                 </table>
             </div>
             {props.children}
-        </div>     
-        </>
-
+        </div>
     )
 }

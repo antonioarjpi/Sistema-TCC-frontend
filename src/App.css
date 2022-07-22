@@ -1,5 +1,5 @@
 body{
-    padding-top:80px;
+    padding-top:60px;
     font-family: "Tahoma","Arial", "helvetica";
     background-color: #F9F9F9;
     box-sizing: border-box;
@@ -40,7 +40,6 @@ i{
     align-items: middle;
     text-align: center;
 }
-f
 
 .col-lg-12{
     justify-content: center;
@@ -123,10 +122,6 @@ a{
 .not-found button{
     margin-top: 200px;
     margin-bottom: 200px;
-}
-
-.password{
-    height: 2.3rem;
 }
 
 .dropdown{

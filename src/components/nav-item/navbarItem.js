@@ -1,9 +1,9 @@
 import React from "react";
 
-function NavItem(props){
-    return(
+function NavItem(props) {
+    return (
         <li className="nav-item">
-            <span className="nav-link" type="button" onClick={props.onClick}>{props.label} </span>
+            <a href={props.href} className="nav-link" type="button" onClick={props.onClick}>{props.label} </a>
         </li>
     )
 }

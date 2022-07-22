@@ -3,117 +3,117 @@ import ValidationError from '../exception/ValidationError';
 
 export default class OrientadorService extends ApiService {
 
-    constructor(){
+    constructor() {
         super('/orientadores')
     }
 
-    save(orientador){
+    save(orientador) {
         return this.post('/', orientador);
     }
 
-    update(orientador){
+    update(orientador) {
         return this.put(`/${orientador.id}`, orientador);
     }
 
-    del(id){
+    del(id) {
         return this.delete(`/${id}`)
     }
 
-    findId(id){
+    findId(id) {
         return this.get(`/${id}`)
     }
 
-    findAll(){
+    findAll() {
         return this.get(``)
     }
 
-    validate(orientador){
+    validate(orientador) {
         const errors = []
 
-        if(!orientador.nome){
+        if (!orientador.nome) {
             errors.push('O campo Nome é obrigatório.')
         }
 
-        if(!orientador.email){
+        if (!orientador.email) {
             errors.push('O campo Email é obrigatório.')
-        }else if( !orientador.email.match(/^[a-z0-9.]+@[a-z0-9]+\.[a-z]/) ){
+        } else if (!orientador.email.match(/^[a-z0-9.]+@[a-z0-9]+\.[a-z]/)) {
             errors.push('Informe um Email válido.')
         }
-        
-        if(!orientador.titulacaoDescricao){
+
+        if (!orientador.titulacaoDescricao) {
             errors.push('O campo titulação é obrigatório.')
         }
 
-        if(!orientador.titulacaoGrau){
+        if (!orientador.titulacaoGrau) {
             errors.push('O campo grau é obrigatório.')
         }
 
-        if(!orientador.senha || !orientador.senhaRepetida){
+        if (!orientador.senha || !orientador.senhaRepetida) {
             errors.push('Digite a senha 2x.')
-        }else if( orientador.senha !== orientador.senhaRepetida ){
+        } else if (orientador.senha !== orientador.senhaRepetida) {
             errors.push('As senhas não batem.')
-        }        
+        }
 
-        if(errors && errors.length > 0){
+        if (errors && errors.length > 0) {
             throw new ValidationError(errors);
         }
     }
 
-    validateUpdate(orientador){
+    validateUpdate(orientador) {
         const errors = []
 
-        if(!orientador.nome){
+        if (!orientador.nome) {
             errors.push('O campo Nome é obrigatório.')
         }
-        
-        if(!orientador.titulacaoDescricao){
+
+        if (!orientador.titulacaoDescricao) {
             errors.push('O campo titulação é obrigatório.')
         }
 
-        if(!orientador.titulacaoGrau){
+        if (!orientador.titulacaoGrau) {
             errors.push('O campo grau é obrigatório.')
         }
 
-        if(!orientador.email){
+        if (!orientador.email) {
             errors.push('O campo Email é obrigatório.')
-        }else if(!orientador.email.match(/^[a-z0-9.]+@[a-z0-9]+\.[a-z]/) ){
+        } else if (!orientador.email.match(/^[a-z0-9.]+@[a-z0-9]+\.[a-z]/)) {
             errors.push('Informe um Email válido.')
-        }      
+        }
 
-        if(errors && errors.length > 0){
+        if (errors && errors.length > 0) {
             throw new ValidationError(errors);
         }
     }
 
 
-    consult(filter){
+    consult(filter) {
         let params = `?size=10&page=${filter.pageNumber}&sort=nome,asc&nome=${filter.nome}`
-        
-        if(filter.matricula){
+
+        if (filter.matricula) {
             params = `${params}&matricula=${filter.matricula}`
         }
 
-        if(filter.email){
+        if (filter.email) {
             params = `${params}&email=${filter.email}`
         }
 
-        if(filter.descricaoTitulacao){
+        if (filter.descricaoTitulacao) {
             params = `${params}&descricaoTitulacao=${filter.descricaoTitulacao}`
         }
 
-        if(filter.grau){
+        if (filter.grau) {
             params = `${params}&grau=${filter.grau}`
         }
 
-        if(filter.ies){
+        if (filter.ies) {
             params = `${params}&ies=${filter.ies}`
         }
 
-        if(filter.linhaPesquisa){
+        if (filter.linhaPesquisa) {
             params = `${params}&linhaPesquisa=${filter.linhaPesquisa}`
         }
 
-        if(filter.conhecimento){
+        if (filter.conhecimento) {
             params = `${params}&conhecimento=${filter.conhecimento}`
         }
         return this.get(params);

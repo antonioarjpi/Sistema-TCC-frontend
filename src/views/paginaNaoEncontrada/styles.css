@@ -1,0 +1,49 @@
+.mainbox {
+    margin: auto;
+    height: 20.0rem;
+    width: 100%;
+    position: relative;
+  }
+  
+    .err {
+      color: #0c0c0c;
+      font-family: 'Nunito Sans', sans-serif;
+      font-size: 11rem;
+      position:absolute;
+      left: 30%;
+      
+    }
+  
+  .pi-question-circle {
+    position: absolute;
+    font-size: 8.5rem;
+    left: 45%;
+    top: 15%;
+    color: #353434;
+  }
+  
+   .err2 {
+    color: #0c0c0c;
+      font-family: 'Nunito Sans', sans-serif;
+      font-size: 11rem;
+      position:absolute;
+      left: 62%;
+    }
+  
+  .msg {
+      text-align: center;
+      font-family: 'Nunito Sans', sans-serif;
+      font-size: 1.6rem;
+      position:absolute;
+      left: 16%;
+      top: 32%;
+      width: 75%;
+    }
+  
+  a:hover {
+    text-decoration: none; 
+  }
+
+  .span-pointer{
+    cursor: pointer
+  }

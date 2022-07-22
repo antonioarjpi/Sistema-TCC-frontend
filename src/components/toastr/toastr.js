@@ -16,20 +16,20 @@ toastr.options = {
     "hideEasing": "linear",
     "showMethod": "fadeIn",
     "hideMethod": "fadeOut"
-  }
+}
 
-export function mostrarMensagem(message, tipo){
+export function mostrarMensagem(message, tipo) {
     toastr[tipo](message)
 }
 
-export function mensagemErro(message){
+export function mensagemErro(message) {
     mostrarMensagem(message, 'error')
 }
 
-export function mensagemSucesso(message){
+export function mensagemSucesso(message) {
     mostrarMensagem(message, 'success')
 }
 
-export function mensagemAlert(message){
+export function mensagemAlert(message) {
     mostrarMensagem(message, 'warning')
 }

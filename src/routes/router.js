@@ -1,5 +1,5 @@
 import React from "react";
-import { BrowserRouter, Navigate, Outlet, Route, Routes  } from 'react-router-dom';
+import { BrowserRouter, Navigate, Outlet, Route, Routes } from 'react-router-dom';
 import DisplayAluno from "../views/alunos/visualizarAluno";
 
 import ConsultaAluno from "../views/alunos/consultaAluno";
@@ -7,11 +7,10 @@ import CadastraBanca from "../views/bancas/cadastraBanca";
 import AgendamentoBanca from "../views/bancas/agendamentoDeBanca";
 import ConsultaBanca from "../views/bancas/consultaBanca";
 
-
 import Home from "../views/home";
 import Login from "../views/login/login";
 import SignUp from "../views/signup/signup";
-import NotFound from "../views/notFound";
+import NotFound from "../views/paginaNaoEncontrada/notFound";
 import Forbidden from "../views/forbidden/forbidden";
 import Navbar from "../components/navbar/navbar";
 import CadastroAluno from './../views/alunos/cadastroAluno';
@@ -25,37 +24,37 @@ import ConsultaOrientacao from "../views/orientacao/consultaOrientacao";
 import CadastraOrientacao from "../views/orientacao/cadastraOrientacao";
 import ConsultaDevolutiva from "../views/devolutiva/consultaDevolutiva";
 import CadastroDevolutiva from "../views/devolutiva/cadastroDevolutiva";
+import { useAuth } from "../context/AuthContext";
 
- const PrivateRoute = () => {
-     const isAuthenticated = localStorage.getItem("@TCC-Usuario") !== null;   
-     return isAuthenticated ? <><Navbar/><Outlet /></> : <Navigate to="/login" />;
-};
+function Router() {
 
-const AccessDenied = () => {
-    const isAuthenticated = localStorage.getItem("@TCC-Usuario") === null;
-    return isAuthenticated ? <Outlet /> : <Navigate to="/" />;
-};
+    const { autenticado } = useAuth();
 
-function Router (){
+    const PrivateRoute = () => {
+        return autenticado === true ? <><Navbar /><Outlet /></> : <Navigate to="/login" />;
+    };
+
+    const AccessDenied = () => {
+        return autenticado === false ? <Outlet /> : <Navigate to="/" />;
+    };
+
     return (
-    
         <BrowserRouter>
-            
             <Routes>
                 {/* Rotas públicas */}
                 <Route path="/login" element={<Login />} />
                 <Route path="/signup" element={<SignUp />} />
 
                 {/*Página não encontrada */}
-                <Route path='*' element={<NotFound/>} />
+                <Route path='*' element={<NotFound />} />
 
                 {/*Página para erro de acesso negado(403) */}
                 <Route path='/acesso_negado' element={<AccessDenied />}>
-                    <Route path="/acesso_negado" element={<Forbidden />}/>
+                    <Route path="/acesso_negado" element={<Forbidden />} />
                 </Route>
-                
+
                 {/* Rotas protegidas */}
-                <Route path="/" element={<PrivateRoute/>}>
+                <Route path="/" element={<PrivateRoute />}>
                     <Route path="/" element={<Home />} />
                     <Route path="/home" element={<Home />} />
                     <Route path="/cadastro-aluno" element={<CadastroAluno />} />
@@ -85,12 +84,10 @@ function Router (){
                     <Route path="/devolutivas" element={<ConsultaDevolutiva />} />
                     <Route path="/cadastro-devolutiva" element={<CadastroDevolutiva />} />
                     <Route path="/atualizacao-devolutiva/:id" element={<CadastroDevolutiva />} />
-                </Route>  
-
-            </Routes>      
+                </Route>
+            </Routes>
         </BrowserRouter>
-        )
+    )
 }
-
 
 export default Router;

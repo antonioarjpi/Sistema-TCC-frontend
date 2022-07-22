@@ -1,9 +1,6 @@
 import React from 'react'
 
 function SelectMenu(props){
-
-
-
     return (
         <select {...props}  >
             {props.children}
@@ -11,4 +8,4 @@ function SelectMenu(props){
     )
 }
 
-export default SelectMenu;
+export default SelectMenu;  

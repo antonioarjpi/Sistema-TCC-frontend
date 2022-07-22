@@ -3,8 +3,8 @@ import Button from "../../components/button/button"
 // eslint-disable-next-line import/no-anonymous-default-export
 export default props => {
 
-    const rows = props.alunos.content?.map( alunos => {
-        return(
+    const rows = props.alunos.content?.map(alunos => {
+        return (
             <tr key={alunos.id}>
                 <td>{alunos.matricula}</td>
                 <td>{alunos.nome}</td>
@@ -12,8 +12,8 @@ export default props => {
                 <td className="acao-tabela">
                     <td>
                         <Button type="button" title="Visualização completa"
-                                className="btn btn-warning" icon="pi pi-eye"
-                                onClick={e => props.visibleAction(alunos.id)}>
+                            className="btn btn-warning" icon="pi pi-eye"
+                            onClick={e => props.visibleAction(alunos.id)}>
                         </Button>
                     </td>
                     <td>
@@ -23,8 +23,8 @@ export default props => {
                     </td>
                     <td>
                         <Button type="button" title="Excluir"
-                                className="btn btn-danger" icon="pi pi-trash"
-                                onClick={ e => props.deleteAction(alunos)}>
+                            className="btn btn-danger" icon="pi pi-trash"
+                            onClick={e => props.deleteAction(alunos)}>
                         </Button>
                     </td>
                 </td>
@@ -34,8 +34,7 @@ export default props => {
 
 
     return (
-        <>
-        <div className=" mt-3 mb-5">   
+        <div className=" mt-3 mb-5">
             <div className="table-responsive">
                 <table className="table table-striped table-sm">
                     <thead>
@@ -52,8 +51,6 @@ export default props => {
                 </table>
             </div>
             {props.children}
-        </div>     
-        </>
-
+        </div>
     )
 }

@@ -2,39 +2,39 @@ import { MultiSelect } from "primereact/multiselect";
 import React, { useEffect, useState } from "react";
 import './styles.css'
 
-function MultiSelectContainer(props){
+function MultiSelectContainer(props) {
     const select = props.value;
     const [dados, setDados] = useState({});
-    const [remove, setRemove] = useState({});
+    const [, setRemove] = useState({});
 
     const service = new props.service();
 
     //Procura no service o metodo findAll, se encontrar coloca todos os objetos dentro de um array
     useEffect(() => {
         service.findAll()
-        .then(response => {
-            setDados(response.data.content) 
-        })
-    // eslint-disable-next-line react-hooks/exhaustive-deps
+            .then(response => {
+                setDados(response.data.content)
+            })
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [])
 
     //Função que obtém a opção e retorna o conteúdo para ela.
     const optionsItems = (option) => {
         return (
             <div>
-                <div>{option.matricula} - {option.nome}</div>  
+                <div>{option.matricula} - {option.nome}</div>
             </div>
         );
     }
 
     //Modelo de um item do grupo de opções.
     const selectedItems = (option) => {
-        const remove = () =>{
+        const remove = () => {
             setRemove(option)
-            const index = props.value.map(function(e) {return e.id} ).indexOf(option.id)
-            select.splice(index, 1);           
+            const index = props.value.map(function (e) { return e.id }).indexOf(option.id)
+            select.splice(index, 1);
         }
-        
+
         if (option) {
             return (
                 <div className="p-multiselect-token">
@@ -57,19 +57,21 @@ function MultiSelectContainer(props){
         );
     }
 
-    return(
-        <MultiSelect 
-            value={props.value} options={dados}
-            className="multi-select"
-            onChange={props.onChange}
-            filter 
-            filterBy={props.filterBy}
-            filterPlaceholder={props.filterPlaceholder}
-            itemTemplate={optionsItems} 
-            selectedItemTemplate={selectedItems}
-            display='chip' 
-            panelFooterTemplate={panelFooter} 
-        />
+    return (
+        <>
+            <label className="input-label" htmlFor={props.htmlFor}>{props.label}</label>
+            <MultiSelect
+                value={props.value} options={dados}
+                className="multi-select"
+                onChange={props.onChange}
+                filter
+                filterBy={props.filterBy}
+                filterPlaceholder={props.filterPlaceholder}
+                itemTemplate={optionsItems}
+                selectedItemTemplate={selectedItems}
+                display='chip'
+                panelFooterTemplate={panelFooter}/>
+        </>
     )
 }
 

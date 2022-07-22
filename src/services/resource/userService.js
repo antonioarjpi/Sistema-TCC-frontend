@@ -3,38 +3,42 @@ import ValidationError from '../exception/ValidationError';
 
 class UserService extends ApiService {
 
-    constructor(){
+    constructor() {
         super('/usuarios')
     }
 
-    authenticate(credenciais){
+    authenticate(credenciais) {
         return this.post('/autenticar', credenciais)
     }
 
-    save(usuario){
+    save(usuario) {
         return this.post('/cadastrar', usuario);
     }
 
-    validate(usuario){
+    refreshToken(){
+        return this.post('/refresh')
+    }
+
+    validate(usuario) {
         const errors = []
 
-        if(!usuario.nome){
+        if (!usuario.nome) {
             errors.push('O campo Nome é obrigatório.')
         }
 
-        if(!usuario.email){
+        if (!usuario.email) {
             errors.push('O campo Email é obrigatório.')
-        }else if( !usuario.email.match(/^[a-z0-9.]+@[a-z0-9]+\.[a-z]/) ){
+        } else if (!usuario.email.match(/^[a-z0-9.]+@[a-z0-9]+\.[a-z]/)) {
             errors.push('Informe um Email válido.')
         }
 
-        if(!usuario.senha || !usuario.senhaRepetida){
+        if (!usuario.senha || !usuario.senhaRepetida) {
             errors.push('Digite a senha 2x.')
-        }else if( usuario.senha !== usuario.senhaRepetida ){
+        } else if (usuario.senha !== usuario.senhaRepetida) {
             errors.push('As senhas não batem.')
-        }        
+        }
 
-        if(errors && errors.length > 0){
+        if (errors && errors.length > 0) {
             throw new ValidationError(errors);
         }
     }

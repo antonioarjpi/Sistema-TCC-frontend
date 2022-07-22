@@ -6,8 +6,8 @@ import { formatLocalDate } from "../../utils/format"
 // eslint-disable-next-line import/no-anonymous-default-export
 export default props => {
 
-    const rows = props.bancas.content?.map( bancas => {
-        return(
+    const rows = props.bancas.content?.map(bancas => {
+        return (
             <tr key={bancas.id}>
                 <td>{bancas.id}</td>
                 <td>{bancas.descricao}</td>
@@ -18,24 +18,24 @@ export default props => {
                 <td>{formatLocalDate(bancas.equipeDataCadastro, "dd/MM/yyyy")}</td>
                 <td>{bancas.membroMatricula}</td>
                 {bancas.defesaDataDefesa !== null && (
-                    <td align="center"><Button label={formatLocalDate(bancas.defesaDataDefesa, "dd/MM/yyyy")} className="btn btn-defesa"  onClick={e => props.schedule(bancas.id)} /></td>
-                )} 
-                 {bancas.defesaDataDefesa === null && (
-                    <td align="center"><Button label="Não Agendado" className="btn btn-defesa"  onClick={e => props.schedule(bancas.id)} /></td>
-                )} 
+                    <td align="center"><Button label={formatLocalDate(bancas.defesaDataDefesa, "dd/MM/yyyy")} className="btn btn-defesa" onClick={e => props.schedule(bancas.id)} /></td>
+                )}
+                {bancas.defesaDataDefesa === null && (
+                    <td align="center"><Button label="Não Agendado" className="btn btn-defesa" onClick={e => props.schedule(bancas.id)} /></td>
+                )}
                 <td>
-                    <td>   
-                        <button type="button"  title="Editar"
-                                className="btn btn-primary"
-                                onClick={e => props.editAction(bancas.id)}>
-                                <i className="pi pi-pencil"></i>
+                    <td>
+                        <button type="button" title="Editar"
+                            className="btn btn-primary"
+                            onClick={e => props.editAction(bancas.id)}>
+                            <i className="pi pi-pencil"></i>
                         </button>
                     </td>
-                    <td>    
-                        <button type="button"  title="Excluir"
-                                className="btn btn-danger" 
-                                onClick={ e => props.deleteAction(bancas)}>
-                                <i className="pi pi-trash"></i>
+                    <td>
+                        <button type="button" title="Excluir"
+                            className="btn btn-danger"
+                            onClick={e => props.deleteAction(bancas)}>
+                            <i className="pi pi-trash"></i>
                         </button>
                     </td>
                 </td>
@@ -45,8 +45,7 @@ export default props => {
 
 
     return (
-        <>
-        <div className="container mt-3 mb-5">   
+        <div className="container mt-3 mb-5">
             <div className="table-responsive">
                 <table className="table table-striped table-sm">
                     <thead>
@@ -59,7 +58,7 @@ export default props => {
                             <th>Cod Equipe</th>
                             <th>DT Equipe</th>
                             <th>Membro</th>
-                            <th style={{justifyContent:'center', display: 'flex'}} align="center">Data Defesa</th>
+                            <th style={{ justifyContent: 'center', display: 'flex' }} align="center">Data Defesa</th>
                             <th className="td-table" scope="col">Ações</th>
                         </tr>
                     </thead>
@@ -69,8 +68,6 @@ export default props => {
                 </table>
             </div>
             {props.children}
-        </div>     
-        </>
-
+        </div>
     )
 }

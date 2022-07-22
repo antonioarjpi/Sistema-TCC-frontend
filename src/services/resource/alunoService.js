@@ -3,80 +3,80 @@ import ValidationError from '../exception/ValidationError';
 
 export default class AlunoService extends ApiService {
 
-    constructor(){
+    constructor() {
         super('/alunos')
     }
 
-    save(alunos){
+    save(alunos) {
         return this.post('/', alunos);
     }
 
-    update(alunos){
+    update(alunos) {
         return this.put(`/${alunos.id}`, alunos);
     }
 
-    del(id){
+    del(id) {
         return this.delete(`/${id}`)
     }
 
-    findId(id){
+    findId(id) {
         return this.get(`/${id}`)
     }
 
-    findAll(){
+    findAll() {
         return this.get(``)
     }
 
-    validate(alunos){
+    validate(alunos) {
         const errors = []
 
-        if(!alunos.nome){
+        if (!alunos.nome) {
             errors.push('O campo Nome é obrigatório.')
         }
 
-        if(!alunos.email){
+        if (!alunos.email) {
             errors.push('O campo Email é obrigatório.')
-        }else if( !alunos.email.match(/^[a-z0-9.]+@[a-z0-9]+\.[a-z]/) ){
+        } else if (!alunos.email.match(/^[a-z0-9.]+@[a-z0-9]+\.[a-z]/)) {
             errors.push('Informe um Email válido.')
         }
 
-        if(!alunos.senha || !alunos.senhaRepetida){
+        if (!alunos.senha || !alunos.senhaRepetida) {
             errors.push('Digite a senha 2x.')
-        }else if( alunos.senha !== alunos.senhaRepetida ){
+        } else if (alunos.senha !== alunos.senhaRepetida) {
             errors.push('As senhas não batem.')
-        }        
+        }
 
-        if(errors && errors.length > 0){
+        if (errors && errors.length > 0) {
             throw new ValidationError(errors);
         }
     }
 
-    validateUpdate(alunos){
+    validateUpdate(alunos) {
         const errors = []
 
-        if(!alunos.nome){
+        if (!alunos.nome) {
             errors.push('O campo Nome é obrigatório.')
         }
 
-        if(!alunos.email){
+        if (!alunos.email) {
             errors.push('O campo Email é obrigatório.')
-        }else if( !alunos.email.match(/^[a-z0-9.]+@[a-z0-9]+\.[a-z]/) ){
+        } else if (!alunos.email.match(/^[a-z0-9.]+@[a-z0-9]+\.[a-z]/)) {
             errors.push('Informe um Email válido.')
-        }   
+        }
 
-        if(errors && errors.length > 0){
+        if (errors && errors.length > 0) {
             throw new ValidationError(errors);
         }
     }
 
-    consulta(filter){
+    consulta(filter) {
         let params = `?size=10&page=${filter.pageNumber}&sort=nome,asc&nome=${filter.nome}`
 
-        if(filter.matricula){
+        if (filter.matricula) {
             params = `${params}&matricula=${filter.matricula}`
         }
 
-        if(filter.email){
+        if (filter.email) {
             params = `${params}&email=${filter.email}`
         }
 

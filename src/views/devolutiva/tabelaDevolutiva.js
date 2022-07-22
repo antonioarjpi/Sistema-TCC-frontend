@@ -33,29 +33,26 @@ export default props => {
     })
 
     return (
-        <>
-            <div className="container mt-3 mb-5">
-                <div className="table-responsive">
-                    <table className="table table-striped table-sm">
-                        <thead>
-                            <tr>
-                                <th>Status</th>
-                                <th>Devolutiva</th>
-                                <th>Versão doc</th>
-                                <th>Local de correção</th>
-                                <th>Correção sugerida</th>
-                                <th>Data mudança</th>
-                                <th className="td-table" scope="col">Ações</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            {rows}
-                        </tbody>
-                    </table>
-                </div>
-                {props.children}
+        <div className="container mt-3 mb-5">
+            <div className="table-responsive">
+                <table className="table table-striped table-sm">
+                    <thead>
+                        <tr>
+                            <th>Status</th>
+                            <th>Devolutiva</th>
+                            <th>Versão doc</th>
+                            <th>Local de correção</th>
+                            <th>Correção sugerida</th>
+                            <th>Data mudança</th>
+                            <th className="td-table" scope="col">Ações</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {rows}
+                    </tbody>
+                </table>
             </div>
-        </>
-
+            {props.children}
+        </div>
     )
 }

@@ -10,10 +10,10 @@ const valoresInicial = {
     id: '',
     nome: '',
     email: '',
-    matricula:''
+    matricula: ''
 }
 
-function DisplayAluno(){
+function DisplayAluno() {
 
     const [values, setValues] = useState(valoresInicial);
     const [imagem, setImagem] = useState();
@@ -23,31 +23,32 @@ function DisplayAluno(){
     const service = new AlunoService();
 
     useEffect(() => {
-        if(id){
-        service.findId(id)
-        .then(response =>{
-            setValues(response.data)
-            if(response.data.imagem){
-                setImagem(response.data.imagem);
-            }else{
-                setImagem(nullImage)
-            }      
-        })  
-        .catch(erros => {
-            messages.mensagemErro(erros.response.data)
-        })
-      // eslint-disable-next-line react-hooks/exhaustive-deps
-      }},[]);
+        if (id) {
+            service.findId(id)
+                .then(response => {
+                    setValues(response.data)
+                    if (response.data.imagem) {
+                        setImagem(response.data.imagem);
+                    } else {
+                        setImagem(nullImage)
+                    }
+                })
+                .catch(erros => {
+                    messages.mensagemErro(erros.response.data)
+                })
+        }
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, []);
 
-  
+
     const onBasicUploadAuto = () => {
         messages.mensagemSucesso("Foto carregada com sucesso")
         setTimeout(() => {
-            window.location.reload(); 
-          }, 1500);          
+            window.location.reload();
+        }, 1500);
     }
 
-    return(
+    return (
         <Profile imagem={imagem}
             onUpload={onBasicUploadAuto} preview={imagem === nullImage ? false : true}
             label={'nome'} name='file' url={`${baseURL}/alunos/imagem/${values.id}`}>
@@ -55,7 +56,7 @@ function DisplayAluno(){
             <Label label='Nome: '>{values.nome}</Label>
             <Label label='Matrícula: '>{values.matricula}</Label>
             <Label label='E-mail: '>{values.email}</Label>
-            
+
             <Link to={'/alunos'}>
                 <button className="btn btn-primary"><i className="pi pi-replay m-2"></i>Voltar</button>
             </Link>

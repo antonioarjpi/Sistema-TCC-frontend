@@ -3,8 +3,8 @@ import { formatLocalDate } from "../../utils/format"
 // eslint-disable-next-line import/no-anonymous-default-export
 export default props => {
 
-    const rows = props.equipes.content?.map( equipes => {           
-        return(
+    const rows = props.equipes.content?.map(equipes => {
+        return (
             <tr key={equipes.id}>
                 <td>{equipes.id}</td>
                 <td>{equipes.nome}</td>
@@ -14,35 +14,34 @@ export default props => {
                 <td>{equipes.conhecimento}</td>
                 <td>
                     <td>
-                        <button type="button"  title="Visualização completa"
-                                className="btn btn-warning"
-                                onClick={e => props.visualizar(equipes.id)}>
-                                <i className="pi pi-eye"></i>
+                        <button type="button" title="Visualização completa"
+                            className="btn btn-warning"
+                            onClick={e => props.visualizar(equipes.id)}>
+                            <i className="pi pi-eye"></i>
                         </button>
                     </td>
                     <td>
-                        <button type="button"  title="edit"
-                                className="btn btn-primary"
-                                onClick={e => props.editar(equipes.id)}>
-                                <i className="pi pi-pencil"></i>
+                        <button type="button" title="edit"
+                            className="btn btn-primary"
+                            onClick={e => props.editar(equipes.id)}>
+                            <i className="pi pi-pencil"></i>
                         </button>
                     </td>
                     <td>
-                        <button type="button"  title="Excluir"
-                                className="btn btn-danger" 
-                                onClick={ e => props.deletar(equipes)}>
-                                <i className="pi pi-trash"></i>
+                        <button type="button" title="Excluir"
+                            className="btn btn-danger"
+                            onClick={e => props.deletar(equipes)}>
+                            <i className="pi pi-trash"></i>
                         </button>
                     </td>
                 </td>
-                
+
             </tr>
         )
     })
 
     return (
-        <>
-        <div className="container mt-3 mb-5">   
+        <div className="container mt-3 mb-5">
             <div className="table-responsive">
                 <table className="table table-striped table-sm">
                     <thead>
@@ -62,8 +61,6 @@ export default props => {
                 </table>
             </div>
             {props.children}
-        </div>     
-        </>
-
+        </div>
     )
 }

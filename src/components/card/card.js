@@ -1,10 +1,10 @@
 import './styles.css'
 import React from 'react';
 
-class Card extends React.Component{
+class Card extends React.Component {
 
-    render(){
-        return(
+    render() {
+        return (
             <div className='card md-3'>
                 <h3 className='card-header'>
                     {this.props.title}
