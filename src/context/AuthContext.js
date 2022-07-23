@@ -39,7 +39,6 @@ export const AuthProvider = ({ children }) => {
     setInterval(() => {
         const service = new UserService();
         service.refreshToken()
-        messages.mensagemSucesso("Sessã renovada")
         .then(response => {
             localStorage.setItem(TOKEN, response.data.token)
         })
