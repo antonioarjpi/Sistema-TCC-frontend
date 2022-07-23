@@ -25,13 +25,27 @@ function Navbar() {
         </button>
         <div className="collapse navbar-collapse" id="navbarResponsive">
           <ul className="navbar-nav">
-            <NavItem href="/home" label="Home" />
-            <NavItem href="/alunos" label="Alunos" />
-            <NavItem href="/orientadores" label="Orientadores" />
-            <NavItem href="/equipes" label="Equipes" />
-            <NavItem href="/bancas" label="Bancas" />
-            <NavItem href="/orientacao" label="Orientação" />
-            <NavItem href="/devolutivas" label="Devolutivas" />
+            <Link to={"/home"}>
+              <NavItem label="Home" />
+            </Link>
+            <Link to={"/alunos"}>
+              <NavItem label="Alunos" />
+            </Link>
+            <Link to={"/orientadores"}>
+              <NavItem label="Orientadores" />
+            </Link>
+            <Link to={"/equipes"}>
+              <NavItem label="Equipes" />
+            </Link>
+            <Link to={"/bancas"}>
+              <NavItem label="Bancas" />
+            </Link>
+            <Link to={"/orientacao"}>
+              <NavItem label="Orientação" />
+            </Link>
+            <Link to={"/devolutivas"}>
+              <NavItem label="Devolutivas" />
+            </Link>
             <Link to={"/login"}>
               <NavItem onClick={sair} label="Sair" />
             </Link>

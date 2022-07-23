@@ -15,7 +15,7 @@ export const AuthProvider = ({ children }) => {
     const [usuario, setUsuario] = useState(() => {
         setAutenticado(AuthService.isAutenticado)
 
-        return AuthService.getUser();
+        return AuthService.obterUsuario();
     });
 
     useEffect(() => {
@@ -35,10 +35,21 @@ export const AuthProvider = ({ children }) => {
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [])
 
+    
+    setInterval(() => {
+        const service = new UserService();
+        service.refreshToken()
+        messages.mensagemSucesso("Sessã renovada")
+        .then(response => {
+            localStorage.setItem(TOKEN, response.data.token)
+        })
+        
+    }, 3540000)
+
     const login = (usuario, token) => {
         LocalStorageService.addItem(USUARIO_LOGADO, usuario)
         localStorage.setItem(TOKEN, token)
-        setUsuario(AuthService.getUser);
+        setUsuario(AuthService.obterUsuario);
         setAutenticado(true)
     }
 

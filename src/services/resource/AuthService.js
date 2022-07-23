@@ -36,11 +36,11 @@ export default class AuthService {
         LocalStorageService.addItem(TOKEN, token);
     }
 
-    static getUser() {
-        const user = localStorage.getItem(TOKEN)
-        if (user) {
-            const decoded = decode(user);
-            return decoded;
+    static obterUsuario() {
+        const usuario = localStorage.getItem(TOKEN)
+        if (usuario) {
+            const decoded = decode(usuario);
+            return decoded.usuario;
         } else {
             return null
         }
