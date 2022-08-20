@@ -42,10 +42,15 @@ function DisplayAluno() {
 
 
     const onBasicUploadAuto = () => {
-        messages.mensagemSucesso("Foto carregada com sucesso")
-        setTimeout(() => {
-            window.location.reload();
-        }, 1500);
+        try{
+            messages.mensagemSucesso("Foto carregada com sucesso")
+            setTimeout(() => {
+                window.location.reload();
+            }, 1500);
+        }catch(e){
+            messages.mensagemErro(e.data.message)
+        }
+        
     }
 
     return (

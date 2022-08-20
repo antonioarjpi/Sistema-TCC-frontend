@@ -1,5 +1,6 @@
 import { formatLocalDate } from "../../utils/format"
 
+
 // eslint-disable-next-line import/no-anonymous-default-export
 export default props => {
 
@@ -9,7 +10,12 @@ export default props => {
                 <td>{equipes.id}</td>
                 <td>{equipes.nome}</td>
                 <td>{formatLocalDate(equipes.dataCadastro, "dd/MM/yyyy")}</td>
-                <td>{equipes.alunos[0].nome}</td>
+                <td>
+                {equipes.alunos.map(item => (
+                    <span  style={{backgroundColor:'#e7e691', marginRight:'0.6rem'}}>{item.nome} </span>
+                ))
+                }
+                </td>
                 <td>{equipes.tema}</td>
                 <td>{equipes.conhecimento}</td>
                 <td>
@@ -49,7 +55,7 @@ export default props => {
                             <th>COD</th>
                             <th>Nome</th>
                             <th>Data de cadastro</th>
-                            <th>Lider da equipe</th>
+                            <th>Alunos</th>
                             <th>Tema</th>
                             <th>Conhecimento</th>
                             <th className="td-table" scope="col">Ações</th>

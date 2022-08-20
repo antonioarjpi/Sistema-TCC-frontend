@@ -110,9 +110,9 @@ function ConsultaAluno() {
     }
 
     const confirmDialogFooter = (
-        <div className="dialog">
-            <Button label="Confirmar" icon="pi pi-check" onClick={apagar} className="btn btn-danger mt-2" />
-            <Button label="Cancelar" icon="pi pi-times" onClick={cancelarDialog} className="btn btn-secondary mt-2" />
+        <div>
+            <Button label="Confirmar" icon="pi pi-check" onClick={apagar} />
+            <Button label="Cancelar" icon="pi pi-times" onClick={cancelarDialog} className="p-button-secondary" />
         </div>
     );
 

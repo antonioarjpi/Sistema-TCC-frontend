@@ -113,9 +113,9 @@ function ConsultaOrientador() {
     }
 
     const confirmDialogFooter = (
-        <div className="dialog">
-            <Button className="btn btn-danger mt-2" icon="pi pi-check" onClick={deletar}>Confirmar</Button>
-            <Button icon="pi pi-times" onClick={cancelarDialog} className="btn btn-secondary mt-2" >Cancelar</Button>
+        <div>
+            <Button label="Confirmar" icon="pi pi-check" onClick={deletar} />
+            <Button label="Cancelar" icon="pi pi-times" onClick={cancelarDialog} className="p-button-secondary" />
         </div>
     );
 
