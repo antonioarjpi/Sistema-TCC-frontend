@@ -3,9 +3,8 @@ import './styles.css'
 function Pagination(props) {
     return (
         <div className="pagination">
-            <div className='col-md-6'>
-                <span className="info-size">Tamanho da página: {props.numberOfElements}</span>
-                <span style={{ marginLeft: '10px' }} className='info-size'> Total de registro encontrado: {props.size}</span>
+            <div style={{textAlign: 'left', display:'flex'}}>
+                <span className="info-size">Exibindo {props.numberOfElements} de {props.size} {props.numberOfElements < 2 ? 'encontrado' : 'encontrados'}</span>
             </div>
             <button className="btn btn-outline button-pagination" onClick={props.pageBack} disabled={props.first} >
                 {props.left === true ? (

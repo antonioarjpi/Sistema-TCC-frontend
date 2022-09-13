@@ -2,12 +2,13 @@
     display: flex;
     justify-content: flex-end;
     align-items: baseline;
+    vertical-align: text-top;
     text-align: right;
 }
 
 .page-info{
     text-align: center;
-    width: 6.0rem;
+
 }
 
 .info-size{
@@ -22,4 +23,5 @@
     align-items: flex-start;
     justify-content: center;
     padding-top: 5px;
+    width: 1.0rem;
 }

@@ -134,6 +134,13 @@ tr{
     vertical-align: middle;
 }
 
+.tabela-aluno{
+    background-color: #ebf2f7;
+    border: 1px #34d8ed solid;
+    padding: 2px;
+    margin-right: 5px;
+}
+
 
 
 

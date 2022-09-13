@@ -3,13 +3,14 @@ import { Link, useNavigate } from "react-router-dom";
 import { Dialog } from 'primereact/dialog';
 import Card from "../../components/card/card";
 import Form from "../../components/form/form";
-import Button from '../../components/button/button';
+import ButtonForm from '../../components/button/button';
 import OrientadorService from "../../services/resource/orientadorService";
 import InputForm from "../../components/input/input";
 import Pagination from "../../components/pagination/pagination";
 import TabelaOrientador from "./tabelaOrientador";
 
 import * as messages from '../../components/toastr/toastr'
+import { Button } from 'primereact/button';
 
 const valoresInicial = {
     nome: '',
@@ -184,13 +185,13 @@ function ConsultaOrientador() {
                                 </Form>
                             </div>
                         </div>
-                        <Button loading={carregando} icon="pi pi-search" type="submit" className="btn btn-success mt-2">
+                        <ButtonForm loading={carregando} icon="pi pi-search" type="submit" className="btn btn-success mt-2">
                             Buscar
-                        </Button>
+                        </ButtonForm>
                         <Link to={'/cadastro-orientador'}>
-                            <Button icon="pi pi-plus" type="button" className="btn btn-primary mt-2">
+                            <ButtonForm icon="pi pi-plus" type="button" className="btn btn-primary mt-2">
                                 Cadastrar
-                            </Button>
+                            </ButtonForm>
                         </Link>
                     </form>
                 </Card>

@@ -12,7 +12,7 @@ export default props => {
                 <td>{formatLocalDate(equipes.dataCadastro, "dd/MM/yyyy")}</td>
                 <td>
                 {equipes.alunos.map(item => (
-                    <span  style={{backgroundColor:'#e7e691', marginRight:'0.6rem'}}>{item.nome} </span>
+                    <span  className="tabela-aluno">{item.nome} </span>
                 ))
                 }
                 </td>

@@ -7,10 +7,11 @@ import Form from "../../components/form/form";
 import * as messages from '../../components/toastr/toastr'
 import AlunoService from "../../services/resource/alunoService";
 import InputForm from "../../components/input/input";
-import Button from '../../components/button/button';
+import ButtonForm from '../../components/button/button';
 
 import TabelaAluno from "./tabelaAluno";
 import Pagination from "../../components/pagination/pagination";
+import { Button } from 'primereact/button';
 
 const valoresInicial = {
     nome: '',
@@ -149,13 +150,13 @@ function ConsultaAluno() {
                                 </Form>
                             </div>
                             <div className="col-md-12">
-                                <Button loading={carregando} icon="pi pi-search" type="submit" className="btn btn-success mt-2">
+                                <ButtonForm loading={carregando} icon="pi pi-search" type="submit" className="btn btn-success mt-2">
                                     Buscar
-                                </Button>
+                                </ButtonForm>
                                 <Link to={'/cadastro-aluno'}>
-                                    <Button icon="pi pi-plus" type="button" className="btn btn-primary mt-2">
+                                    <ButtonForm icon="pi pi-plus" type="button" className="btn btn-primary mt-2">
                                         Cadastrar
-                                    </Button>
+                                    </ButtonForm>
                                 </Link>
                             </div>
                         </div>
