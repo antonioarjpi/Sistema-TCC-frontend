@@ -11,6 +11,7 @@ import TabelaOrientador from "./tabelaOrientador";
 
 import * as messages from '../../components/toastr/toastr'
 import { Button } from 'primereact/button';
+import VisualizaOrientador from './visualizaOrientador';
 
 const valoresInicial = {
     nome: '',
@@ -26,7 +27,9 @@ function ConsultaOrientador() {
 
     const [values, setValues] = useState(valoresInicial)
     const [carregando, setCarregando] = useState(false);
-    const [showConfirmDialog, setShowConfirmDialog] = useState();
+    const [showConfirmDialog, setShowConfirmDialog] = useState(false);
+    const [showOrientador, setShowOrientador] = useState(false);
+    const [orientadorID, setOrientadorID] = useState();
     const [orientadorDelete, setOrientadorDelete] = useState({});
     const [orientador, setOrientador] = useState([]);
 
@@ -86,7 +89,8 @@ function ConsultaOrientador() {
     }
 
     const visualizar = (id) => {
-        navigate(`/orientador/${id}`)
+        setOrientadorID(id);
+        setShowOrientador(true);
     }
 
     const deletar = () => {
@@ -217,6 +221,14 @@ function ConsultaOrientador() {
                 modal={true}
                 onHide={() => setShowConfirmDialog(false)}>
                 Confirma a exclusão deste orientador?
+            </Dialog>
+            <Dialog header=""
+                visible={showOrientador}
+                style={{ width: '70vw' }}
+                footer={<></>}
+                modal={true}
+                onHide={() => setShowOrientador(false)}>
+                <VisualizaOrientador id={orientadorID} />
             </Dialog>
         </>
     )

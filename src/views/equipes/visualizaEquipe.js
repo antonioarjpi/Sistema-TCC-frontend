@@ -1,13 +1,12 @@
 import React, { useEffect, useState } from "react";
-import { Link, useParams } from "react-router-dom";
+import { formatLocalDate } from "../../utils/format";
+import * as messages from '../../components/toastr/toastr'
+import EquipeService from "../../services/resource/equipeService";
+import Form from "../../components/form/form";
+import Info from "../../components/info/info";
 import Card from "../../components/card/card";
 
-import * as messages from '../../components/toastr/toastr'
-import { formatLocalDate } from "../../utils/format";
-import TabelaAlunoEquipe from "./tabelaAlunoEquipe";
-import EquipeService from "../../services/resource/equipeService";
-
-function VisualizaEquipe() {
+function VisualizaEquipe(props) {
 
     const [nome, setNome] = useState('');
     const [dataCadastro, setDataCadastro] = useState();
@@ -30,12 +29,9 @@ function VisualizaEquipe() {
 
     const service = new EquipeService();
 
-    const { id } = useParams();
-
     useEffect(() => {
-        if (id) {
-
-            service.findDevolutivas(id)
+        if (props.id) {
+            service.findDevolutivas(props.id)
                 .then(response => {
                     setNome(response.data.nome);
                     setDataCadastro(formatLocalDate(response.data.dataCadastro, "dd/MM/yyyy"))
@@ -65,106 +61,49 @@ function VisualizaEquipe() {
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
 
+    const rows = aluno.map(alunos => {
+        return (
+            <tr key={alunos.id}>
+                <td style={{ color: 'blue' }}>{alunos.matricula} - {alunos.nome}</td>
+            </tr>
+        )
+    })
+
 
     return (
-        <div className="container">
-            <Card >
-                <Card title={'Dados da equipe'}>
-                    <div className="row">
-                        <div className="col-md-8">
-                            <strong>Nome Equipe: </strong>
-                            <label>{nome}</label>
-                        </div>
-                        <div className="col-md-4">
-                            <strong>Data de cadastro: </strong>
-                            <label>{dataCadastro}</label>
-                        </div>
+        <Form>
+            <div className="container">
+                <Card title="Detalhes da equipe" >
+                    <Info info="Data de defesa" />
+                    <Info info="Nome da equipe" content={nome} />
+                    <Info info="Data de cadastro" content={dataCadastro} />
+                    <Info info="Alunos" content={rows} />
+                </Card>
+                <br />
+                <Card title="Detalhes sobre orientador" >
 
-                        <TabelaAlunoEquipe alunos={aluno} />
-                    </div>
+                    <Info info="Nome do orientador" content={orientacaoOrientadorNome} />
+                    <Info info="E-mail do orientador" content={orientacaoOrientadorEmail} />
+                    <Info info="Linha de pesquisa" content={descricaoLinha} />
+                    <Info info="Área de conhecimento" content={descricaoConhecimento} />
                 </Card>
-                <Card title="Orientador">
-                    <div className="row">
-                        <div className="col-md-6">
-                            <strong>Código da orientação: </strong>
-                            <label>{orientacaoId}</label>
-                        </div>
-                        <div className="col-md-6">
-                            <strong>Data orientação: </strong>
-                            <label>{orientacaoDataOrientacao}</label>
-                        </div>
-                        <div className="col-md-6">
-                            <strong>Nome orientador: </strong>
-                            <label>{orientacaoOrientadorNome}</label>
-                        </div>
-                        <div className="col-md-6">
-                            <strong>E-mail do orientador: </strong>
-                            <label>{orientacaoOrientadorEmail}</label>
-                        </div>
-                    </div>
+                <br />
+                <Card title="Detalhes do TCC" >
+                    <Info info="Tema" content={delimitacao} />
+                    <Info info="Estrutura TCC" content={estruturaTCC} />
+                    <Info info="Tipo TCC" content={tipoTCC} />
                 </Card>
-                <Card title="Estrututa de TCC">
-                    <div className="row">
-                        <div className="col-md-12">
-                            <strong>Descrição de estrutura: </strong>
-                            <label>{estruturaTCC}</label>
-                        </div>
-                        <div className="col-md-12">
-                            <strong>Tipo: </strong>
-                            <label>{tipoTCC}</label>
-                        </div>
-                    </div>
-                    <div className="row">
-                        <div className="col-md-12">
-                            <strong>Tema: </strong>
-                            <label>{delimitacao}</label>
-                        </div>
-                        <div className="col-md-12">
-                            <strong>Linha de Pesquisa: </strong>
-                            <label>{descricaoLinha}</label>
-                        </div>
-                    </div>
-                    <div className="row">
-                        <div className="col-md-12">
-                            <strong>Area de conhecimento: </strong>
-                            <label>{descricaoConhecimento}</label>
-                        </div>
-                    </div>
+                <br />
+                <Card title="Acompanhamento" >
+                    <Info info="Data da orientação" content={orientacaoDataOrientacao} />
+                    <Info info="Código da orientação" content={orientacaoId} />
+                    <Info info="Descrição da devolutiva" content={devolutivaDescricao} />
+                    <Info info="Versão de documento" content={devolutivaVersaoDoc} />
+                    <Info info="Local de correção" content={devolutivaLocalCorrecao} />
+                    <Info info="Correção sugerida" content={devolutivaCorrecaoSugerida} />
                 </Card>
-                <Card title="Devolutivas">
-                    <div className="row">
-                        <div className="col-md-8">
-                            <strong>Descrição da devolutiva: </strong>
-                            <label>{devolutivaDescricao}</label>
-                        </div>
-                        <div className="col-md-4">
-                            <strong>Versão do documento: </strong>
-                            <label>{devolutivaVersaoDoc}</label>
-                        </div>
-                    </div>
-                    <div className="row">
-                        <div className="col-md-12">
-                            <strong>Local de correção: </strong>
-                            <label>{devolutivaLocalCorrecao}</label>
-                        </div>
-                        <div className="col-md-12">
-                            <strong>Correção sugerida: </strong>
-                            <label>{devolutivaCorrecaoSugerida}</label>
-                        </div>
-                    </div>
-                </Card>
-
-                <div className="row mt-2">
-                    <div className="col-md-6" >
-                        <Link to={'/equipes'}>
-                            <button className="btn btn-danger">
-                                <i className="pi pi-times"></i>Voltar
-                            </button>
-                        </Link>
-                    </div>
-                </div>
-            </Card>
-        </div>
+            </div>
+        </Form>
     )
 }
 

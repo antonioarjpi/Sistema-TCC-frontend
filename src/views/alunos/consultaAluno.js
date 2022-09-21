@@ -12,6 +12,7 @@ import ButtonForm from '../../components/button/button';
 import TabelaAluno from "./tabelaAluno";
 import Pagination from "../../components/pagination/pagination";
 import { Button } from 'primereact/button';
+import DisplayAluno from "./visualizarAluno";
 
 const valoresInicial = {
     nome: '',
@@ -23,7 +24,9 @@ function ConsultaAluno() {
 
     const [values, setValues] = useState(valoresInicial);
     const [carregando, setCarregando] = useState(false);
-    const [showConfirmDialog, setShowConfirmDialog] = useState();
+    const [showConfirmDialog, setShowConfirmDialog] = useState(false);
+    const [showAluno, setShowAluno] = useState(false);
+    const [alunoID, setAlunoID] = useState();
     const [alunoDeletado, setAlunoDeletado] = useState({});
     const [aluno, setAluno] = useState([]);
     const navigate = useNavigate();
@@ -33,7 +36,6 @@ function ConsultaAluno() {
         const { name, value } = e.target;
         setValues({ ...values, [name]: value });
     };
-
 
     const [pageNumber, setPageNumber] = useState(Number);
     const [right, setRight] = useState(false)
@@ -83,7 +85,9 @@ function ConsultaAluno() {
     }
 
     const visualizar = (id) => {
-        navigate(`/aluno/${id}`)
+        setAlunoID(id);
+        setShowAluno(true);
+        // navigate(`/aluno/${id}`)
     }
 
     const apagar = () => {
@@ -162,7 +166,7 @@ function ConsultaAluno() {
                         </div>
                     </form>
                 </Card>
-                
+
                 <TabelaAluno alunos={aluno}
                     visibleAction={visualizar}
                     deleteAction={abrirDialog}
@@ -177,7 +181,6 @@ function ConsultaAluno() {
                     )}
                 </TabelaAluno>
             </div>
-
             <Dialog header="Confirmação"
                 visible={showConfirmDialog}
                 style={{ width: '50vw' }}
@@ -185,6 +188,14 @@ function ConsultaAluno() {
                 modal={true}
                 onHide={() => setShowConfirmDialog(false)}>
                 Confirma a exclusão deste aluno?
+            </Dialog>
+            <Dialog header=""
+                visible={showAluno}
+                style={{ width: '70vw' }}
+                footer={<></>}
+                modal={true}
+                onHide={() => setShowAluno(false)}>
+                <DisplayAluno id={alunoID} />
             </Dialog>
         </>
     )

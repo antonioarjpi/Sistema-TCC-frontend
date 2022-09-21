@@ -11,6 +11,7 @@ import TabelaEquipe from "./tabelaEquipe";
 import EquipeService from "../../services/resource/equipeService";
 import InputForm from "../../components/input/input";
 import Pagination from "../../components/pagination/pagination";
+import VisualizaEquipe from "./visualizaEquipe";
 
 const valoresInicial = {
     nome: '',
@@ -25,8 +26,10 @@ function ConsultaEquipe() {
     const [values, setValues] = useState(valoresInicial);
     const [equipeDelete, setEquipeDelete] = useState({});
     const [equipe, setEquipe] = useState([]);
-    const [showConfirmDialog, setShowConfirmDialog] = useState();
+    const [showConfirmDialog, setShowConfirmDialog] = useState(false);
+    const [showEquipe, setShowEquipe] = useState(false);
     const [carregando, setCarregando] = useState(false);
+    const [equipeID, setEquipeID] = useState();
     const navigate = useNavigate();
     const service = new EquipeService();
 
@@ -83,7 +86,9 @@ function ConsultaEquipe() {
     }
 
     const visualizar = (id) => {
-        navigate(`/equipe/${id}`)
+        setEquipeID(id);
+        setShowEquipe(true);
+        // navigate(`/equipe/${id}`)
     }
 
     const deletar = () => {
@@ -200,6 +205,14 @@ function ConsultaEquipe() {
                 modal={true}
                 onHide={() => setShowConfirmDialog(false)}>
                 Confirma a exclusão desta equipe?
+            </Dialog>
+            <Dialog header={"Consulta equipe"}
+                visible={showEquipe}
+                style={{ width: '70vw' }}
+                footer={<></>}
+                modal={true}
+                onHide={() => setShowEquipe(false)}>
+                <VisualizaEquipe id={equipeID} />
             </Dialog>
         </>
     )
